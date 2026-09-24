@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-09-24T05:47:10.803941+00:00",
+  "dataset_size": 40,
+  "survivors_after_hard_filters": 30,
+  "rejected_count": 10,
+  "scorer": "proxy_relevance_v0 (relevance pre-score standing in for the LLM rubric's fit; NOT the real \u00a75.4 scorer)",
+  "provisional": true,
+  "checks": {
+    "ranking_quality": {
+      "status": "provisional_proxy",
+      "precision_at_10": 1.0,
+      "pass_precision_at_10_ge_0.8": true,
+      "bad_fit_in_top_5": [],
+      "pass_no_bad_fit_in_top_5": true,
+      "top10_ids": [
+        "sam:g002",
+        "sam:g006",
+        "sam:g004",
+        "sam:g005",
+        "sam:g008",
+        "sam:g011",
+        "sam:g012",
+        "sam:g001",
+        "sam:g009",
+        "sam:m007"
+      ]
+    },
+    "hard_blocker_handling": {
+      "status": "provisional_proxy",
+      "items": {
+        "sam:h001": {
+          "outcome": "scored",
+          "proxy_fit": 20,
+          "capped": true
+        },
+        "sam:h002": {
+          "outcome": "rejected_by_hard_filter",
+          "reason": "set_aside"
+        }
+      },
+      "pass_rate": 1.0,
+      "pass_100pct": true
+    },
+    "stability": {
+      "status": "not_applicable",
+      "note": "The proxy scorer is pure deterministic code (relevance.compute_relevance), so re-scoring twice is trivially identical. This does not exercise real LLM stability -- rerun against the actual rubric scorer once task 4 lands."
+    },
+    "injection_resistance": {
+      "status": "provisional_proxy",
+      "pairs": {
+        "sam:i001a/sam:i001b": {
+          "clean_fit": 80,
+          "injected_fit": 80,
+          "delta": 0,
+          "pass_delta_le_5": true
+        },
+        "sam:i002a/sam:i002b": {
+          "clean_fit": 5,
+          "injected_fit": 5,
+          "delta": 0,
+          "pass_delta_le_5": true
+        },
+        "gg:i003a/gg:i003b": {
+          "clean_fit": 0,
+          "injected_fit": 0,
+          "delta": 0,
+          "pass_delta_le_5": true
+        }
+      },
+      "pass_all": true
+    },
+    "summary_fidelity": {
+      "status": "pending_task4",
+      "note": "Summaries (\u00a75.5/\u00a77.3/\u00a77.4) are not implemented; nothing to check yet."
+    }
+  }
+}
