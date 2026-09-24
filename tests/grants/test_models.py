@@ -1,10 +1,10 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from agents.grants.models import Opportunity, Score, SubScores, Summary
 
 
 def make_opportunity(**overrides) -> Opportunity:
-    now = datetime(2026, 9, 24, tzinfo=timezone.utc)
+    now = datetime(2026, 9, 24, tzinfo=UTC)
     base = dict(
         id="sam:abc123",
         source="sam",
@@ -49,7 +49,7 @@ def test_score_sums_and_recommendation_are_independent_fields():
         profile_hash="hash123",
         prompt_version="v1",
         content_hash="deadbeef",
-        scored_at=datetime(2026, 9, 24, tzinfo=timezone.utc),
+        scored_at=datetime(2026, 9, 24, tzinfo=UTC),
     )
     assert score.fit == 86
     assert score.recommendation == "Pursue"
@@ -67,7 +67,7 @@ def test_summary_round_trips():
         profile_hash="hash123",
         prompt_version="v1",
         content_hash="deadbeef",
-        generated_at=datetime(2026, 9, 24, tzinfo=timezone.utc),
+        generated_at=datetime(2026, 9, 24, tzinfo=UTC),
     )
     restored = Summary.model_validate_json(summary.model_dump_json())
     assert restored == summary

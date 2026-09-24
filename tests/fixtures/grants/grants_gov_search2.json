@@ -1,0 +1,48 @@
+{
+  "errorcode": 0,
+  "msg": "success",
+  "token": "fixture-token",
+  "data": {
+    "searchParams": {"keyword": "artificial intelligence", "oppStatuses": "forecasted|posted"},
+    "hitCount": 3,
+    "startRecord": 0,
+    "oppHits": [
+      {
+        "id": "355678",
+        "number": "USDA-NIFA-AI-2026-001",
+        "title": "Artificial Intelligence for Agricultural Efficiency",
+        "agencyCode": "USDA-NIFA",
+        "agency": "National Institute of Food and Agriculture",
+        "openDate": "08/15/2026",
+        "closeDate": "11/01/2026",
+        "oppStatus": "posted",
+        "docType": "synopsis",
+        "alnist": ["10.310"]
+      },
+      {
+        "id": "358120",
+        "number": "NSF-26-608",
+        "title": "Small Business Innovation Research: AI-Driven Cybersecurity Tools",
+        "agencyCode": "NSF",
+        "agency": "National Science Foundation",
+        "openDate": "09/01/2026",
+        "closeDate": "12/15/2026",
+        "oppStatus": "posted",
+        "docType": "synopsis",
+        "alnist": ["47.041"]
+      },
+      {
+        "id": "360044",
+        "number": "DOE-FY27-DATA-FORECAST",
+        "title": "Digital Infrastructure and Data Modernization (Forecasted)",
+        "agencyCode": "DOE",
+        "agency": "Department of Energy",
+        "openDate": "10/01/2026",
+        "closeDate": null,
+        "oppStatus": "forecasted",
+        "docType": "forecast",
+        "alnist": ["81.049"]
+      }
+    ]
+  }
+}

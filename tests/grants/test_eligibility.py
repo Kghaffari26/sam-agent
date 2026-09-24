@@ -12,7 +12,8 @@ def test_no_codes_means_unrestricted():
 
 
 def test_unrestricted_code_passes_any_entity_type():
-    for entity_type in ["small_business", "nonprofit", "university", "individual", "large_business"]:
+    entity_types = ["small_business", "nonprofit", "university", "individual", "large_business"]
+    for entity_type in entity_types:
         assert is_eligible_for_grant(["99"], entity_type) is True
 
 

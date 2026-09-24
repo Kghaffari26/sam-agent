@@ -1,0 +1,24 @@
+{
+  "errorcode": 0,
+  "msg": "success",
+  "data": {
+    "id": 358120,
+    "opportunityNumber": "NSF-26-608",
+    "opportunityTitle": "Small Business Innovation Research: AI-Driven Cybersecurity Tools",
+    "agencyCode": "NSF",
+    "agencyName": "National Science Foundation",
+    "openDate": "09/01/2026",
+    "closeDate": "12/15/2026",
+    "synopsis": {
+      "synopsisDesc": "NSF SBIR Phase I awards support small businesses developing AI-driven cybersecurity tooling, including anomaly detection, automated red-teaming, and secure DevSecOps pipelines, with a path to Phase II follow-on funding."
+    },
+    "awardCeiling": "305000",
+    "awardFloor": null,
+    "estimatedFunding": "12000000",
+    "costSharing": false,
+    "applicantTypes": [
+      {"id": "23", "description": "Small businesses"}
+    ],
+    "cfdas": [{"cfdaNumber": "47.041"}]
+  }
+}

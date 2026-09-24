@@ -21,7 +21,7 @@ GRANTS_GOV_APPLICANT_TYPES: dict[str, str] = {
     "08": "Public housing authorities/Indian housing authorities",
     "11": "Native American tribal organizations (other than Federally recognized)",
     "12": "Nonprofits having a 501(c)(3) status with the IRS",
-    "13": "Nonprofits without 501(c)(3) status with the IRS, other than institutions of higher education",
+    "13": "Nonprofits without 501(c)(3) status with the IRS, other than institutions of higher ed.",
     "20": "Private institutions of higher education",
     "21": "Individuals",
     "22": "For-profit organizations other than small businesses",

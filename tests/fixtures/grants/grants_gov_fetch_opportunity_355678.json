@@ -1,0 +1,26 @@
+{
+  "errorcode": 0,
+  "msg": "success",
+  "data": {
+    "id": 355678,
+    "opportunityNumber": "USDA-NIFA-AI-2026-001",
+    "opportunityTitle": "Artificial Intelligence for Agricultural Efficiency",
+    "agencyCode": "USDA-NIFA",
+    "agencyName": "National Institute of Food and Agriculture",
+    "openDate": "08/15/2026",
+    "closeDate": "11/01/2026",
+    "synopsis": {
+      "synopsisDesc": "NIFA seeks applications for research and extension projects that apply artificial intelligence and data science methods to improve agricultural efficiency, including software tools for yield prediction, sensor data pipelines, and decision-support dashboards for producers."
+    },
+    "awardCeiling": "750000",
+    "awardFloor": "100000",
+    "estimatedFunding": "4000000",
+    "costSharing": false,
+    "applicantTypes": [
+      {"id": "23", "description": "Small businesses"},
+      {"id": "06", "description": "Public and State controlled institutions of higher education"},
+      {"id": "25", "description": "Others"}
+    ],
+    "cfdas": [{"cfdaNumber": "10.310"}]
+  }
+}

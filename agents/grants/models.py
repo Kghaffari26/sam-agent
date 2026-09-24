@@ -47,6 +47,7 @@ class Opportunity(BaseModel):
     eligibility_codes: list[str] = []  # grants
     posted_date: date
     deadline: datetime | None = None  # timezone-aware; None for many forecasts
+    deadline_tz_assumed: bool = False  # True when the source gave no timezone (assumed US/Eastern)
     place_state: str | None = None
     place_city: str | None = None
     value_kind: Literal["award_ceiling", "estimated_total", "award_amount", "none"] = "none"
