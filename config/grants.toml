@@ -1,0 +1,25 @@
+[settings]
+profile = "config/business_profile.toml"
+sam_daily_request_budget = 8
+max_sam_description_fetches = 3        # raise to ~50 with a 1,000/day key
+max_grants_detail_fetches = 60
+relevance_threshold = 25
+max_llm_scoring_per_run = 150
+batch_poll_timeout_min = 30
+top_n_summaries = 20
+store_max_items = 5000
+all_json_max_rows = 2000
+forecast_max_age_days = 180
+
+[recommendation]
+pursue = 75
+consider = 55
+
+[sam]
+ptypes = ["o", "k", "p", "r"]
+window_overlap_days = 1
+first_run_lookback_days = 7
+
+[grants_gov]
+opp_statuses = "forecasted|posted"
+rows_per_query = 100

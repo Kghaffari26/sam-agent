@@ -1,0 +1,33 @@
+# Example profile: a small software consultancy (edit to your own business)
+id = "default"
+name = "Small software consultancy"
+summary = """
+Five-person U.S. software consultancy building web applications, data pipelines, and
+cloud migrations (AWS, Azure). Strong in Python, TypeScript, React, PostgreSQL, and
+AI/LLM integrations. No security clearances. Fully remote; can travel occasionally.
+"""
+entity_type = "small_business"          # small_business | nonprofit | university | individual | large_business
+certifications = []                     # e.g. ["8A", "WOSB", "EDWOSB", "HUBZone", "SDVOSB"]
+sam_registered = true
+naics_primary = ["541511", "541512"]
+naics_secondary = ["541519", "518210", "541690"]
+psc_prefixes = ["DA", "DB", "DJ", "R4", "R7"]   # IT and professional services
+keywords = ["software development", "web application", "data pipeline", "cloud migration",
+            "modernization", "API", "dashboard", "machine learning", "artificial intelligence", "DevSecOps"]
+negative_keywords = ["construction", "janitorial", "vehicle", "ammunition", "medical equipment", "fuel"]
+clearance = "none"                      # none | public_trust | secret | top_secret
+min_value = 25000                       # ignore if a known value is below this
+max_value = 5000000                     # ignore if a known value is above this
+remote_ok = true
+states = []                             # place-of-performance whitelist; empty = any
+target_agencies = ["GENERAL SERVICES ADMINISTRATION", "VETERANS AFFAIRS, DEPARTMENT OF", "NATIONAL SCIENCE FOUNDATION"]
+excluded_agencies = []
+notice_types = ["solicitation", "combined_synopsis_solicitation", "presolicitation", "sources_sought"]
+include_grants = true
+grant_keywords = ["software", "data", "artificial intelligence", "cybersecurity", "digital", "SBIR"]
+min_days_to_respond = 3
+team_capacity_note = "Can staff 2–4 people on a new project within 30 days."
+past_performance = [
+  "Built a data platform for a state health agency (subcontract)",
+  "Modernized a legacy .NET app to React + Python for a nonprofit",
+]
