@@ -1,0 +1,43 @@
+# Daily run of the grants/contracts finder agent.
+#
+# NOTE (see STATUS.md "Needed from agents-core"): as of Kghaffari26/agents-core
+# @ f79b6aa, its reusable `.github/workflows/run-agent.yml` only declares
+# `agent` and `args` workflow_call inputs, checks out the CALLING repo and
+# runs `python -m core.runner <agent>` (the old monorepo layout), and commits
+# straight to that repo's own `main` -- it does not yet accept `max_run_usd`
+# or `site_repo`, and there is no documented "public-data data-branch
+# contract" to follow. This file is written to the target contract anyway,
+# per instructions; it will not validate until agents-core's run-agent.yml is
+# extended to declare these inputs and to run this repo's `agents-run` entry
+# point (see agents-core CLAUDE.md's "Building an agent on core" section once
+# it covers multi-repo installs) instead of `core.runner`.
+name: Agent - Grants
+
+on:
+  schedule:
+    - cron: "0 13 * * *" # 06:00 PT
+  workflow_dispatch:
+    inputs:
+      rescore_all:
+        description: "Ignore the score cache and rescore every candidate"
+        required: false
+        type: boolean
+        default: false
+      lookback_days:
+        description: "Override the fetch window's lookback (days), for backfills"
+        required: false
+        type: number
+
+jobs:
+  run:
+    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@main
+    with:
+      agent: grants
+      max_run_usd: 0.50
+      site_repo: Kghaffari26/agents-hub
+      args: >-
+        ${{ github.event.inputs.rescore_all == 'true' && '--rescore-all' || '' }}
+        ${{ github.event.inputs.lookback_days && format('--lookback-days={0}', github.event.inputs.lookback_days) || '' }}
+    secrets:
+      SAM_API_KEY: ${{ secrets.SAM_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
