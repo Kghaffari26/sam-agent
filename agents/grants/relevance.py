@@ -42,18 +42,29 @@ def _naics_score(opp_naics: list[str], profile: BusinessProfile) -> int:
     return 0
 
 
+def keywords_for(opp: Opportunity, profile: BusinessProfile) -> list[str]:
+    """`keywords` for contracts; `keywords` plus `grant_keywords` for grants,
+    which have no NAICS/PSC signal (see DECISIONS.md, 2026-09-26)."""
+    words = list(profile.keywords)
+    if opp.kind == "grant":
+        seen = {w.lower() for w in words}
+        words += [w for w in profile.grant_keywords if w.lower() not in seen]
+    return words
+
+
 def compute_relevance(opp: Opportunity, profile: BusinessProfile) -> int:
     score = _naics_score(opp.naics, profile)
+    keywords = keywords_for(opp, profile)
 
     if opp.psc and any(opp.psc.startswith(prefix) for prefix in profile.psc_prefixes):
         score += PSC_PREFIX_POINTS
 
-    title_hits = sum(1 for kw in profile.keywords if _keyword_in_text(kw, opp.title))
+    title_hits = sum(1 for kw in keywords if _keyword_in_text(kw, opp.title))
     score += min(title_hits * TITLE_KEYWORD_POINTS, TITLE_KEYWORD_CAP)
 
     if opp.description_text:
         description_hits = sum(
-            1 for kw in profile.keywords if _keyword_in_text(kw, opp.description_text)
+            1 for kw in keywords if _keyword_in_text(kw, opp.description_text)
         )
         score += min(description_hits * DESCRIPTION_KEYWORD_POINTS, DESCRIPTION_KEYWORD_CAP)
 

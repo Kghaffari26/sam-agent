@@ -1,0 +1,987 @@
+{
+ "$defs": {
+  "DeadlineEntry": {
+   "additionalProperties": false,
+   "properties": {
+    "deadline": {
+     "format": "date-time",
+     "title": "Deadline",
+     "type": "string"
+    },
+    "fit": {
+     "title": "Fit",
+     "type": "integer"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "recommendation": {
+     "enum": [
+      "Pursue",
+      "Consider",
+      "Pass"
+     ],
+     "title": "Recommendation",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "title",
+    "deadline",
+    "recommendation",
+    "fit"
+   ],
+   "title": "DeadlineEntry",
+   "type": "object"
+  },
+  "FetchedCounts": {
+   "additionalProperties": false,
+   "properties": {
+    "grants_gov": {
+     "default": 0,
+     "title": "Grants Gov",
+     "type": "integer"
+    },
+    "sam": {
+     "default": 0,
+     "title": "Sam",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "sam",
+    "grants_gov"
+   ],
+   "title": "FetchedCounts",
+   "type": "object"
+  },
+  "GrantsMeta": {
+   "additionalProperties": false,
+   "properties": {
+    "agent": {
+     "title": "Agent",
+     "type": "string"
+    },
+    "cost_usd": {
+     "minimum": 0,
+     "title": "Cost Usd",
+     "type": "number"
+    },
+    "data_changed": {
+     "title": "Data Changed",
+     "type": "boolean"
+    },
+    "finished_at": {
+     "title": "Finished At",
+     "type": "string"
+    },
+    "model_usage": {
+     "$ref": "#/$defs/ModelUsage"
+    },
+    "run_id": {
+     "title": "Run Id",
+     "type": "string"
+    },
+    "sam_budget_exhausted": {
+     "default": false,
+     "title": "Sam Budget Exhausted",
+     "type": "boolean"
+    },
+    "sam_requests_used": {
+     "default": 0,
+     "title": "Sam Requests Used",
+     "type": "integer"
+    },
+    "schema_version": {
+     "pattern": "^\\d+\\.\\d+\\.\\d+$",
+     "title": "Schema Version",
+     "type": "string"
+    },
+    "sources": {
+     "items": {
+      "$ref": "#/$defs/Source"
+     },
+     "title": "Sources",
+     "type": "array"
+    },
+    "started_at": {
+     "title": "Started At",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "ok",
+      "stale",
+      "failed"
+     ],
+     "title": "Status",
+     "type": "string"
+    }
+   },
+   "required": [
+    "agent",
+    "schema_version",
+    "run_id",
+    "started_at",
+    "finished_at",
+    "status",
+    "data_changed",
+    "cost_usd",
+    "model_usage",
+    "sources",
+    "sam_budget_exhausted",
+    "sam_requests_used"
+   ],
+   "title": "GrantsMeta",
+   "type": "object"
+  },
+  "KeyStat": {
+   "additionalProperties": false,
+   "properties": {
+    "delta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Delta"
+    },
+    "delta_format": {
+     "anyOf": [
+      {
+       "enum": [
+        "currency_compact",
+        "currency",
+        "percent",
+        "percent_signed",
+        "pp_signed",
+        "count",
+        "count_signed",
+        "count_signed_thousands",
+        "decimal1",
+        "days",
+        "ratio"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Delta Format"
+    },
+    "format": {
+     "enum": [
+      "currency_compact",
+      "currency",
+      "percent",
+      "percent_signed",
+      "pp_signed",
+      "count",
+      "count_signed",
+      "count_signed_thousands",
+      "decimal1",
+      "days",
+      "ratio"
+     ],
+     "title": "Format",
+     "type": "string"
+    },
+    "good_direction": {
+     "default": "neutral",
+     "enum": [
+      "up",
+      "down",
+      "neutral"
+     ],
+     "title": "Good Direction",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Value"
+    }
+   },
+   "required": [
+    "label",
+    "value",
+    "format",
+    "delta",
+    "delta_format",
+    "good_direction"
+   ],
+   "title": "KeyStat",
+   "type": "object"
+  },
+  "LargestValue": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "title": "Amount",
+     "type": "number"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "amount",
+    "id",
+    "title"
+   ],
+   "title": "LargestValue",
+   "type": "object"
+  },
+  "ModelUsage": {
+   "additionalProperties": false,
+   "properties": {
+    "fast": {
+     "$ref": "#/$defs/TierUsage"
+    },
+    "smart": {
+     "$ref": "#/$defs/TierUsage"
+    }
+   },
+   "required": [
+    "fast",
+    "smart"
+   ],
+   "title": "ModelUsage",
+   "type": "object"
+  },
+  "ProfileSummary": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "keywords_preview": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Keywords Preview",
+     "type": "array"
+    },
+    "naics": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Naics",
+     "type": "array"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "profile_hash": {
+     "title": "Profile Hash",
+     "type": "string"
+    },
+    "set_asides_eligible": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Set Asides Eligible",
+     "type": "array"
+    }
+   },
+   "required": [
+    "id",
+    "name",
+    "naics",
+    "set_asides_eligible",
+    "keywords_preview",
+    "profile_hash"
+   ],
+   "title": "ProfileSummary",
+   "type": "object"
+  },
+  "RejectedCounts": {
+   "additionalProperties": false,
+   "properties": {
+    "agency_excluded": {
+     "default": 0,
+     "title": "Agency Excluded",
+     "type": "integer"
+    },
+    "deadline": {
+     "default": 0,
+     "title": "Deadline",
+     "type": "integer"
+    },
+    "eligibility": {
+     "default": 0,
+     "title": "Eligibility",
+     "type": "integer"
+    },
+    "negative_keyword": {
+     "default": 0,
+     "title": "Negative Keyword",
+     "type": "integer"
+    },
+    "place": {
+     "default": 0,
+     "title": "Place",
+     "type": "integer"
+    },
+    "set_aside": {
+     "default": 0,
+     "title": "Set Aside",
+     "type": "integer"
+    },
+    "type": {
+     "default": 0,
+     "title": "Type",
+     "type": "integer"
+    },
+    "value": {
+     "default": 0,
+     "title": "Value",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "deadline",
+    "type",
+    "agency_excluded",
+    "set_aside",
+    "eligibility",
+    "value",
+    "place",
+    "negative_keyword"
+   ],
+   "title": "RejectedCounts",
+   "type": "object"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "description": "A dataset or page an agent pulled from, shown in the site's source list.",
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "retrieved_at": {
+     "title": "Retrieved At",
+     "type": "string"
+    },
+    "url": {
+     "format": "uri",
+     "maxLength": 2083,
+     "minLength": 1,
+     "title": "Url",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name",
+    "url",
+    "retrieved_at"
+   ],
+   "title": "Source",
+   "type": "object"
+  },
+  "SourceLink": {
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "url": {
+     "format": "uri",
+     "maxLength": 2083,
+     "minLength": 1,
+     "title": "Url",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name",
+    "url"
+   ],
+   "title": "SourceLink",
+   "type": "object"
+  },
+  "Stats": {
+   "additionalProperties": false,
+   "properties": {
+    "active_matches": {
+     "title": "Active Matches",
+     "type": "integer"
+    },
+    "below_relevance": {
+     "title": "Below Relevance",
+     "type": "integer"
+    },
+    "closing_within_14d": {
+     "title": "Closing Within 14D",
+     "type": "integer"
+    },
+    "fetched": {
+     "$ref": "#/$defs/FetchedCounts"
+    },
+    "largest_value": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/LargestValue"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "llm_scored_cached": {
+     "title": "Llm Scored Cached",
+     "type": "integer"
+    },
+    "llm_scored_this_run": {
+     "title": "Llm Scored This Run",
+     "type": "integer"
+    },
+    "new_since_last_run": {
+     "title": "New Since Last Run",
+     "type": "integer"
+    },
+    "rejected": {
+     "$ref": "#/$defs/RejectedCounts"
+    }
+   },
+   "required": [
+    "new_since_last_run",
+    "closing_within_14d",
+    "active_matches",
+    "largest_value",
+    "fetched",
+    "rejected",
+    "below_relevance",
+    "llm_scored_this_run",
+    "llm_scored_cached"
+   ],
+   "title": "Stats",
+   "type": "object"
+  },
+  "SubScores": {
+   "description": "LLM rubric sub-scores (\u00a75.4). Code clamps each to its range and sums them.",
+   "properties": {
+    "capability": {
+     "title": "Capability",
+     "type": "integer"
+    },
+    "eligibility": {
+     "title": "Eligibility",
+     "type": "integer"
+    },
+    "size": {
+     "title": "Size",
+     "type": "integer"
+    },
+    "strategic": {
+     "title": "Strategic",
+     "type": "integer"
+    },
+    "timeline": {
+     "title": "Timeline",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "capability",
+    "eligibility",
+    "size",
+    "timeline",
+    "strategic"
+   ],
+   "title": "SubScores",
+   "type": "object"
+  },
+  "SummaryBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "generated_at": {
+     "title": "Generated At",
+     "type": "string"
+    },
+    "model": {
+     "title": "Model",
+     "type": "string"
+    },
+    "narrative_source": {
+     "enum": [
+      "llm",
+      "template"
+     ],
+     "title": "Narrative Source",
+     "type": "string"
+    },
+    "next_steps": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Next Steps",
+     "type": "array"
+    },
+    "risks": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Risks",
+     "type": "array"
+    },
+    "what_they_want": {
+     "title": "What They Want",
+     "type": "string"
+    },
+    "why_fit": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Why Fit",
+     "type": "array"
+    }
+   },
+   "required": [
+    "what_they_want",
+    "why_fit",
+    "risks",
+    "next_steps",
+    "narrative_source",
+    "model",
+    "generated_at"
+   ],
+   "title": "SummaryBlock",
+   "type": "object"
+  },
+  "Thresholds": {
+   "additionalProperties": false,
+   "properties": {
+    "consider": {
+     "title": "Consider",
+     "type": "integer"
+    },
+    "pursue": {
+     "title": "Pursue",
+     "type": "integer"
+    },
+    "relevance": {
+     "title": "Relevance",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "relevance",
+    "pursue",
+    "consider"
+   ],
+   "title": "Thresholds",
+   "type": "object"
+  },
+  "TierUsage": {
+   "additionalProperties": false,
+   "properties": {
+    "input_tokens": {
+     "default": 0,
+     "title": "Input Tokens",
+     "type": "integer"
+    },
+    "output_tokens": {
+     "default": 0,
+     "title": "Output Tokens",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "input_tokens",
+    "output_tokens"
+   ],
+   "title": "TierUsage",
+   "type": "object"
+  },
+  "TopMatch": {
+   "additionalProperties": false,
+   "properties": {
+    "agency": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Agency"
+    },
+    "changed": {
+     "title": "Changed",
+     "type": "boolean"
+    },
+    "confidence": {
+     "enum": [
+      "low",
+      "medium",
+      "high"
+     ],
+     "title": "Confidence",
+     "type": "string"
+    },
+    "days_left": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Days Left"
+    },
+    "deadline": {
+     "anyOf": [
+      {
+       "format": "date-time",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Deadline"
+    },
+    "fit": {
+     "title": "Fit",
+     "type": "integer"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "is_new": {
+     "title": "Is New",
+     "type": "boolean"
+    },
+    "kind": {
+     "enum": [
+      "contract",
+      "grant"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "naics": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Naics",
+     "type": "array"
+    },
+    "notice_type": {
+     "title": "Notice Type",
+     "type": "string"
+    },
+    "notice_type_label": {
+     "title": "Notice Type Label",
+     "type": "string"
+    },
+    "office": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Office"
+    },
+    "place": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Place"
+    },
+    "posted_date": {
+     "format": "date",
+     "title": "Posted Date",
+     "type": "string"
+    },
+    "psc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Psc"
+    },
+    "reasons": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Reasons",
+     "type": "array"
+    },
+    "recommendation": {
+     "enum": [
+      "Pursue",
+      "Consider",
+      "Pass"
+     ],
+     "title": "Recommendation",
+     "type": "string"
+    },
+    "red_flags": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Red Flags",
+     "type": "array"
+    },
+    "set_aside_label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Set Aside Label"
+    },
+    "solicitation_number": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Solicitation Number"
+    },
+    "source": {
+     "enum": [
+      "sam",
+      "grants_gov"
+     ],
+     "title": "Source",
+     "type": "string"
+    },
+    "sub_scores": {
+     "$ref": "#/$defs/SubScores"
+    },
+    "summary": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/SummaryBlock"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "url": {
+     "format": "uri",
+     "maxLength": 2083,
+     "minLength": 1,
+     "title": "Url",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/ValueBlock"
+    }
+   },
+   "required": [
+    "id",
+    "source",
+    "kind",
+    "notice_type",
+    "notice_type_label",
+    "title",
+    "solicitation_number",
+    "agency",
+    "office",
+    "naics",
+    "psc",
+    "set_aside_label",
+    "posted_date",
+    "deadline",
+    "days_left",
+    "place",
+    "value",
+    "url",
+    "fit",
+    "sub_scores",
+    "recommendation",
+    "confidence",
+    "reasons",
+    "red_flags",
+    "is_new",
+    "changed",
+    "summary"
+   ],
+   "title": "TopMatch",
+   "type": "object"
+  },
+  "ValueBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Amount"
+    },
+    "floor": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Floor"
+    },
+    "kind": {
+     "enum": [
+      "award_ceiling",
+      "estimated_total",
+      "award_amount",
+      "none"
+     ],
+     "title": "Kind",
+     "type": "string"
+    }
+   },
+   "required": [
+    "kind",
+    "amount",
+    "floor"
+   ],
+   "title": "ValueBlock",
+   "type": "object"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": false,
+ "properties": {
+  "deadlines_30d": {
+   "items": {
+    "$ref": "#/$defs/DeadlineEntry"
+   },
+   "title": "Deadlines 30D",
+   "type": "array"
+  },
+  "disclaimer": {
+   "title": "Disclaimer",
+   "type": "string"
+  },
+  "headline": {
+   "title": "Headline",
+   "type": "string"
+  },
+  "key_stats": {
+   "items": {
+    "$ref": "#/$defs/KeyStat"
+   },
+   "title": "Key Stats",
+   "type": "array"
+  },
+  "meta": {
+   "$ref": "#/$defs/GrantsMeta"
+  },
+  "profile": {
+   "$ref": "#/$defs/ProfileSummary"
+  },
+  "sources": {
+   "items": {
+    "$ref": "#/$defs/SourceLink"
+   },
+   "title": "Sources",
+   "type": "array"
+  },
+  "stats": {
+   "$ref": "#/$defs/Stats"
+  },
+  "thresholds": {
+   "$ref": "#/$defs/Thresholds"
+  },
+  "top_matches": {
+   "items": {
+    "$ref": "#/$defs/TopMatch"
+   },
+   "title": "Top Matches",
+   "type": "array"
+  }
+ },
+ "required": [
+  "meta",
+  "headline",
+  "key_stats",
+  "profile",
+  "thresholds",
+  "stats",
+  "top_matches",
+  "deadlines_30d",
+  "sources",
+  "disclaimer"
+ ],
+ "title": "GrantsLatest",
+ "type": "object"
+}

@@ -8,3 +8,8 @@ dist/
 build/
 .env
 .DS_Store
+
+# agents-core run output: published to the `data` branch by run-agent.yml, not main
+public-data/
+# agents_core.http on-disk cache (+ its daily request-budget file)
+.cache/

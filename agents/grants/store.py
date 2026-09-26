@@ -5,13 +5,17 @@ Pipeline: normalize -> dedupe -> merge into store -> prune expired.
 
 from __future__ import annotations
 
+import gzip
+import json
 import re
 from collections.abc import Iterable
 from datetime import date, datetime
+from pathlib import Path
 
+from pydantic import BaseModel
 from rapidfuzz import fuzz
 
-from agents.grants.models import Opportunity
+from agents.grants.models import Opportunity, Score, Summary
 
 TITLE_SIMILARITY_THRESHOLD = 90.0  # rapidfuzz token_set_ratio is 0-100, spec asks for >= 0.9
 _PUNCT_RE = re.compile(r"[^\w\s]")
@@ -141,3 +145,36 @@ def prune_store(
     relevance_by_id = relevance_by_id or {}
     ordered = sorted(active.items(), key=lambda kv: relevance_by_id.get(kv[0], 0), reverse=True)
     return dict(ordered[:store_max_items])
+
+
+# ---- persistence: data/grants/store.json.gz (SPEC_GRANTS.md §4) -------------------
+
+
+class StoreEntry(BaseModel):
+    """One active opportunity that passed hard filters, with its latest score
+    and summary (each carrying its own cache key fields)."""
+
+    opportunity: Opportunity
+    relevance: int = 0
+    score: Score | None = None
+    summary: Summary | None = None
+
+
+def load_store(path: Path) -> dict[str, StoreEntry]:
+    if not path.is_file():
+        return {}
+    data = json.loads(gzip.decompress(path.read_bytes()))
+    return {id_: StoreEntry.model_validate(e) for id_, e in data.get("items", {}).items()}
+
+
+def save_store(entries: dict[str, StoreEntry], path: Path) -> int:
+    """Write the store atomically (gzip, mtime=0 so unchanged data is byte-identical).
+    Returns the compressed size in bytes."""
+    items = {id_: entries[id_].model_dump(mode="json") for id_ in sorted(entries)}
+    payload = json.dumps({"items": items}, sort_keys=True, separators=(",", ":")).encode()
+    blob = gzip.compress(payload, mtime=0)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_bytes(blob)
+    tmp.replace(path)
+    return len(blob)

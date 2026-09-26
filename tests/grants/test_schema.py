@@ -1,4 +1,9 @@
+import json
 from datetime import UTC, datetime
+from pathlib import Path
+
+from agents_core.export_schemas import schema_dict
+from agents_core.schema import ModelUsage
 
 from agents.grants.models import SubScores
 from agents.grants.schema import (
@@ -6,8 +11,8 @@ from agents.grants.schema import (
     FetchedCounts,
     GrantsAll,
     GrantsLatest,
+    GrantsMeta,
     KeyStat,
-    Meta,
     ProfileSummary,
     RejectedCounts,
     SourceLink,
@@ -19,6 +24,25 @@ from agents.grants.schema import (
 )
 
 NOW = datetime(2026, 9, 24, tzinfo=UTC)
+SNAPSHOT = Path(__file__).resolve().parents[1] / "fixtures" / "grants" / "schema_snapshot.json"
+
+
+def make_meta(**overrides) -> GrantsMeta:
+    base = dict(
+        agent="grants",
+        schema_version="1.0.0",
+        run_id="2026-09-24T13-00-00Z-abc123",
+        started_at=NOW,
+        finished_at=NOW,
+        status="ok",
+        data_changed=True,
+        cost_usd=0.01,
+        model_usage=ModelUsage(),
+        sources=[],
+        sam_requests_used=3,
+    )
+    base.update(overrides)
+    return GrantsMeta.model_validate(base)
 
 
 def make_top_match(**overrides) -> TopMatch:
@@ -55,7 +79,7 @@ def make_top_match(**overrides) -> TopMatch:
 
 def make_latest(**overrides) -> GrantsLatest:
     base = dict(
-        meta=Meta(generated_at=NOW, sam_requests_used=3),
+        meta=make_meta(),
         headline="7 new matches today; 3 close within 14 days.",
         key_stats=[KeyStat(label="New matches today", value=7, format="count")],
         profile=ProfileSummary(
@@ -209,3 +233,31 @@ def test_all_json_round_trips():
     )
     restored = GrantsAll.model_validate_json(all_json.model_dump_json())
     assert restored == all_json
+
+
+def test_sam_meta_key_is_merged_into_meta():
+    data = make_latest().model_dump(mode="json")
+    data["meta"].pop("sam_budget_exhausted")
+    data["meta"].pop("sam_requests_used")
+    data["sam_meta"] = {"sam_budget_exhausted": True, "sam_requests_used": 5}
+    latest = GrantsLatest.model_validate(data)
+    assert latest.meta.sam_budget_exhausted is True
+    assert latest.meta.sam_requests_used == 5
+    assert "sam_meta" not in latest.model_dump(mode="json")
+
+
+def test_published_timestamps_are_utc_z():
+    dumped = make_latest().model_dump(mode="json")
+    assert dumped["meta"]["started_at"] == "2026-09-24T00:00:00Z"
+    assert dumped["top_matches"][0]["deadline"] == "2026-10-15T16:00:00-04:00"
+
+
+def test_json_schema_snapshot():
+    """The §6 contract as JSON Schema (published as schema.json). If this fails
+    on purpose, update the site with it, then regenerate the snapshot:
+    uv run python -c "import json; from agents_core.export_schemas import schema_dict;
+    from agents.grants.schema import GrantsLatest; print(json.dumps(schema_dict(GrantsLatest),
+    indent=1, sort_keys=True))" > tests/fixtures/grants/schema_snapshot.json
+    """
+    current = json.loads(json.dumps(schema_dict(GrantsLatest), sort_keys=True))
+    assert current == json.loads(SNAPSHOT.read_text())

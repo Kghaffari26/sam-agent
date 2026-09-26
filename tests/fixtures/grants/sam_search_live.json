@@ -1,0 +1,2733 @@
+{
+ "totalRecords": 473,
+ "limit": 1000,
+ "offset": 0,
+ "opportunitiesData": [
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1680",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=f8c07e67a9f946d78b27db4ab5fbc93a",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=f8c07e67a9f946d78b27db4ab5fbc93a&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "f8c07e67a9f946d78b27db4ab5fbc93a",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD54",
+   "title": "COUPLING,REFUELING",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/f8c07e67a9f946d78b27db4ab5fbc93a/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-12",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "S208",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=f88f7aa0a85d4f64bb86a92f79f5afa8",
+   "fullParentPathCode": "012.12C2.127EAU",
+   "fullParentPathName": "AGRICULTURE, DEPARTMENT OF.FOREST SERVICE.USDA-FS, CSA SOUTHWEST 4",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=f88f7aa0a85d4f64bb86a92f79f5afa8&limit=1"
+    }
+   ],
+   "naicsCode": "561730",
+   "naicsCodes": [
+    "561730"
+   ],
+   "noticeId": "f88f7aa0a85d4f64bb86a92f79f5afa8",
+   "officeAddress": {
+    "zipcode": "871023498",
+    "city": "Albuquerque",
+    "countryCode": "USA",
+    "state": "NM"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "6400",
+     "name": "Beltsville"
+    },
+    "state": {
+     "code": "MD",
+     "name": "Maryland"
+    },
+    "zip": "20705",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/2b99181e3a0f4ed0945a82d2b852b48d/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/3d3226219d9441378ce4ddffea358163/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/48e1610dfc4b49408b1ead667cb648c6/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/5d60a993ab77490e864984129fe69764/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/82449afaedd04534a1896601d94b9914/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/8b5f2ba9980f48379a88c4adae97dcbd/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/8d4f00cbd22a437fb29bd3780b05d86c/download"
+   ],
+   "responseDeadLine": "2026-09-27T17:00:00-07:00",
+   "solicitationNumber": "127EAU26Q0076 ",
+   "title": "Tree Cutting and Removal Services – USDA ARS Beltsville Agricultural Research Center",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/f88f7aa0a85d4f64bb86a92f79f5afa8/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "5998",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=f4165440674741088b264861c826eb33",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=f4165440674741088b264861c826eb33&limit=1"
+    }
+   ],
+   "naicsCode": "334412",
+   "naicsCodes": [
+    "334412"
+   ],
+   "noticeId": "f4165440674741088b264861c826eb33",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "N0038326QBB15",
+   "title": "59--CIRCUIT CARD ASSEMB, IN REPAIR/MODIFICATION OF",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/f4165440674741088b264861c826eb33/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6610",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=f00ce531f8f546a3b0b1828a1608194e",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=f00ce531f8f546a3b0b1828a1608194e&limit=1"
+    }
+   ],
+   "naicsCode": "334511",
+   "naicsCodes": [
+    "334511"
+   ],
+   "noticeId": "f00ce531f8f546a3b0b1828a1608194e",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD62",
+   "title": "PROCESSOR,FLIGHT IN",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/f00ce531f8f546a3b0b1828a1608194e/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-27",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "7E20",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=e8478debc67e4e92a69e558f119a9d9c",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=e8478debc67e4e92a69e558f119a9d9c&limit=1"
+    }
+   ],
+   "naicsCode": null,
+   "naicsCodes": [],
+   "noticeId": "e8478debc67e4e92a69e558f119a9d9c",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-11-12T00:00:00-04:00",
+   "solicitationNumber": "N0038326RHA98",
+   "title": "70--TRANSFER UNIT,PROGR, IN REPAIR/MODIFICATION OF",
+   "type": "Presolicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/e8478debc67e4e92a69e558f119a9d9c/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "5831",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=df65f748906341679f0baf2aee32697f",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=df65f748906341679f0baf2aee32697f&limit=1"
+    }
+   ],
+   "naicsCode": "334310",
+   "naicsCodes": [
+    "334310"
+   ],
+   "noticeId": "df65f748906341679f0baf2aee32697f",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T14:00:00-04:00",
+   "solicitationNumber": "N0038326RBB09",
+   "title": "58--CONTROL,INTERCOMMUN, IN REPAIR/MODIFICATION OF",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/df65f748906341679f0baf2aee32697f/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1680",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=dca02b0f0f064d51a31d0196c985547a",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=dca02b0f0f064d51a31d0196c985547a&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "dca02b0f0f064d51a31d0196c985547a",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD63",
+   "title": "FLIGHT MANAGEMENT C",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/dca02b0f0f064d51a31d0196c985547a/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-14",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "7110",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=d7ee389dd61b47cf8857f6043aa6dd1b",
+   "fullParentPathCode": "021.2100.NGB.JFHQ USPFO AR.USPFO AR PROC.W912JF",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY.NATIONAL GUARD BUREAU.JFHQ USPFO AR.USPFO AR PROCUREMENT.W7MW USPFO ACTIVITY AR ARNG",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=d7ee389dd61b47cf8857f6043aa6dd1b&limit=1"
+    }
+   ],
+   "naicsCode": "337127",
+   "naicsCodes": [
+    "337127"
+   ],
+   "noticeId": "d7ee389dd61b47cf8857f6043aa6dd1b",
+   "officeAddress": {
+    "zipcode": "72199-9600",
+    "city": "NORTH LITTLE ROCK",
+    "countryCode": "USA",
+    "state": "AR"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "50450",
+     "name": "North Little Rock"
+    },
+    "state": {
+     "code": "AR",
+     "name": "Arkansas"
+    },
+    "zip": "72199",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/b2b5028ea0b04ff2910cc86afa4fe243/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/e646032632b2430ab0d0f7447ef534e6/download"
+   ],
+   "responseDeadLine": "2026-09-29T08:00:00-05:00",
+   "solicitationNumber": "PANNGB26P0000041406",
+   "title": "*******Solicitation Canceled**********Office Furniture",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/d7ee389dd61b47cf8857f6043aa6dd1b/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-11",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6760",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=d7601f42c081480c9b5e48abf5521317",
+   "fullParentPathCode": "021.2100.AMC.ACC.ACC-OO.413TH CSB.W912CN",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY.AMC.ACC.ACC-OO.413TH CSB.0413 AQ HQ     RCO-HI",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=d7601f42c081480c9b5e48abf5521317&limit=1"
+    }
+   ],
+   "naicsCode": "334111",
+   "naicsCodes": [
+    "334111"
+   ],
+   "noticeId": "d7601f42c081480c9b5e48abf5521317",
+   "officeAddress": {
+    "zipcode": "96858-5025",
+    "city": "FORT SHAFTER",
+    "countryCode": "USA",
+    "state": "HI"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "69050",
+     "name": "Schofield Barracks"
+    },
+    "state": {
+     "code": "HI",
+     "name": "Hawaii"
+    },
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/2ef3d6b43770495ea0d4f1eb644a883e/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d3c24f0a80154dada9e8ba066e207ebb/download"
+   ],
+   "responseDeadLine": "2026-09-26T09:00:00-10:00",
+   "solicitationNumber": "W912CN26QA066",
+   "title": "25ID PAO Camera and Equipment",
+   "type": "Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/d7601f42c081480c9b5e48abf5521317/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1710",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=d3e009bc03b14c9cacd080ba8b995cef",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=d3e009bc03b14c9cacd080ba8b995cef&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "d3e009bc03b14c9cacd080ba8b995cef",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T14:00:00-04:00",
+   "solicitationNumber": "SPRPA126RYD37",
+   "title": "17--PISTONS,MATCHED SE,",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/d3e009bc03b14c9cacd080ba8b995cef/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-17",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "DG11",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=d0a97e02b84f4bfb9c45d49c629fd0eb",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP GLS.NAVSUP FLC NORFOLK.N00189",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP GLOBAL LOGISTICS SUPPORT.NAVSUP FLC NORFOLK.NAVSUP FLT LOG CTR NORFOLK",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=d0a97e02b84f4bfb9c45d49c629fd0eb&limit=1"
+    }
+   ],
+   "naicsCode": "517111",
+   "naicsCodes": [
+    "517111"
+   ],
+   "noticeId": "d0a97e02b84f4bfb9c45d49c629fd0eb",
+   "officeAddress": {
+    "zipcode": "23511-3392",
+    "city": "NORFOLK",
+    "countryCode": "USA",
+    "state": "VA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "57000",
+     "name": "Norfolk"
+    },
+    "state": {
+     "code": "VA",
+     "name": "Virginia"
+    },
+    "zip": "23511",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/35b7cfda676943fb9702236d82284b4f/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/5d6cc29a1c01464cb20a0c8453798245/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/7c3ca917cf13448da41f7afacb914691/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/9abd6686c6bb49998b07bf6a52271afd/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/a259ced2d0504b75a7b436e178ad820e/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d6cfe69e75284b3c81952fba1b4368b1/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/ee3795bca8414a9d86a1e13d7f978531/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/fa9f702250ae47d39b686a91b573f72b/download"
+   ],
+   "responseDeadLine": "2026-10-02T10:00:00-04:00",
+   "solicitationNumber": "N0018926RL030",
+   "title": "VOIP for Norfolk and Phil areas",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "NONE",
+   "typeOfSetAsideDescription": "No Set aside used",
+   "uiLink": "https://sam.gov/workspace/contract/opp/d0a97e02b84f4bfb9c45d49c629fd0eb/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "9999",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=c68f111c9bfb46b7b2f91e037675ccc7",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=c68f111c9bfb46b7b2f91e037675ccc7&limit=1"
+    }
+   ],
+   "naicsCode": "333998",
+   "naicsCodes": [
+    "333998"
+   ],
+   "noticeId": "c68f111c9bfb46b7b2f91e037675ccc7",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T14:00:00-04:00",
+   "solicitationNumber": "N0038326RFB92",
+   "title": "99--ESM RP",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/c68f111c9bfb46b7b2f91e037675ccc7/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1377",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=c2c42bf4f6c14ef7902389b72b456189",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=c2c42bf4f6c14ef7902389b72b456189&limit=1"
+    }
+   ],
+   "naicsCode": "325920",
+   "naicsCodes": [
+    "325920"
+   ],
+   "noticeId": "c2c42bf4f6c14ef7902389b72b456189",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD65",
+   "title": "INITIATOR,PROPELLAN",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/c2c42bf4f6c14ef7902389b72b456189/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-25",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "7E20",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=bdecb9cd4af14719b31b9c6493ed9565",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS MECH.N00104",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS MECHANICSBURG.NAVSUP WEAPON SYSTEMS SUPPORT MECH",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=bdecb9cd4af14719b31b9c6493ed9565&limit=1"
+    }
+   ],
+   "naicsCode": null,
+   "naicsCodes": [],
+   "noticeId": "bdecb9cd4af14719b31b9c6493ed9565",
+   "officeAddress": {
+    "zipcode": "17050-0788",
+    "city": "MECHANICSBURG",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-11-10T00:00:00-04:00",
+   "solicitationNumber": "N0010426QUC48",
+   "title": "70--PANEL PC, IN REPAIR/MODIFICATION OF",
+   "type": "Presolicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/bdecb9cd4af14719b31b9c6493ed9565/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6110",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=b86ff5883f3049baa6fb2e4377624a76",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=b86ff5883f3049baa6fb2e4377624a76&limit=1"
+    }
+   ],
+   "naicsCode": "335312",
+   "naicsCodes": [
+    "335312"
+   ],
+   "noticeId": "b86ff5883f3049baa6fb2e4377624a76",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD68",
+   "title": "PANEL,CONTROL,ELECT",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/b86ff5883f3049baa6fb2e4377624a76/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2027-09-26",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "7110",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=ac329310b17347348726990727879a83",
+   "fullParentPathCode": "021.2100.AMC.ACC.MICC.419TH CSB.W911S2",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY.AMC.ACC.MISSION INSTALLATION CONTRACTING COMMAND.419TH CSB.W6QM MICC-FT DRUM",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=ac329310b17347348726990727879a83&limit=1"
+    }
+   ],
+   "naicsCode": "337211",
+   "naicsCodes": [
+    "337211"
+   ],
+   "noticeId": "ac329310b17347348726990727879a83",
+   "officeAddress": {
+    "zipcode": "13602-5220",
+    "city": "FORT DRUM",
+    "countryCode": "USA",
+    "state": "NY"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "streetAddress": "fort irwin, ca",
+    "zip": "92310"
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-09-28T09:00:00-08:00",
+   "solicitationNumber": "W911S226U4543",
+   "title": "office furniture",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/ac329310b17347348726990727879a83/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "4920",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=a82be74dbc744767aae22bcb273c223f",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=a82be74dbc744767aae22bcb273c223f&limit=1"
+    }
+   ],
+   "naicsCode": "332710",
+   "naicsCodes": [
+    "332710"
+   ],
+   "noticeId": "a82be74dbc744767aae22bcb273c223f",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD57",
+   "title": "NRP,HANDSET ASSEMBL",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/a82be74dbc744767aae22bcb273c223f/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-14",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "F108",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=a5e2c804273a4f5ba7e210ac09830f72",
+   "fullParentPathCode": "021.2100.NGB.JFHQ USPFO IA.USPFO IA PROC.W50S72",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY.NATIONAL GUARD BUREAU.JFHQ USPFO IA.USPFO IA PROCUREMENT.W7M8 USPFO ACTIVITY IAANG 185",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=a5e2c804273a4f5ba7e210ac09830f72&limit=1"
+    }
+   ],
+   "naicsCode": "562910",
+   "naicsCodes": [
+    "562910"
+   ],
+   "noticeId": "a5e2c804273a4f5ba7e210ac09830f72",
+   "officeAddress": {
+    "zipcode": "51111-1396",
+    "city": "SIOUX CITY",
+    "countryCode": "USA",
+    "state": "IA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "73335",
+     "name": "Sioux City"
+    },
+    "state": {
+     "code": "IA",
+     "name": "Iowa"
+    },
+    "zip": "51111",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/01383f5f49dd4afa8fa0ce90c0139c52/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/2675e8ef1ef5430589a3eaff1ca386df/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/4ef2c3264cc6401f9daa35f63dd5f825/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/810b48cd2d3747079befaa79d6509758/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d80fd5029246438c95df73e81136f25d/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/e0fe757fa13d4b8883bf4f15c7e7c255/download"
+   ],
+   "responseDeadLine": "2026-09-29T15:00:00-05:00",
+   "solicitationNumber": "W50S72-26-Q-7204",
+   "title": "Building 269 Mold Remediation Services",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/a5e2c804273a4f5ba7e210ac09830f72/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "7E20",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=a48b57461a7046feb19d9e6de7c195d6",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=a48b57461a7046feb19d9e6de7c195d6&limit=1"
+    }
+   ],
+   "naicsCode": "335999",
+   "naicsCodes": [
+    "335999"
+   ],
+   "noticeId": "a48b57461a7046feb19d9e6de7c195d6",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "N0038326QTD02",
+   "title": "MEMORY,PORTABLE,SOL",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/a48b57461a7046feb19d9e6de7c195d6/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6105",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=a293c917a557422ca379f6f944e901fc",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=a293c917a557422ca379f6f944e901fc&limit=1"
+    }
+   ],
+   "naicsCode": "335312",
+   "naicsCodes": [
+    "335312"
+   ],
+   "noticeId": "a293c917a557422ca379f6f944e901fc",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD67",
+   "title": "MOTOR,ALTERNATING C",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/a293c917a557422ca379f6f944e901fc/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-13",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "J043",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=94b553f47af7466b97833e8b5f3e0080",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP GLS.NAVSUP FLC PEARL.N00604",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP GLOBAL LOGISTICS SUPPORT.NAVSUP FLC PEARL HARBOR.NAVSUP FLT LOG CTR PEARL HARBOR",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=94b553f47af7466b97833e8b5f3e0080&limit=1"
+    }
+   ],
+   "naicsCode": "811310",
+   "naicsCodes": [
+    "811310"
+   ],
+   "noticeId": "94b553f47af7466b97833e8b5f3e0080",
+   "officeAddress": {
+    "zipcode": "96860-4549",
+    "city": "PEARL HARBOR",
+    "countryCode": "USA",
+    "state": "HI"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "7450",
+     "name": "Ewa Beach"
+    },
+    "state": {
+     "code": "HI",
+     "name": "Hawaii"
+    },
+    "zip": "96706",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/30473fecb3024fe5809376ebda4d59ed/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/322a752cb7324627b6fa903d5de5377d/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/69a541df3f55401d804d8541b7564c20/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/beb192c2c990411aaf8d6136c209beea/download"
+   ],
+   "responseDeadLine": "2026-09-28T09:00:00-10:00",
+   "solicitationNumber": "N0060426Q4121",
+   "title": "Preventative and corrective maintenance on U.S. Navy Diving Equipment, Flexible Hoses, Divers Life Support Systems (DLSS)",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "NONE",
+   "typeOfSetAsideDescription": "No Set aside used",
+   "uiLink": "https://sam.gov/workspace/contract/opp/94b553f47af7466b97833e8b5f3e0080/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-13",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "6730",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=9407fb3b3c9143a4a17e7c0bf0e1390a",
+   "fullParentPathCode": "070.7014.70B02C",
+   "fullParentPathName": "HOMELAND SECURITY, DEPARTMENT OF.US CUSTOMS AND BORDER PROTECTION.AIR AND MARINE CONTRACTING DIVISION",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=9407fb3b3c9143a4a17e7c0bf0e1390a&limit=1"
+    }
+   ],
+   "naicsCode": "423410",
+   "naicsCodes": [
+    "423410"
+   ],
+   "noticeId": "9407fb3b3c9143a4a17e7c0bf0e1390a",
+   "officeAddress": {
+    "zipcode": "20229",
+    "city": "WASHINGTON",
+    "countryCode": "USA",
+    "state": "DC"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "state": {
+     "code": "CA",
+     "name": "California"
+    },
+    "zip": "92518",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-09-28T17:00:00-04:00",
+   "solicitationNumber": "20160864",
+   "title": "AMOC Projectors",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/9407fb3b3c9143a4a17e7c0bf0e1390a/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1680",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=9406e09e6e5d43e797aee950617b178e",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=9406e09e6e5d43e797aee950617b178e&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "9406e09e6e5d43e797aee950617b178e",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD55",
+   "title": "WING STATION CONTRO",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/9406e09e6e5d43e797aee950617b178e/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1720",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=887b64cf6aba4d00bd90941e8971f139",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=887b64cf6aba4d00bd90941e8971f139&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "887b64cf6aba4d00bd90941e8971f139",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD52",
+   "title": "COMMAND STATION,OIL",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/887b64cf6aba4d00bd90941e8971f139/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6620",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=887056d923264cc091e7c1be2c8d55cf",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=887056d923264cc091e7c1be2c8d55cf&limit=1"
+    }
+   ],
+   "naicsCode": "334514",
+   "naicsCodes": [
+    "334514"
+   ],
+   "noticeId": "887056d923264cc091e7c1be2c8d55cf",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "N0038326QBB16",
+   "title": "66--ENGINE DATA UNIT, IN REPAIR/MODIFICATION OF",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/887056d923264cc091e7c1be2c8d55cf/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-27",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "1680",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=82780d197558415782f2c3d9e08479a7",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=82780d197558415782f2c3d9e08479a7&limit=1"
+    }
+   ],
+   "naicsCode": null,
+   "naicsCodes": [],
+   "noticeId": "82780d197558415782f2c3d9e08479a7",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-11-12T00:00:00-04:00",
+   "solicitationNumber": "N0038326QHA99",
+   "title": "16--MANIFOLD ASSEMBLY,H, IN REPAIR/MODIFICATION OF",
+   "type": "Presolicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/82780d197558415782f2c3d9e08479a7/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6130",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=7b2a70e6b331407f98925e894c466e67",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=7b2a70e6b331407f98925e894c466e67&limit=1"
+    }
+   ],
+   "naicsCode": "335931",
+   "naicsCodes": [
+    "335931"
+   ],
+   "noticeId": "7b2a70e6b331407f98925e894c466e67",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-09-25T14:00:00-04:00",
+   "solicitationNumber": "N0038325RA214",
+   "title": "12--DISPLAY UNIT,HELMET - AND OTHER REPLACEMENT PARTS, IN REPAIR/MODIFICATION OF",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/7b2a70e6b331407f98925e894c466e67/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-13",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "P100",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=795a8516f8fd435f9b38efc68b82c16b",
+   "fullParentPathCode": "057.5700.PACAF.FA5000",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE AIR FORCE.PACIFIC AIR FORCES.FA5000  673 CONS PKB",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=795a8516f8fd435f9b38efc68b82c16b&limit=1"
+    }
+   ],
+   "naicsCode": "562119",
+   "naicsCodes": [
+    "562119"
+   ],
+   "noticeId": "795a8516f8fd435f9b38efc68b82c16b",
+   "officeAddress": {
+    "zipcode": "99506-2501",
+    "city": "JBER",
+    "countryCode": "USA",
+    "state": "AK"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "0",
+     "name": "0"
+    },
+    "state": {
+     "code": "AK",
+     "name": "Alaska"
+    },
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/217fe637f4144ef4ae089893c3032c5e/download"
+   ],
+   "responseDeadLine": "2026-09-28T11:00:00-08:00",
+   "solicitationNumber": "FA500026Q0075",
+   "title": "Vertical Tank Storage System Demolition and Removal",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": null,
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/795a8516f8fd435f9b38efc68b82c16b/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6610",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=6e4c913c9c9f4b1fbb7cc192dfb8afd1",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=6e4c913c9c9f4b1fbb7cc192dfb8afd1&limit=1"
+    }
+   ],
+   "naicsCode": "334511",
+   "naicsCodes": [
+    "334511"
+   ],
+   "noticeId": "6e4c913c9c9f4b1fbb7cc192dfb8afd1",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD51",
+   "title": "RECORDER,FLIGHT DAT",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/6e4c913c9c9f4b1fbb7cc192dfb8afd1/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "5330",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=60aa8e3f9222455eab2e94bf4be98e70",
+   "fullParentPathCode": "021.2100.USACE.NWD.NWP.W9127N",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY.US ARMY CORPS OF ENGINEERS.ENGINEER DIVISION NORTHWESTERN.ENDIST PORTLAND.W071 ENDIST PORTLAND",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=60aa8e3f9222455eab2e94bf4be98e70&limit=1"
+    }
+   ],
+   "naicsCode": "339991",
+   "naicsCodes": [
+    "339991"
+   ],
+   "noticeId": "60aa8e3f9222455eab2e94bf4be98e70",
+   "officeAddress": {
+    "zipcode": "97204-3495",
+    "city": "PORTLAND",
+    "countryCode": "USA",
+    "state": "OR"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "streetAddress": "ARMY CORPS OF ENGINEERS CIVIL WORKSPORTLAND DISTRICT, BONNEVILLE LOCK AND DAM PROJECTCASCADE LOCKS, OR 97014UNITED STATES",
+    "state": {
+     "code": "OR",
+     "name": "Oregon"
+    },
+    "zip": "97014",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/72264138792949d0a39e845c49a3e621/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/fc961e32bda94d6d9aa5d9e50e9db946/download"
+   ],
+   "responseDeadLine": "2026-09-25T18:00:00-07:00",
+   "solicitationNumber": "W9127N26QA145",
+   "title": "W9127N26QA145 - PH2 BLADE SEALS REPLACEMENT for Bonneville Dam",
+   "type": "Solicitation",
+   "typeOfSetAside": null,
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/60aa8e3f9222455eab2e94bf4be98e70/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-27",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "5810",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=49174e326c2e4b74b2b565239c8b0b80",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=49174e326c2e4b74b2b565239c8b0b80&limit=1"
+    }
+   ],
+   "naicsCode": null,
+   "naicsCodes": [],
+   "noticeId": "49174e326c2e4b74b2b565239c8b0b80",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-11-12T00:00:00-04:00",
+   "solicitationNumber": "N0038326RHA97",
+   "title": "58--ENCRYPTION-DECRYPTI, IN REPAIR/MODIFICATION OF",
+   "type": "Presolicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/49174e326c2e4b74b2b565239c8b0b80/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "1240",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=3f157103637c49679de669fc416094b3",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=3f157103637c49679de669fc416094b3&limit=1"
+    }
+   ],
+   "naicsCode": null,
+   "naicsCodes": [],
+   "noticeId": "3f157103637c49679de669fc416094b3",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-09-25T14:00:00-04:00",
+   "solicitationNumber": "N0038325RA214",
+   "title": "12--DISPLAY UNIT,HELMET - AND OTHER REPLACEMENT PARTS, IN REPAIR/MODIFICATION OF",
+   "type": "Presolicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/3f157103637c49679de669fc416094b3/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-14",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "Y1AA",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=3ee1583a0426451182332ecd1778c0ca",
+   "fullParentPathCode": "012.12C2.1240LN",
+   "fullParentPathName": "AGRICULTURE, DEPARTMENT OF.FOREST SERVICE.USDA-FS, CSA INTERMOUNTAIN 3",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=3ee1583a0426451182332ecd1778c0ca&limit=1"
+    }
+   ],
+   "naicsCode": "236220",
+   "naicsCodes": [
+    "236220"
+   ],
+   "noticeId": "3ee1583a0426451182332ecd1778c0ca",
+   "officeAddress": {
+    "zipcode": "844012310",
+    "city": "Ogden",
+    "countryCode": "USA",
+    "state": "UT"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "state": {
+     "code": "AR",
+     "name": "Arkansas"
+    },
+    "zip": "72927",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/23233e5c66ea4ed48c14415d2e391bd6/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/237e5324e178409a86de94819a794777/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/3250737ab77246d28e9dc8ddd336e93a/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/3a325e6bfe0945b39c3b530b7109a86c/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/48b32fcbbf474b59a5e7fea216e20030/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/49abf1236b6147f48482d1e800f3bafb/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/62d71775bd6f4d6ab39805ccb08ff61b/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/a9bf96066b544ec89a4b3c35571ed519/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/b6b563ebd2e045d3ad7ca00fe77a5fa1/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/cb05e3deb0364259bf804baa45441ec0/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/cea938bab30b434c813e81e4f496bf65/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/cfdeb3797b1942a2886098ca292401e7/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/e5c31f1435dc49ce9c0be68e4fd26ad1/download"
+   ],
+   "responseDeadLine": "2026-09-29T07:30:00-05:00",
+   "solicitationNumber": "1240LN26Q0007",
+   "title": "Repair Hail Damage Booneville, AR",
+   "type": "Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/3ee1583a0426451182332ecd1778c0ca/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-13",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "R425",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=3e7a530d72c948ea95481bdfb81bc733",
+   "fullParentPathCode": "097.97ZS.H92402",
+   "fullParentPathName": "DEPT OF DEFENSE.US SPECIAL OPERATIONS COMMAND (USSOCOM).HQ USSOCOM",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=3e7a530d72c948ea95481bdfb81bc733&limit=1"
+    }
+   ],
+   "naicsCode": "541330",
+   "naicsCodes": [
+    "541330"
+   ],
+   "noticeId": "3e7a530d72c948ea95481bdfb81bc733",
+   "officeAddress": {
+    "zipcode": "33621-5323",
+    "city": "TAMPA",
+    "countryCode": "USA",
+    "state": "FL"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "71000",
+     "name": "Tampa"
+    },
+    "state": {
+     "code": "FL",
+     "name": "Florida"
+    },
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/0676483546614f5885204cda5ecf6e14/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/319ba2bdce784964a46d55d0d9804dde/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/40f0d857ffa04b70ae0935ff4839047e/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/79f81f528f8b4ddc8791591b005e2d6f/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d4247fc30dad48fea86099cf694ff760/download"
+   ],
+   "responseDeadLine": "2026-09-28T16:00:00-04:00",
+   "solicitationNumber": "PMCPSS_Draft_RFP",
+   "title": "Program Manager Counterproliferation (PMCP) Service Support",
+   "type": "Presolicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/3e7a530d72c948ea95481bdfb81bc733/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6650",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=3e748e49ff4349369df39a3f62ab5c53",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=3e748e49ff4349369df39a3f62ab5c53&limit=1"
+    }
+   ],
+   "naicsCode": "333310",
+   "naicsCodes": [
+    "333310"
+   ],
+   "noticeId": "3e748e49ff4349369df39a3f62ab5c53",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD56",
+   "title": "HANDSET ASSY,6.1MM",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/3e748e49ff4349369df39a3f62ab5c53/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-27",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "5836",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=3e4dd467e31d45989d75f56ead339c76",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=3e4dd467e31d45989d75f56ead339c76&limit=1"
+    }
+   ],
+   "naicsCode": null,
+   "naicsCodes": [],
+   "noticeId": "3e4dd467e31d45989d75f56ead339c76",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-11-12T00:00:00-04:00",
+   "solicitationNumber": "N0038326RHA96",
+   "title": "58--RECORDER,VIDEO, IN REPAIR/MODIFICATION OF",
+   "type": "Presolicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/3e4dd467e31d45989d75f56ead339c76/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-23",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "Z1KA",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=35f146c439fa4c40b787573b1055d857",
+   "fullParentPathCode": "014.1425.140R20",
+   "fullParentPathName": "INTERIOR, DEPARTMENT OF THE.BUREAU OF RECLAMATION.MP-REGIONAL OFFICE",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=35f146c439fa4c40b787573b1055d857&limit=1"
+    }
+   ],
+   "naicsCode": "237990",
+   "naicsCodes": [
+    "237990"
+   ],
+   "noticeId": "35f146c439fa4c40b787573b1055d857",
+   "officeAddress": {
+    "zipcode": "95825",
+    "city": "SACRAMENTO",
+    "countryCode": "USA",
+    "state": "CA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {},
+    "state": {},
+    "country": {}
+   },
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/0a050ea4f20049dd8c9ff373a9f098b2/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/0a685ed0654549e385d68236f2aac699/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/28575d04b0d844309c73f2b9d6490072/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/291610ca763e419aa5cc6f15b553aec9/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/2968ce069935449cbcaa8ae466081557/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/327a923007874b959df0e44e819b3167/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/3fcd5f7e64d74be2acf291cc446672ce/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/43875f18920e4993b74d481df8ed1103/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/4bf1c92c8d604573930ee2abb7920083/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/50449dcdc2d24610bea399a5ddf89331/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/5a01e486eb484bcda71d4909f555e8bb/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/5fd38242e3de4ed98f64ac0423306090/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/6139713639954a938540be6e81e9cf4f/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/695bb24fafbf406da570ac0b7a4b2668/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/76a377cf955949d5afa546484f2dfccb/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/771d299609b44872b6e11bf5690304b8/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/849216c16e3f482a9ba98aadaf21a45b/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/887b6ce5ab154a449a1af2b2a9ac773e/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/91ea2ea303a1428b938aa613062bd705/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/924aa747715d42a59d5fe4408357404f/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/94f0c654667844fc93a2343e9c8af602/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/9abb3c34d04d4c06b9d15ad832092cd1/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/abb314a3eb5d48168c7ce6c35e7e88cd/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/b66315621d6a40aebb92c82a31a42089/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/ca4f5dbe6395445b983f9fa14a4196fc/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/cd49bedbf0e944479f5e93582f28feda/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/cdacd0e8f35243168c2f226d9d2e00a5/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d3e5e4dfeb9d41409bcab6082a6aa6da/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d4e6b2f812ec49a98c01ebf54788ce48/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/d7057a7d95d048258ac997bc4178eb9e/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/ee47b38f987b4cea8f46802302e41688/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/f69ee413f1364bd5a8bc963061d00624/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/fbd836e1664c4458a4becfa1e6fd7829/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/fd00217896b24e7c9da2c77a4d72dc1a/download"
+   ],
+   "responseDeadLine": "2026-10-08T17:00:00-07:00",
+   "solicitationNumber": "140R2026R0017",
+   "title": "Z--Folsom Warehouse Bridge Crane Replacement",
+   "type": "Solicitation",
+   "typeOfSetAside": "SDVOSBC",
+   "typeOfSetAsideDescription": "Service-Disabled Veteran-Owned Small Business (SDVOSB) Set-Aside (FAR 19.14)",
+   "uiLink": "https://sam.gov/workspace/contract/opp/35f146c439fa4c40b787573b1055d857/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6115",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=33ec02f7610f4458903f01e998bc31a9",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=33ec02f7610f4458903f01e998bc31a9&limit=1"
+    }
+   ],
+   "naicsCode": "335312",
+   "naicsCodes": [
+    "335312"
+   ],
+   "noticeId": "33ec02f7610f4458903f01e998bc31a9",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD60",
+   "title": "NRP,POWER SUPPLY A0",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/33ec02f7610f4458903f01e998bc31a9/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-14",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Combined Synopsis/Solicitation",
+   "classificationCode": "1305",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=33327d130cbf4f2697ca7c32f6d8dcaa",
+   "fullParentPathCode": "070.7015.70LCHS",
+   "fullParentPathName": "HOMELAND SECURITY, DEPARTMENT OF.FEDERAL LAW ENFORCEMENT TRAINING CENTER.FLETC CHARLESTON PROCUREMENT OFFICE",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=33327d130cbf4f2697ca7c32f6d8dcaa&limit=1"
+    }
+   ],
+   "naicsCode": "332992",
+   "naicsCodes": [
+    "332992"
+   ],
+   "noticeId": "33327d130cbf4f2697ca7c32f6d8dcaa",
+   "officeAddress": {
+    "zipcode": "29405",
+    "city": "North Charleston",
+    "countryCode": "USA",
+    "state": "SC"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "state": {
+     "code": "SC",
+     "name": "South Carolina"
+    },
+    "zip": "29405",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/aa08e977940d4909b842e753225a5f5b/download"
+   ],
+   "responseDeadLine": "2026-09-29T09:00:00-04:00",
+   "solicitationNumber": "70LCHS26QPFB00061",
+   "title": "Procure Brand Name or Equal UTM UTX and BBR ammunition for the Federal Law Enforcement Training Center (FLETC) in Charleston, SC.",
+   "type": "Combined Synopsis/Solicitation",
+   "typeOfSetAside": "NONE",
+   "typeOfSetAsideDescription": "No Set aside used",
+   "uiLink": "https://sam.gov/workspace/contract/opp/33327d130cbf4f2697ca7c32f6d8dcaa/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1560",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=3192b23ace844982a4771c84dbd41d8d",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=3192b23ace844982a4771c84dbd41d8d&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "3192b23ace844982a4771c84dbd41d8d",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "N0038326QTC97",
+   "title": "15--DOOR,AIRCRAFT",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/3192b23ace844982a4771c84dbd41d8d/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1377",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=28b9f67358fd4211a2184bc0367b76ef",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=28b9f67358fd4211a2184bc0367b76ef&limit=1"
+    }
+   ],
+   "naicsCode": "325920",
+   "naicsCodes": [
+    "325920"
+   ],
+   "noticeId": "28b9f67358fd4211a2184bc0367b76ef",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD64",
+   "title": "INITIATOR,PROPELLAN",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/28b9f67358fd4211a2184bc0367b76ef/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6105",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=20706b2cdb724889a8e8051954fecde3",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=20706b2cdb724889a8e8051954fecde3&limit=1"
+    }
+   ],
+   "naicsCode": "335312",
+   "naicsCodes": [
+    "335312"
+   ],
+   "noticeId": "20706b2cdb724889a8e8051954fecde3",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "N0038326QMA92",
+   "title": "61--MOTOR,ALTERNATING C, IN REPAIR/MODIFICATION OF",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/20706b2cdb724889a8e8051954fecde3/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-11",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Presolicitation",
+   "classificationCode": "R405",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=1fcd6d734092483991f295466dd3cb8b",
+   "fullParentPathCode": "069.6940.693JJ9",
+   "fullParentPathName": "TRANSPORTATION, DEPARTMENT OF.NATIONAL HIGHWAY TRAFFIC SAFETY ADMINISTRATION.693JJ9 NHTSA OFFICE OF ACQUISTION",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=1fcd6d734092483991f295466dd3cb8b&limit=1"
+    }
+   ],
+   "naicsCode": "541720",
+   "naicsCodes": [
+    "541720"
+   ],
+   "noticeId": "1fcd6d734092483991f295466dd3cb8b",
+   "officeAddress": {
+    "zipcode": "20590",
+    "city": "WASHINGTON",
+    "countryCode": "USA",
+    "state": "DC"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "city": {
+     "code": "50000",
+     "name": "Washington"
+    },
+    "state": {
+     "code": "DC",
+     "name": "District of Columbia"
+    },
+    "zip": "20590",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/53056b9b7bd640bf93953a7e73d645c5/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/71f2a582e5dc41eeae5375935f30ab92/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/8f20176561bb47ec8726afbe3deca469/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/b66c6b581b414834b09f3553b4bd760b/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/bceb1671e0704f6a8ec042288ecb7969/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/c9a65d09e52a41569f1bd53a5a8a3208/download"
+   ],
+   "responseDeadLine": "2026-09-26T15:00:00-04:00",
+   "solicitationNumber": "693JJ926R000067",
+   "title": "Countermeasures That Work (CMTW) and Countermeasures At Work (CMAW) Guide Updates",
+   "type": "Solicitation",
+   "typeOfSetAside": "NONE",
+   "typeOfSetAsideDescription": "No Set aside used",
+   "uiLink": "https://sam.gov/workspace/contract/opp/1fcd6d734092483991f295466dd3cb8b/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1720",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=17bd5f7eff3c4f16820388c18ef453b8",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=17bd5f7eff3c4f16820388c18ef453b8&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "17bd5f7eff3c4f16820388c18ef453b8",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD53",
+   "title": "SPEAR,SUPPORT",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/17bd5f7eff3c4f16820388c18ef453b8/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-12",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "2310",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=1595639ab60542dea2f800e02743aa51",
+   "fullParentPathCode": "021.2100.AMC.ACC.ACC-OO.413TH CSB.W91QVP",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE ARMY.AMC.ACC.ACC-OO.413TH CSB.0413 AQ HQ     CONTRACT AUG",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=1595639ab60542dea2f800e02743aa51&limit=1"
+    }
+   ],
+   "naicsCode": "532111",
+   "naicsCodes": [
+    "532111"
+   ],
+   "noticeId": "1595639ab60542dea2f800e02743aa51",
+   "officeAddress": {
+    "zipcode": "96858-5100",
+    "city": "FORT SHAFTER",
+    "countryCode": "USA",
+    "state": "HI"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {
+    "state": {
+     "code": "HI",
+     "name": "Hawaii"
+    },
+    "zip": "96786",
+    "country": {
+     "code": "USA",
+     "name": "UNITED STATES"
+    }
+   },
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/0f5f4b13e5d344dc94c8a48ed7b7b02e/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/77571f803f2041db883f4da5bc87b1eb/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/bdc1e6969b1d41428f29795e0519cb04/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/f714d3b3994c4577a6b494819dad2e26/download"
+   ],
+   "responseDeadLine": "2026-09-27T15:00:00-10:00",
+   "solicitationNumber": "W91QVP27QA017",
+   "title": "JPMRC 27-01 Oahu/PTA NTV Rentals",
+   "type": "Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/1595639ab60542dea2f800e02743aa51/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "1560",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=0cd042ca9aab45beb3bac578585f2157",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=0cd042ca9aab45beb3bac578585f2157&limit=1"
+    }
+   ],
+   "naicsCode": "336413",
+   "naicsCodes": [
+    "336413"
+   ],
+   "noticeId": "0cd042ca9aab45beb3bac578585f2157",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "N0038326QQB51",
+   "title": "DOOR,ACCESS,AIRCRAF",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/0cd042ca9aab45beb3bac578585f2157/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "6610",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=08b03984f3be4222a9b565144a05079b",
+   "fullParentPathCode": "097.97AS.DLA AVIATION.DLA AV PHILADELPHIA.SPRPA1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA AVIATION.DLA AVIATION PHILADELPHIA.DLA AVIATION AT PHILADELPHIA, PA",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=08b03984f3be4222a9b565144a05079b&limit=1"
+    }
+   ],
+   "naicsCode": "334511",
+   "naicsCodes": [
+    "334511"
+   ],
+   "noticeId": "08b03984f3be4222a9b565144a05079b",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-26",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-10-26T16:30:00-04:00",
+   "solicitationNumber": "SPRPA126QYD61",
+   "title": "RECORDER,FLIGHT DAT",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/08b03984f3be4222a9b565144a05079b/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-11-12",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "3010",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=ff9313c385ae47bf8dbd0fea79e577a5",
+   "fullParentPathCode": "097.97AS.DLA LAND.DLA LAND WARREN MI.SPRDL1",
+   "fullParentPathName": "DEPT OF DEFENSE.DEFENSE LOGISTICS AGENCY.DLA LAND.DLA LAND WARREN MICHIGAN.DLA LAND WARREN",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=ff9313c385ae47bf8dbd0fea79e577a5&limit=1"
+    }
+   ],
+   "naicsCode": "333612",
+   "naicsCodes": [
+    "333612"
+   ],
+   "noticeId": "ff9313c385ae47bf8dbd0fea79e577a5",
+   "officeAddress": {
+    "zipcode": "48397",
+    "city": "WARREN",
+    "countryCode": "USA",
+    "state": "MI"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-25",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/5cba34ac077b4622b9659c38b0493923/download"
+   ],
+   "responseDeadLine": "2026-10-28T23:59:00-04:00",
+   "solicitationNumber": "SPRDL1-26-Q-A012",
+   "title": "Gear Assembly, Speed Decreasing",
+   "type": "Solicitation",
+   "typeOfSetAside": "SBA",
+   "typeOfSetAsideDescription": "Small Business Set Aside - Total",
+   "uiLink": "https://sam.gov/workspace/contract/opp/ff9313c385ae47bf8dbd0fea79e577a5/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2026-10-10",
+   "archiveType": "auto15",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "99",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=ff6b1774f3e34d9bb9d37a9fe1f6987d",
+   "fullParentPathCode": "017.1700.NAVSUP.NAVSUP WSS.NAVSUP WSS PHIL.N00383",
+   "fullParentPathName": "DEPT OF DEFENSE.DEPT OF THE NAVY.NAVSUP.NAVSUP WEAPON SYSTEMS SUPPORT.NAVSUP WSS PHILADELPHIA.NAVSUP WEAPON SYSTEMS SUPPORT",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=ff6b1774f3e34d9bb9d37a9fe1f6987d&limit=1"
+    }
+   ],
+   "naicsCode": "333998",
+   "naicsCodes": [
+    "333998"
+   ],
+   "noticeId": "ff6b1774f3e34d9bb9d37a9fe1f6987d",
+   "officeAddress": {
+    "zipcode": "19111-5098",
+    "city": "PHILADELPHIA",
+    "countryCode": "USA",
+    "state": "PA"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": null,
+   "pointOfContact": [
+    {
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "fullName": "Redacted Contact 1"
+    }
+   ],
+   "postedDate": "2026-09-25",
+   "resourceLinks": null,
+   "responseDeadLine": "2026-09-25T16:30:00-04:00",
+   "solicitationNumber": "N0038326QTA90",
+   "title": "MARKER",
+   "type": "Solicitation",
+   "typeOfSetAside": "",
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/ff6b1774f3e34d9bb9d37a9fe1f6987d/view"
+  },
+  {
+   "active": "Yes",
+   "additionalInfoLink": null,
+   "archiveDate": "2027-03-10",
+   "archiveType": "autocustom",
+   "award": null,
+   "baseType": "Solicitation",
+   "classificationCode": "R405",
+   "description": "https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid=ff1986b33d0848a7b270afa0fa7fabf2",
+   "fullParentPathCode": "069.6938.693JF7",
+   "fullParentPathName": "TRANSPORTATION, DEPARTMENT OF.MARITIME ADMINISTRATION.693JF7 DOT  MARITIME ADMINISTRATION",
+   "links": [
+    {
+     "rel": "self",
+     "href": "https://api.sam.gov/prod/opportunities/v2/search?noticeid=ff1986b33d0848a7b270afa0fa7fabf2&limit=1"
+    }
+   ],
+   "naicsCode": "541720",
+   "naicsCodes": [
+    "541720"
+   ],
+   "noticeId": "ff1986b33d0848a7b270afa0fa7fabf2",
+   "officeAddress": {
+    "zipcode": "20590",
+    "city": "WASHINGTON",
+    "countryCode": "USA",
+    "state": "DC"
+   },
+   "organizationType": "OFFICE",
+   "placeOfPerformance": {},
+   "pointOfContact": [
+    {
+     "fax": "",
+     "type": "primary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 1"
+    },
+    {
+     "fax": "",
+     "type": "secondary",
+     "email": "redacted@example.gov",
+     "phone": "000-000-0000",
+     "fullName": "Redacted Contact 2"
+    }
+   ],
+   "postedDate": "2026-09-25",
+   "resourceLinks": [
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/0a1bb4862d56444080b6148217486bf2/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/34a1e010f5274c108de3932aa20322ea/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/4b40e891f7bd4011b743dc2af888e869/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/a425c46b371e46fbabadbfe676af62c4/download",
+    "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/ec4ca31b92744bd192a5a5190021e41a/download"
+   ],
+   "responseDeadLine": "2027-01-10T12:00:00-05:00",
+   "solicitationNumber": "693JF726R000016",
+   "title": "A Study on Vessel Design Challenge",
+   "type": "Solicitation",
+   "typeOfSetAside": null,
+   "typeOfSetAsideDescription": null,
+   "uiLink": "https://sam.gov/workspace/contract/opp/ff1986b33d0848a7b270afa0fa7fabf2/view"
+  }
+ ],
+ "_fixture_note": "Recorded from a live SAM.gov v2 search (https://api.sam.gov/prod/opportunities/v2/search?api_key=***&postedFrom=09%2F25%2F2026&postedTo=09%2F26%2F2026&limit=1000&offset=0&ptype=o%2Ck%2Cp%2Cr), trimmed from 473 to 50 notices. totalRecords is the live value. pointOfContact names/emails/phones redacted."
+}

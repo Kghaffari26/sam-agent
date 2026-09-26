@@ -1,0 +1,165 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "id": 361239,
+  "revision": 0,
+  "opportunityNumber": "RFA-OD-26-034",
+  "opportunityTitle": "Building Sustainable Software Tools for Open Science (R03 Clinical Trial Not Allowed)",
+  "owningAgencyCode": "HHS-NIH11",
+  "publisherUid": "85078824959489933389587371192040018034",
+  "flag2006": "N",
+  "opportunityCategory": {
+   "category": "D",
+   "description": "Discretionary"
+  },
+  "agencyDetails": {
+   "code": "NIH",
+   "seed": "HHS-NIH11",
+   "agencyName": "National Institutes of Health",
+   "agencyCode": "HHS-NIH11",
+   "topAgencyCode": "HHS"
+  },
+  "topAgencyDetails": {
+   "code": "HHS",
+   "seed": "HHS",
+   "agencyName": "Department of Health and Human Services",
+   "agencyCode": "HHS",
+   "topAgencyCode": "HHS"
+  },
+  "forecast": {
+   "opportunityId": 361239,
+   "version": 1,
+   "postingDate": "Feb 05, 2026 12:00:00 AM EST",
+   "forecastDesc": "<p style=\"margin-left:0in;\">The Office of Data Science Strategy (ODSS) along with other NIH Institutes and Centers NEI, NHLBI, NHGRI, NIA, NIAAA, NIAMS, NIBIB, NICHD, NIDCD, NIDCR, NIDDK, NIDA, NIEHS, NIMH, NINDS, NIMHD, NLM, NCCIH, and NCI intends to publish a Notice of Funding Opportunity (NOFO) to solicit applications for renewal of the funding opportunity for Building Sustainable Software Tools for Open Science (RFA-OD-24-010).</p><p style=\"margin-left:0in;\">This funding opportunity is intended to provide a flexible mechanism to support the use of best practices and design principles for scientific software development/engineering and to promote community engagement for open science. Successful grants will enable and/or enhance biomedical, clinical, behavioral, social, and health-related research endeavors by (1) developing robust, sustainable, scalable, and reproducible research software tools and workflows, (2) extending the impact of research software by broader dissemination to the scientific community, (3) supporting collaborations between scientists and software engineers to leverage modern, best practices in research software development, and (4) enhancing software skills of the research workforce. This initiative is aligned with the&nbsp;<a href=\"https://datascience.nih.gov/nih-strategic-plan-data-science\">NIH Strategic Plan for Data Science</a>, which describes actions aimed at building a better data infrastructure and a modernized data ecosystem.</p><p>No applications are being solicited at this time. Given the early expiration of RFA-OD-24-010, this notice will allow for potential applicants the opportunity to continue developing high-impact research software projects. Investigators with expertise and insights into this area of research software development are encouraged to consider applying for this new NOFO that will use the R03 activity code.</p>",
+   "costSharing": false,
+   "agencyContactName": "Office of Data Science Strategy (ODSS)",
+   "agencyContactPhone": "Please contact via email",
+   "agencyContactEmail": "sustainablesoftware@nih.gov",
+   "agencyContactEmailDesc": "sustainablesoftware@nih.gov",
+   "agencyCode": "HHS-NIH11",
+   "applicantEligibilityDesc": "Other Eligible ApplicantsIndian/Native American Tribal Governments (Other than Federally Recognized);Eligible Agencies of the Federal Government;U.S. Territory or Possession;Faith-based or Community-based Organizations;Regional Organizations;Non-domestic (non-U.S.) Entities (Foreign Institutions).",
+   "estSynopsisPostingDate": "Apr 15, 2026 12:00:00 AM EDT",
+   "estApplicationResponseDate": "Jun 16, 2026 12:00:00 AM EDT",
+   "estAwardDate": "Apr 13, 2027 12:00:00 AM EDT",
+   "estProjectStartDate": "Apr 13, 2027 12:00:00 AM EDT",
+   "fiscalYear": 2026,
+   "createTimeStamp": "Feb 05, 2026 06:53:06 AM EST",
+   "createdDate": "Feb 05, 2026 06:53:06 AM EST",
+   "lastUpdatedDate": "Feb 05, 2026 06:53:06 AM EST",
+   "agencyDetails": {
+    "code": "NIH",
+    "seed": "HHS-NIH11",
+    "agencyName": "National Institutes of Health",
+    "agencyCode": "HHS-NIH11",
+    "topAgencyCode": "HHS"
+   },
+   "applicantTypes": [
+    {
+     "id": "05",
+     "description": "Independent school districts"
+    },
+    {
+     "id": "08",
+     "description": "Public housing authorities/Indian housing authorities"
+    },
+    {
+     "id": "11",
+     "description": "Native American tribal organizations (other than Federally recognized tribal governments)"
+    },
+    {
+     "id": "06",
+     "description": "Public and State controlled institutions of higher education"
+    },
+    {
+     "id": "13",
+     "description": "Nonprofits that do not have a 501(c)(3) status with the IRS, other than institutions of higher education"
+    },
+    {
+     "id": "07",
+     "description": "Native American tribal governments (Federally recognized)"
+    },
+    {
+     "id": "22",
+     "description": "For profit organizations other than small businesses"
+    },
+    {
+     "id": "12",
+     "description": "Nonprofits having a 501(c)(3) status with the IRS, other than institutions of higher education"
+    },
+    {
+     "id": "04",
+     "description": "Special district governments"
+    },
+    {
+     "id": "02",
+     "description": "City or township governments"
+    },
+    {
+     "id": "00",
+     "description": "State governments"
+    },
+    {
+     "id": "01",
+     "description": "County governments"
+    },
+    {
+     "id": "25",
+     "description": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)"
+    },
+    {
+     "id": "23",
+     "description": "Small businesses"
+    },
+    {
+     "id": "20",
+     "description": "Private institutions of higher education"
+    }
+   ],
+   "fundingInstruments": [
+    {
+     "id": "G",
+     "description": "Grant"
+    }
+   ],
+   "fundingActivityCategories": [
+    {
+     "id": "HL",
+     "description": "Health"
+    }
+   ],
+   "postingDateStr": "2026-02-05-00-00-00",
+   "estSynopsisPostingDateStr": "2026-04-15-00-00-00",
+   "estApplicationResponseDateStr": "2026-06-16-00-00-00",
+   "estAwardDateStr": "2027-04-13-00-00-00",
+   "estProjectStartDateStr": "2027-04-13-00-00-00",
+   "createTimeStampStr": "2026-02-05-06-53-06"
+  },
+  "synopsisAttachmentFolders": [],
+  "synopsisDocumentURLs": [],
+  "synAttChangeComments": [],
+  "cfdas": [
+   {
+    "id": 431877,
+    "opportunityId": 361239,
+    "cfdaNumber": "93.310",
+    "programTitle": "Trans-NIH Research Support"
+   }
+  ],
+  "opportunityHistoryDetails": [],
+  "opportunityPkgs": [],
+  "closedOpportunityPkgs": [],
+  "synopsisModifiedFields": [],
+  "forecastModifiedFields": [],
+  "errorMessages": [],
+  "synPostDateInPast": true,
+  "docType": "forecast",
+  "forecastHistCount": 0,
+  "synopsisHistCount": 0,
+  "assistCompatible": false,
+  "assistURL": "",
+  "relatedOpps": [],
+  "draftMode": "N",
+  "ost": "FORECASTED"
+ }
+}

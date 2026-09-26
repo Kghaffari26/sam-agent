@@ -1,44 +1,43 @@
 """Published output schema (SPEC_GRANTS.md §6) -- the website's JSON contract.
 
-`Meta` here is a minimal stand-in for agents-core's shared run-meta block
-(SPEC_WEBSITE.md §3, not available to this repo yet -- see STATUS.md's
-"Needed from agents-core"). Swap it for `agents_core.schema`'s real model
-once that package is wired in; keep field names stable in the meantime,
-since agents-hub may start reading them before that happens.
+`GrantsLatest` is this agent's `agents_core` `output_model`: agents-core's
+runner adds the shared `meta` block (`agents_core.schema.RunMeta`), validates
+the whole document, publishes it as `public-data/latest.json` and exports its
+JSON Schema as `public-data/schema.json`. `GrantsAll` is published alongside it
+as `all.json`.
+
+§6.1 puts two SAM fields inside `meta` (`sam_budget_exhausted`,
+`sam_requests_used`). agents-core's runner builds `meta` itself and has no hook
+for agent-specific meta fields (see STATUS.md "Needed from agents-core"), so
+`GrantsMeta` extends `RunMeta` with them and `GrantsLatest` moves them from a
+`sam_meta` key in the analyze() body into `meta` before validation. The
+published shape is exactly §6.1's.
 """
 
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Literal
+from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, HttpUrl
+from agents_core.schema import AgentOutput, KeyStat, RunMeta, Timestamp
+from agents_core.schema import Model as CoreModel
+from pydantic import HttpUrl, model_validator
 
 from agents.grants.models import Confidence, Recommendation, SubScores
 
+__all__ = ["KeyStat"]
+
 ALL_JSON_ROW_CAP_DEFAULT = 2000
+SAM_META_KEY = "sam_meta"
 
 
-class Model(BaseModel):
+class Model(CoreModel):
     """Base for published models: no undocumented fields reach the site."""
 
-    model_config = ConfigDict(extra="forbid")
 
-
-class Meta(Model):
-    agent: Literal["grants"] = "grants"
-    generated_at: datetime
-    status: Literal["ok", "error"] = "ok"
-    data_changed: bool = True
+class GrantsMeta(RunMeta):
     sam_budget_exhausted: bool = False
     sam_requests_used: int = 0
-
-
-class KeyStat(Model):
-    label: str
-    value: float | int
-    format: Literal["count", "currency", "percent", "days"] = "count"
-    good_direction: Literal["up", "down", "neutral"] | None = None
 
 
 class ProfileSummary(Model):
@@ -103,7 +102,7 @@ class SummaryBlock(Model):
     next_steps: list[str]
     narrative_source: Literal["llm", "template"]
     model: str
-    generated_at: datetime
+    generated_at: Timestamp
 
 
 class TopMatch(Model):
@@ -149,8 +148,8 @@ class SourceLink(Model):
     url: HttpUrl
 
 
-class GrantsLatest(Model):
-    meta: Meta
+class GrantsLatest(AgentOutput):
+    meta: GrantsMeta
     headline: str
     key_stats: list[KeyStat]
     profile: ProfileSummary
@@ -160,6 +159,15 @@ class GrantsLatest(Model):
     deadlines_30d: list[DeadlineEntry]
     sources: list[SourceLink]
     disclaimer: str
+
+    @model_validator(mode="before")
+    @classmethod
+    def _merge_sam_meta(cls, data: Any) -> Any:
+        if isinstance(data, dict) and SAM_META_KEY in data:
+            data = dict(data)
+            extra = data.pop(SAM_META_KEY) or {}
+            data["meta"] = {**(data.get("meta") or {}), **extra}
+        return data
 
 
 class AllRow(Model):
@@ -184,7 +192,7 @@ class AllRow(Model):
 
 
 class GrantsAll(Model):
-    generated_at: datetime
+    generated_at: Timestamp
     rows: list[AllRow]
 
 

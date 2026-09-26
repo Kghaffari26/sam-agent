@@ -80,6 +80,30 @@ def parse_mdy_date(raw: str | None) -> date | None:
     return datetime.strptime(raw, "%m/%d/%Y").date()
 
 
+def parse_money(raw: Any) -> float | None:
+    """Grants.gov amounts arrive as numbers or strings ("305000", "$1,000,000",
+    "none", ""). Zero and unparseable values mean "unknown"."""
+    if raw is None or isinstance(raw, bool):
+        return None
+    if isinstance(raw, int | float):
+        return float(raw) or None
+    cleaned = str(raw).replace("$", "").replace(",", "").strip()
+    try:
+        value = float(cleaned)
+    except ValueError:
+        return None
+    return value or None
+
+
+def _detail_section(detail: dict[str, Any]) -> dict[str, Any]:
+    return detail.get("synopsis") or detail.get("forecast") or {}
+
+
+def _first_present(section: dict[str, Any], detail: dict[str, Any], key: str) -> Any:
+    value = section.get(key)
+    return value if value not in (None, "") else detail.get(key)
+
+
 def compute_content_hash(fields: dict[str, Any]) -> str:
     """sha256 of the fields that matter for scoring (SPEC_GRANTS.md §4).
 
@@ -114,6 +138,59 @@ def _place_city(place: dict | None) -> str | None:
     return city
 
 
+def sam_hash_fields(
+    *,
+    title: str,
+    description: str | None,
+    deadline: datetime | None,
+    set_aside_code: str | None,
+    naics: list[str],
+    psc: str | None,
+    agency_path: list[str | None],
+    notice_type: str,
+) -> dict[str, Any]:
+    """The SAM fields whose change should trigger a rescore. Built only from
+    normalized fields, so `with_sam_description` can recompute it exactly."""
+    return {
+        "title": title,
+        "description": description,
+        "deadline": deadline.isoformat() if deadline else None,
+        "set_aside_code": set_aside_code,
+        "naics": naics,
+        "psc": psc,
+        "agency": agency_path,
+        "notice_type": notice_type,
+    }
+
+
+def with_sam_description(opp: Opportunity, description_text: str) -> Opportunity:
+    """A SAM opportunity with its fetched description (§5.5 #2): same record,
+    new `description_text`/`description_fetched`, recomputed `content_hash`.
+    `description_text` "" means "fetched, SAM has none"."""
+    description = truncate_description(strip_html(description_text))
+    fields = sam_hash_fields(
+        title=opp.title,
+        description=description,
+        deadline=opp.deadline,
+        set_aside_code=opp.set_aside_code,
+        naics=opp.naics,
+        psc=opp.psc,
+        agency_path=[opp.agency, opp.sub_agency, opp.office],
+        notice_type=opp.notice_type,
+    )
+    return opp.model_copy(
+        update={
+            "description_text": description,
+            "description_fetched": True,
+            "content_hash": compute_content_hash(fields),
+        }
+    )
+
+
+def sam_description_url(notice_id: str) -> str:
+    return f"https://api.sam.gov/prod/opportunities/v1/noticedesc?noticeid={notice_id}"
+
+
 def normalize_sam(
     raw: dict[str, Any],
     *,
@@ -123,8 +200,9 @@ def normalize_sam(
     """Normalize one entry of `opportunitiesData` from the SAM v2 search response.
 
     `description_text` is the already-fetched, HTML body of the notice's
-    `description` URL, if any was fetched this run (SPEC_GRANTS.md §3.1); the
-    raw `description` field itself is only a URL and is not used directly.
+    `description` URL (SPEC_GRANTS.md §3.1), or "" when it was fetched and
+    came back empty (404), or None when it hasn't been fetched. The raw
+    `description` field itself is only a URL and is not used directly.
     """
     notice_id = raw["noticeId"]
     sam_type = raw.get("type") or raw.get("baseType") or ""
@@ -132,7 +210,10 @@ def normalize_sam(
     if notice_type is None:
         raise ValueError(f"Unsupported SAM notice type: {sam_type!r} (notice {notice_id})")
 
-    deadline, tz_assumed = parse_deadline(raw.get("responseDeadLine"))
+    try:
+        deadline, tz_assumed = parse_deadline(raw.get("responseDeadLine"))
+    except ValueError:
+        deadline, tz_assumed = None, False
 
     set_aside_code = raw.get("typeOfSetAside") or None
     set_aside_label = raw.get("typeOfSetAsideDescription") or set_aside_label_for(set_aside_code)
@@ -149,16 +230,16 @@ def normalize_sam(
 
     description = truncate_description(strip_html(description_text))
 
-    fields_for_hash = {
-        "title": raw.get("title"),
-        "description": description,
-        "deadline": deadline.isoformat() if deadline else None,
-        "set_aside_code": set_aside_code,
-        "naics": naics,
-        "psc": raw.get("classificationCode"),
-        "agency": raw.get("fullParentPathName"),
-        "notice_type": notice_type,
-    }
+    fields_for_hash = sam_hash_fields(
+        title=raw["title"],
+        description=description,
+        deadline=deadline,
+        set_aside_code=set_aside_code,
+        naics=naics,
+        psc=raw.get("classificationCode"),
+        agency_path=[agency, sub_agency, office],
+        notice_type=notice_type,
+    )
 
     return Opportunity(
         id=f"sam:{notice_id}",
@@ -175,7 +256,7 @@ def normalize_sam(
         psc=raw.get("classificationCode"),
         set_aside_code=set_aside_code,
         set_aside_label=set_aside_label,
-        posted_date=date.fromisoformat(raw["postedDate"]),
+        posted_date=date.fromisoformat(str(raw["postedDate"])[:10]),
         deadline=deadline,
         deadline_tz_assumed=tz_assumed,
         place_state=place_state,
@@ -183,7 +264,7 @@ def normalize_sam(
         value_kind="none",
         value_amount=None,
         value_floor=None,
-        url=raw.get("uiLink") or f"https://sam.gov/opp/{notice_id}/view",
+        url=f"https://sam.gov/opp/{notice_id}/view",
         description_text=description,
         description_fetched=description_text is not None,
         content_hash=compute_content_hash(fields_for_hash),
@@ -216,34 +297,38 @@ def normalize_grants_gov(
 
     posted_date = parse_mdy_date(hit.get("openDate")) or now.date()
 
-    aln = [str(a) for a in (hit.get("alnist") or [])]
+    aln = [str(a) for a in (hit.get("alnist") or hit.get("cfdaList") or [])]
     eligibility_codes: list[str] = []
     description_text: str | None = None
     value_amount: float | None = None
     value_floor: float | None = None
     value_kind: Literal["award_ceiling", "estimated_total", "award_amount", "none"] = "none"
-    title = hit.get("title") or ""
+    title = html.unescape(hit.get("title") or "")
 
     if detail:
-        title = detail.get("opportunityTitle") or title
-        applicant_types = detail.get("applicantTypes") or []
+        title = html.unescape(detail.get("opportunityTitle") or "") or title
+        # The live API nests these under `synopsis` (posted) or `forecast`
+        # (forecasted); older/hand-built shapes had them at the top level.
+        section = _detail_section(detail)
+        applicant_types = section.get("applicantTypes") or detail.get("applicantTypes") or []
         eligibility_codes = [str(a["id"]) for a in applicant_types if a.get("id")]
 
-        synopsis = detail.get("synopsis") or {}
-        raw_description = synopsis.get("synopsisDesc") or detail.get("description")
+        raw_description = (
+            section.get("synopsisDesc") or section.get("forecastDesc") or detail.get("description")
+        )
         description_text = truncate_description(strip_html(raw_description))
 
-        ceiling = detail.get("awardCeiling")
-        floor = detail.get("awardFloor")
-        estimated = detail.get("estimatedFunding")
+        ceiling = parse_money(_first_present(section, detail, "awardCeiling"))
+        floor = parse_money(_first_present(section, detail, "awardFloor"))
+        estimated = parse_money(_first_present(section, detail, "estimatedFunding"))
         if ceiling:
-            value_amount = float(ceiling)
+            value_amount = ceiling
             value_kind = "award_ceiling"
         elif estimated:
-            value_amount = float(estimated)
+            value_amount = estimated
             value_kind = "estimated_total"
         if floor:
-            value_floor = float(floor)
+            value_floor = floor
 
         detail_aln = [c["cfdaNumber"] for c in (detail.get("cfdas") or []) if c.get("cfdaNumber")]
         if detail_aln:

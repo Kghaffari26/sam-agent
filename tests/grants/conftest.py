@@ -74,3 +74,11 @@ def profile_factory():
 @pytest.fixture
 def default_profile() -> BusinessProfile:
     return make_profile()
+
+
+@pytest.fixture(autouse=True)
+def _isolated_agents_core_dirs(tmp_path, monkeypatch):
+    """Keep agents-core's cost/guard-failure logs and caches out of the repo's data/."""
+    monkeypatch.setenv("AGENTS_CORE_DATA_DIR", str(tmp_path / "data"))
+    monkeypatch.setenv("AGENTS_CORE_PUBLISH_DIR", str(tmp_path / "public-data"))
+    monkeypatch.setenv("AGENTS_CORE_HTTP_CACHE_DIR", str(tmp_path / "http-cache"))

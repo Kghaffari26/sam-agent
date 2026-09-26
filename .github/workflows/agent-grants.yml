@@ -1,16 +1,8 @@
-# Daily run of the grants/contracts finder agent.
-#
-# NOTE (see STATUS.md "Needed from agents-core"): as of Kghaffari26/agents-core
-# @ f79b6aa, its reusable `.github/workflows/run-agent.yml` only declares
-# `agent` and `args` workflow_call inputs, checks out the CALLING repo and
-# runs `python -m core.runner <agent>` (the old monorepo layout), and commits
-# straight to that repo's own `main` -- it does not yet accept `max_run_usd`
-# or `site_repo`, and there is no documented "public-data data-branch
-# contract" to follow. This file is written to the target contract anyway,
-# per instructions; it will not validate until agents-core's run-agent.yml is
-# extended to declare these inputs and to run this repo's `agents-run` entry
-# point (see agents-core CLAUDE.md's "Building an agent on core" section once
-# it covers multi-repo installs) instead of `core.runner`.
+# Daily run of the grants/contracts finder agent (SPEC_GRANTS.md §9), via
+# agents-core's reusable workflow: it runs `uv run agents-run grants`, commits
+# data/ (cost log, data/grants/ state + store) back to this branch, and
+# force-pushes public-data/ to this repo's `data` branch (the data-branch
+# contract), then notifies agents-hub if SITE_DISPATCH_TOKEN is set.
 name: Agent - Grants
 
 on:
@@ -24,20 +16,29 @@ on:
         type: boolean
         default: false
       lookback_days:
-        description: "Override the fetch window's lookback (days), for backfills"
+        description: "Override the SAM fetch window's lookback in days (backfills; watch the SAM budget)"
         required: false
-        type: number
+        type: string
+        default: ""
+
+permissions:
+  contents: write
 
 jobs:
   run:
-    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@main
+    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@v0.1.0
     with:
       agent: grants
-      max_run_usd: 0.50
+      max_run_usd: "0.50"
       site_repo: Kghaffari26/agents-hub
-      args: >-
-        ${{ github.event.inputs.rescore_all == 'true' && '--rescore-all' || '' }}
-        ${{ github.event.inputs.lookback_days && format('--lookback-days={0}', github.event.inputs.lookback_days) || '' }}
-    secrets:
-      SAM_API_KEY: ${{ secrets.SAM_API_KEY }}
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      extra_args: >-
+        ${{ inputs.rescore_all && '--rescore-all' || '' }}
+        ${{ inputs.lookback_days != '' && format('--lookback-days={0}', inputs.lookback_days) || '' }}
+      # Restored between runs with actions/cache: agents-core's HTTP cache and its
+      # SAM daily request-budget file (.cache/http; data/grants/state.json keeps the
+      # committed ledger too), and public-data/ so history/ accumulates up to 90
+      # snapshots and manifest-entry.json keeps last_data_change_at across runs.
+      cache_path: |
+        .cache/http
+        public-data
+    secrets: inherit

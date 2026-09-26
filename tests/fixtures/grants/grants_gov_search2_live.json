@@ -1,0 +1,1137 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "searchParams": {
+   "resultType": "json",
+   "searchOnly": false,
+   "oppNum": "",
+   "cfda": "",
+   "sortBy": "",
+   "oppStatuses": "forecasted|posted",
+   "startRecordNum": 0,
+   "eligibilities": "",
+   "fundingInstruments": "",
+   "fundingCategories": "",
+   "agencies": "",
+   "rows": 25,
+   "keyword": "software",
+   "keywordEncoded": true
+  },
+  "hitCount": 288,
+  "startRecord": 0,
+  "oppHits": [
+   {
+    "id": "361239",
+    "number": "RFA-OD-26-034",
+    "title": "Building Sustainable Software Tools for Open Science (R03 Clinical Trial Not Allowed)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "02/05/2026",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "93.310"
+    ]
+   },
+   {
+    "id": "355439",
+    "number": "RFA-OD-24-011",
+    "title": "NIH Research Software Engineer (RSE) Award (R50 Clinical Trials Not Allowed)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "07/17/2024",
+    "closeDate": "12/04/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.113",
+     "93.837",
+     "93.310",
+     "93.879",
+     "93.172",
+     "93.233",
+     "93.840",
+     "93.865",
+     "93.286",
+     "93.847",
+     "93.838",
+     "93.307",
+     "93.398",
+     "93.867",
+     "93.273",
+     "93.396",
+     "93.839",
+     "93.213",
+     "93.242",
+     "93.866",
+     "93.279",
+     "93.853",
+     "93.121",
+     "93.846"
+    ]
+   },
+   {
+    "id": "363907",
+    "number": "O-BJA-2026-172761",
+    "title": "BJA FY 2026 Rural Violent Crime Reduction Initiative",
+    "agencyCode": "USDOJ-OJP-BJA",
+    "agency": "Bureau of Justice Assistance",
+    "openDate": "09/21/2026",
+    "closeDate": "10/30/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "16.039"
+    ]
+   },
+   {
+    "id": "363869",
+    "number": "DE-FOA-0003657",
+    "title": "The DOE Quantum Genesis Q Competition",
+    "agencyCode": "PAMS-SC",
+    "agency": "Office of Science",
+    "openDate": "09/17/2026",
+    "closeDate": "10/19/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "81.049"
+    ]
+   },
+   {
+    "id": "363468",
+    "number": "ED-GRANTS-080626-003",
+    "title": "Institute of Education Sciences (IES): National Center for Education Research (NCER): Statistical and Research Methodology in Education, Assistance Listing Number (ALN) 84.305D",
+    "agencyCode": "ED",
+    "agency": "Department of Education",
+    "openDate": "08/06/2026",
+    "closeDate": "10/01/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "84.305"
+    ]
+   },
+   {
+    "id": "339728",
+    "number": "W911NF-22-S-0011",
+    "title": "Tactical Behaviors for Autonomous Maneuver",
+    "agencyCode": "DOD-AMC",
+    "agency": "Dept of the Army -- Materiel Command",
+    "openDate": "04/22/2022",
+    "closeDate": "",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "12.630"
+    ]
+   },
+   {
+    "id": "359270",
+    "number": "RFA-RM-27-012",
+    "title": "PRIMED-AI: Data-to-Model Academic-Industrial Partnerships (D2M-AIP) for Precision Medicine with AI: Integrating Imaging with Multimodal Data (UG3/UH3 Clinical Trial Optional)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "06/30/2026",
+    "closeDate": "10/19/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.310"
+    ]
+   },
+   {
+    "id": "359666",
+    "number": "RFA-RM-27-013",
+    "title": "Model-to-Clinic (M2C) for Precision Medicine with AI: Integrating Imaging with Multimodal Data (PRIMED-AI) (UG3/UH3, Clinical Trial Optional)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "06/30/2026",
+    "closeDate": "10/19/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.310"
+    ]
+   },
+   {
+    "id": "357308",
+    "number": "PAR-25-286",
+    "title": "Neuromodulation/Neurostimulation Device Development for Mental Health Applications (R21 Clinical Trial Not Allowed)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "11/21/2024",
+    "closeDate": "01/07/2028",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.242"
+    ]
+   },
+   {
+    "id": "358934",
+    "number": "PAR-25-416",
+    "title": "NIGMS National and Regional Resources (R24 - Clinical Trial Not Allowed)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "06/11/2025",
+    "closeDate": "06/14/2027",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.859"
+    ]
+   },
+   {
+    "id": "359208",
+    "number": "FOR-HG-26-005",
+    "title": "Clinical Data Ecosystem for Genomics (CDEG)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "07/17/2025",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "93.172"
+    ]
+   },
+   {
+    "id": "352290",
+    "number": "PDS-24-01",
+    "title": "U.S. Embassy Djibouti PDS Annual Program Statement",
+    "agencyCode": "DOS-DJI",
+    "agency": "U.S. Mission to Djibouti",
+    "openDate": "02/11/2024",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "19.022",
+     "19.040"
+    ]
+   },
+   {
+    "id": "356055",
+    "number": "PD-24-8084",
+    "title": "Computational and Data-Enabled Science and Engineering",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "08/15/2024",
+    "closeDate": "",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.041",
+     "47.049"
+    ]
+   },
+   {
+    "id": "357309",
+    "number": "PAR-25-287",
+    "title": "Neuromodulation/Neurostimulation Device Development for Mental Health Applications (R01 Clinical Trial Not Allowed)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "11/21/2024",
+    "closeDate": "01/07/2028",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.242"
+    ]
+   },
+   {
+    "id": "357554",
+    "number": "25-515",
+    "title": "Security, Privacy, and Trust in Cyberspace",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "12/06/2024",
+    "closeDate": "09/28/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.075",
+     "47.076",
+     "47.049",
+     "47.070"
+    ]
+   },
+   {
+    "id": "361520",
+    "number": "RFA-NS-26-028",
+    "title": "HEAL Initiative: Optimization of Therapeutic Medical Devices through Team Science Mechanistic Research (RM1)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "03/16/2026",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "93.853"
+    ]
+   },
+   {
+    "id": "361448",
+    "number": "RFA-MH-28-100",
+    "title": "BRAIN Initiative: Data Archives for the BRAIN Initiative",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "03/11/2026",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "93.242"
+    ]
+   },
+   {
+    "id": "350469",
+    "number": "PD-23-277Y",
+    "title": "Research Infrastructure in the Social and Behavioral Sciences",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "10/05/2023",
+    "closeDate": "",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.075"
+    ]
+   },
+   {
+    "id": "356129",
+    "number": "24-598",
+    "title": "Mid-scale Research Infrastructure-1",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "08/20/2024",
+    "closeDate": "02/08/2027",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.079",
+     "47.083",
+     "47.041",
+     "47.074",
+     "47.084",
+     "47.049",
+     "47.050",
+     "47.070",
+     "47.075",
+     "47.076"
+    ]
+   },
+   {
+    "id": "358036",
+    "number": "25-533",
+    "title": "Findable Accessible Interoperable Reusable Open Science",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "01/07/2025",
+    "closeDate": "04/14/2027",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.079",
+     "47.075",
+     "47.049",
+     "47.074",
+     "47.076",
+     "47.050",
+     "47.083",
+     "47.084",
+     "47.041",
+     "47.070"
+    ]
+   },
+   {
+    "id": "363350",
+    "number": "RFA-CA-28-003",
+    "title": "Advanced Development and Sustainment of Informatics Technologies for Cancer Research and Management (U24 Clinical Trial Optional)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "07/28/2026",
+    "closeDate": "",
+    "oppStatus": "forecasted",
+    "docType": "forecast",
+    "cfdaList": [
+     "93.399",
+     "93.394",
+     "93.393",
+     "93.395",
+     "93.396"
+    ]
+   },
+   {
+    "id": "361333",
+    "number": "26-506",
+    "title": "Pathways to Enable Secure Open-Source Ecosystems (PESOSE)",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "02/19/2026",
+    "closeDate": "03/02/2027",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.084",
+     "47.075",
+     "47.049",
+     "47.074",
+     "47.076",
+     "47.050",
+     "47.041",
+     "47.070"
+    ]
+   },
+   {
+    "id": "360149",
+    "number": "25-543",
+    "title": "Computer and Information Science and Engineering (CISE): Future Computing Research (Future CoRe)",
+    "agencyCode": "NSF",
+    "agency": "U.S. National Science Foundation",
+    "openDate": "07/25/2025",
+    "closeDate": "02/04/2027",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "47.070"
+    ]
+   },
+   {
+    "id": "363931",
+    "number": "O-OJJDP-2026-172765",
+    "title": "OJJDP FY 2026 Invited to Apply - Internet Crimes Against Children Data System Enhancements",
+    "agencyCode": "USDOJ-OJP-OJJDP",
+    "agency": "Office of Juvenile Justice Delinquency Prevention ",
+    "openDate": "09/23/2026",
+    "closeDate": "10/01/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "16.543"
+    ]
+   },
+   {
+    "id": "359853",
+    "number": "RFA-CA-27-021",
+    "title": "Sustained Support for Informatics Technologies for Cancer Research and Management (U24 Clinical Trial Optional)",
+    "agencyCode": "HHS-NIH11",
+    "agency": "National Institutes of Health",
+    "openDate": "05/21/2026",
+    "closeDate": "10/19/2026",
+    "oppStatus": "posted",
+    "docType": "synopsis",
+    "cfdaList": [
+     "93.399",
+     "93.395",
+     "93.393",
+     "93.394",
+     "93.396"
+    ]
+   }
+  ],
+  "oppStatusOptions": [
+   {
+    "label": "posted",
+    "value": "posted",
+    "count": 275
+   },
+   {
+    "label": "closed",
+    "value": "closed",
+    "count": 2476
+   },
+   {
+    "label": "archived",
+    "value": "archived",
+    "count": 14571
+   },
+   {
+    "label": "forecasted",
+    "value": "forecasted",
+    "count": 13
+   }
+  ],
+  "dateRangeOptions": [
+   {
+    "label": "Posted Date - Last 3 Days",
+    "value": "3",
+    "count": 6
+   },
+   {
+    "label": "Posted Date - Last 1 Week",
+    "value": "7",
+    "count": 13
+   },
+   {
+    "label": "Posted Date - Last 2 Weeks",
+    "value": "14",
+    "count": 16
+   },
+   {
+    "label": "Posted Date - Last 3 Weeks",
+    "value": "21",
+    "count": 23
+   },
+   {
+    "label": "Posted Date - Last 4 Weeks",
+    "value": "28",
+    "count": 64
+   },
+   {
+    "label": "Posted Date - Last 5 Weeks",
+    "value": "35",
+    "count": 70
+   },
+   {
+    "label": "Posted Date - Last 6 Weeks",
+    "value": "42",
+    "count": 75
+   },
+   {
+    "label": "Posted Date - Last 7 Weeks",
+    "value": "49",
+    "count": 80
+   },
+   {
+    "label": "Posted Date - Last 8 Weeks",
+    "value": "56",
+    "count": 98
+   }
+  ],
+  "suggestion": "",
+  "eligibilities": [
+   {
+    "label": "City or township governments",
+    "value": "02",
+    "count": 138
+   },
+   {
+    "label": "County governments",
+    "value": "01",
+    "count": 139
+   },
+   {
+    "label": "For profit organizations other than small businesses",
+    "value": "22",
+    "count": 136
+   },
+   {
+    "label": "Independent school districts",
+    "value": "05",
+    "count": 132
+   },
+   {
+    "label": "Individuals",
+    "value": "21",
+    "count": 4
+   },
+   {
+    "label": "Native American tribal governments (Federally recognized)",
+    "value": "07",
+    "count": 146
+   },
+   {
+    "label": "Native American tribal organizations (other than Federally recognized tribal governments)",
+    "value": "11",
+    "count": 138
+   },
+   {
+    "label": "Nonprofits having a 501(c)(3) status with the IRS, other than institutions of higher education",
+    "value": "12",
+    "count": 152
+   },
+   {
+    "label": "Nonprofits that do not have a 501(c)(3) status with the IRS, other than institutions of higher education",
+    "value": "13",
+    "count": 142
+   },
+   {
+    "label": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)",
+    "value": "25",
+    "count": 215
+   },
+   {
+    "label": "Private institutions of higher education",
+    "value": "20",
+    "count": 151
+   },
+   {
+    "label": "Public and State controlled institutions of higher education",
+    "value": "06",
+    "count": 153
+   },
+   {
+    "label": "Public housing authorities/Indian housing authorities",
+    "value": "08",
+    "count": 128
+   },
+   {
+    "label": "Small businesses",
+    "value": "23",
+    "count": 135
+   },
+   {
+    "label": "Special district governments",
+    "value": "04",
+    "count": 134
+   },
+   {
+    "label": "State governments",
+    "value": "00",
+    "count": 141
+   },
+   {
+    "label": "Unrestricted (i.e., open to any type of entity above), subject to any clarification in text field entitled \"Additional Information on Eligibility\"",
+    "value": "99",
+    "count": 38
+   }
+  ],
+  "fundingCategories": [
+   {
+    "label": "Agriculture",
+    "value": "AG",
+    "count": 17
+   },
+   {
+    "label": "Arts",
+    "value": "AR",
+    "count": 15
+   },
+   {
+    "label": "Community Development",
+    "value": "CD",
+    "count": 1
+   },
+   {
+    "label": "Disaster Prevention and Relief",
+    "value": "DPR",
+    "count": 1
+   },
+   {
+    "label": "Education",
+    "value": "ED",
+    "count": 9
+   },
+   {
+    "label": "Employment, Labor and Training",
+    "value": "ELT",
+    "count": 1
+   },
+   {
+    "label": "Energy",
+    "value": "EN",
+    "count": 8
+   },
+   {
+    "label": "Environment",
+    "value": "ENV",
+    "count": 2
+   },
+   {
+    "label": "Food and Nutrition",
+    "value": "FN",
+    "count": 1
+   },
+   {
+    "label": "Health",
+    "value": "HL",
+    "count": 144
+   },
+   {
+    "label": "Housing",
+    "value": "HO",
+    "count": 1
+   },
+   {
+    "label": "Humanities",
+    "value": "HU",
+    "count": 15
+   },
+   {
+    "label": "Income Security and Social Services",
+    "value": "ISS",
+    "count": 3
+   },
+   {
+    "label": "Infrastructure Investment and Jobs Act (IIJA)",
+    "value": "IIJ",
+    "count": 1
+   },
+   {
+    "label": "Law, Justice and Legal Services",
+    "value": "LJL",
+    "count": 5
+   },
+   {
+    "label": "Natural Resources",
+    "value": "NR",
+    "count": 8
+   },
+   {
+    "label": "Opportunity Zone Benefits",
+    "value": "OZ",
+    "count": 1
+   },
+   {
+    "label": "Other (see text field entitled \"Explanation of Other Category of Funding Activity\" for clarification)",
+    "value": "O",
+    "count": 9
+   },
+   {
+    "label": "Science and Technology and other Research and Development",
+    "value": "ST",
+    "count": 67
+   },
+   {
+    "label": "Transportation",
+    "value": "T",
+    "count": 1
+   }
+  ],
+  "fundingInstruments": [
+   {
+    "label": "Cooperative Agreement",
+    "value": "CA",
+    "count": 123
+   },
+   {
+    "label": "Grant",
+    "value": "G",
+    "count": 193
+   },
+   {
+    "label": "Other",
+    "value": "O",
+    "count": 28
+   },
+   {
+    "label": "Procurement Contract",
+    "value": "PC",
+    "count": 22
+   }
+  ],
+  "agencies": [
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Agricultural Marketing Service",
+      "value": "USDA-AMS",
+      "count": 3
+     },
+     {
+      "label": "Foreign Agricultural Service",
+      "value": "USDA-FAS",
+      "count": 1
+     },
+     {
+      "label": "National Institute of Food and Agriculture",
+      "value": "USDA-NIFA",
+      "count": 11
+     },
+     {
+      "label": "Natural Resources Conservation Service",
+      "value": "USDA-NRCS",
+      "count": 1
+     },
+     {
+      "label": "Rural Business-Cooperative Service ",
+      "value": "USDA-RBCS",
+      "count": 1
+     },
+     {
+      "label": "Rural Utilities Service",
+      "value": "USDA-RUS",
+      "count": 2
+     }
+    ],
+    "label": "Department of Agriculture",
+    "value": "USDA",
+    "count": 19
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "DOC NIST ERA",
+      "value": "DOC-DOCNISTERA",
+      "count": 2
+     },
+     {
+      "label": "Economic Development Administration",
+      "value": "DOC-EDA",
+      "count": 1
+     }
+    ],
+    "label": "Department of Commerce",
+    "value": "DOC",
+    "count": 3
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "ACC-APG-Detrick",
+      "value": "DOD-AMC-ACCAPGD",
+      "count": 1
+     },
+     {
+      "label": "Air Force -- Research Lab",
+      "value": "DOD-AFRL",
+      "count": 5
+     },
+     {
+      "label": "Air Force Academy",
+      "value": "DOD-USAFA",
+      "count": 1
+     },
+     {
+      "label": "Air Force Office of Scientific Research",
+      "value": "DOD-AFOSR",
+      "count": 7
+     },
+     {
+      "label": "Army Contracting Command Rock Island",
+      "value": "DOD-AMC-ACCRI",
+      "count": 1
+     },
+     {
+      "label": "DARPA - Biological Technologies Office",
+      "value": "DOD-DARPA-BTO",
+      "count": 1
+     },
+     {
+      "label": "DARPA - Defense Sciences Office",
+      "value": "DOD-DARPA-DSO",
+      "count": 2
+     },
+     {
+      "label": "DARPA - Information Processing Technologies Office",
+      "value": "DOD-DARPA-IPTO",
+      "count": 1
+     },
+     {
+      "label": "DARPA - Tactical Technology Office",
+      "value": "DOD-DARPA-TTO",
+      "count": 1
+     },
+     {
+      "label": "Defense Health Agency Contracting Activity - DHACA",
+      "value": "DOD-AMRAA",
+      "count": 11
+     },
+     {
+      "label": "Defense Threat Reduction Agency",
+      "value": "DOD-DTRA",
+      "count": 1
+     },
+     {
+      "label": "Dept of the Army -- Materiel Command",
+      "value": "DOD-AMC",
+      "count": 11
+     },
+     {
+      "label": "National Geospatial-Intelligence Agency ",
+      "value": "DOD-NGIA",
+      "count": 1
+     },
+     {
+      "label": "Naval Research Laboratory",
+      "value": "DOD-ONR-NRL",
+      "count": 1
+     },
+     {
+      "label": "Naval Supply Systems Command",
+      "value": "DOD-ONR-SUP",
+      "count": 1
+     },
+     {
+      "label": "NSWC CRANE - N00164",
+      "value": "DOD-ONR-SEA-CRANE",
+      "count": 1
+     },
+     {
+      "label": "NSWC Dahlgren",
+      "value": "DOD-ONR-SEA-N00178",
+      "count": 1
+     },
+     {
+      "label": "Office of Naval Research",
+      "value": "DOD-ONR",
+      "count": 5
+     },
+     {
+      "label": "Washington Headquarters Services",
+      "value": "DOD-WHS",
+      "count": 2
+     }
+    ],
+    "label": "Department of Defense",
+    "value": "DOD",
+    "count": 55
+   },
+   {
+    "subAgencyOptions": [],
+    "label": "Department of Education",
+    "value": "ED",
+    "count": 3
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Advanced Research Projects Agency Energy ",
+      "value": "DOE-ARPAE",
+      "count": 1
+     },
+     {
+      "label": "Golden Field Office",
+      "value": "DOE-GFO",
+      "count": 1
+     },
+     {
+      "label": "Idaho Field Office",
+      "value": "DOE-ID",
+      "count": 4
+     },
+     {
+      "label": "National Energy Technology Laboratory",
+      "value": "DOE-NETL",
+      "count": 2
+     }
+    ],
+    "label": "Department of Energy",
+    "value": "DOE",
+    "count": 8
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Office of Science",
+      "value": "PAMS-SC",
+      "count": 3
+     }
+    ],
+    "label": "Department of Energy - Office of Science",
+    "value": "PAMS",
+    "count": 3
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Administration for Children and Families",
+      "value": "HHS-ACF",
+      "count": 1
+     },
+     {
+      "label": "Administration for Children and Families - ORR",
+      "value": "HHS-ACF-ORR",
+      "count": 1
+     },
+     {
+      "label": "Centers for Disease Control and Prevention - ERA",
+      "value": "HHS-CDC-HHSCDCERA",
+      "count": 4
+     },
+     {
+      "label": "Centers for Disease Control-GHC",
+      "value": "HHS-CDC-GHC",
+      "count": 10
+     },
+     {
+      "label": "Indian Health Service",
+      "value": "HHS-IHS",
+      "count": 1
+     },
+     {
+      "label": "National Institutes of Health",
+      "value": "HHS-NIH11",
+      "count": 126
+     },
+     {
+      "label": "Office of the Assistant Secretary for Health",
+      "value": "HHS-OPHS",
+      "count": 1
+     }
+    ],
+    "label": "Department of Health and Human Services",
+    "value": "HHS",
+    "count": 144
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Department of Homeland Security - FEMA",
+      "value": "DHS-DHS",
+      "count": 2
+     }
+    ],
+    "label": "Department of Homeland Security",
+    "value": "DHS",
+    "count": 2
+   },
+   {
+    "subAgencyOptions": [],
+    "label": "Department of Housing and Urban Development",
+    "value": "HUD",
+    "count": 1
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Bureau of Justice Assistance",
+      "value": "USDOJ-OJP-BJA",
+      "count": 1
+     },
+     {
+      "label": "Office of Juvenile Justice Delinquency Prevention ",
+      "value": "USDOJ-OJP-OJJDP",
+      "count": 1
+     }
+    ],
+    "label": "Department of Justice",
+    "value": "USDOJ",
+    "count": 2
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Employment and Training Administration",
+      "value": "DOL-ETA",
+      "count": 1
+     },
+     {
+      "label": "Office of Elementary and Secondary Education",
+      "value": "DOL-OESE",
+      "count": 1
+     }
+    ],
+    "label": "Department of Labor",
+    "value": "DOL",
+    "count": 2
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Bureau Of Educational and Cultural Affairs",
+      "value": "DOS-ECA",
+      "count": 2
+     },
+     {
+      "label": "Bureau of Emerging Threats",
+      "value": "DOS-ET",
+      "count": 1
+     },
+     {
+      "label": "Bureau of Global Health Security and Diplomacy",
+      "value": "DOS-GHSD",
+      "count": 1
+     },
+     {
+      "label": "Bureau of International Narcotics-Law Enforcement",
+      "value": "DOS-INL",
+      "count": 2
+     },
+     {
+      "label": "Bureau of Near Eastern Affairs",
+      "value": "DOS-NEA",
+      "count": 1
+     },
+     {
+      "label": "U.S. Mission to Bosnia and Herzegovina",
+      "value": "DOS-BIH",
+      "count": 1
+     },
+     {
+      "label": "U.S. Mission to Djibouti",
+      "value": "DOS-DJI",
+      "count": 1
+     },
+     {
+      "label": "U.S. Mission to North Macedonia",
+      "value": "DOS-MKD",
+      "count": 1
+     },
+     {
+      "label": "U.S. Mission to Sierra Leone",
+      "value": "DOS-SLE",
+      "count": 2
+     },
+     {
+      "label": "U.S. Mission to the Dominican Republic",
+      "value": "DOS-DOM",
+      "count": 1
+     }
+    ],
+    "label": "Department of State",
+    "value": "DOS",
+    "count": 13
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "Bureau of Land Management",
+      "value": "DOI-BLM",
+      "count": 1
+     },
+     {
+      "label": "Bureau of Reclamation",
+      "value": "DOI-BOR",
+      "count": 6
+     }
+    ],
+    "label": "Department of the Interior",
+    "value": "DOI",
+    "count": 7
+   },
+   {
+    "subAgencyOptions": [
+     {
+      "label": "DOT - FAA Aviation Research Grants",
+      "value": "DOT-FAA-FAA ARG",
+      "count": 1
+     },
+     {
+      "label": "DOT Federal Highway Administration ",
+      "value": "DOT-FHWA",
+      "count": 1
+     },
+     {
+      "label": "National Highway Traffic Safety Administration",
+      "value": "DOT-NHTSA",
+      "count": 1
+     }
+    ],
+    "label": "Department of Transportation",
+    "value": "DOT",
+    "count": 3
+   },
+   {
+    "subAgencyOptions": [],
+    "label": "Institute of Museum and Library Services",
+    "value": "IMLS",
+    "count": 13
+   },
+   {
+    "subAgencyOptions": [],
+    "label": "Library of Congress",
+    "value": "LOC",
+    "count": 1
+   },
+   {
+    "subAgencyOptions": [],
+    "label": "National Endowment for the Humanities",
+    "value": "NEH",
+    "count": 2
+   },
+   {
+    "subAgencyOptions": [],
+    "label": "U.S. National Science Foundation",
+    "value": "NSF",
+    "count": 7
+   }
+  ],
+  "accessKey": "",
+  "errorMsgs": []
+ }
+}

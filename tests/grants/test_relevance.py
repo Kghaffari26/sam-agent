@@ -94,7 +94,19 @@ def test_grant_without_naics_relies_on_keywords(default_profile):
         title="Cloud software development grant",
         url="https://www.grants.gov/search-results-detail/1",
     )
-    assert compute_relevance(opp, default_profile) == 20  # "cloud" + "software development"
+    # "cloud" + "software development" from keywords, "software" from grant_keywords
+    assert compute_relevance(opp, default_profile) == 30
+
+
+def test_grant_keywords_only_count_for_grants(default_profile):
+    contract = make_opportunity(naics=[], psc=None, title="Software for the fleet")
+    grant = make_opportunity(
+        source="grants_gov", kind="grant", notice_type="grant_posted", id="gg:2",
+        source_id="2", naics=[], psc=None, title="Software for the fleet",
+        url="https://www.grants.gov/search-results-detail/2",
+    )
+    assert compute_relevance(contract, default_profile) == 0
+    assert compute_relevance(grant, default_profile) == 10
 
 
 def test_select_candidates_sorts_and_caps(default_profile):

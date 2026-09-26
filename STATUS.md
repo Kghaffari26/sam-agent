@@ -1,174 +1,169 @@
 # Status
 
-_Final report for the 2026-09-24 overnight autonomous session (~05:47-09:48 UTC)._
+_Updated 2026-09-26 (session wiring in agents-core v0.1.0)._
 
 ## Summary
 
-Worked through every core-independent task from the overnight instructions
-(build steps 1-2, 5-8) to completion. Tasks 3 and 4 (the fetchers and LLM
-scoring) never started: they depend on `agents-core` exposing an installable
-`agents_core` package, which never appeared in the 4-hour window this session
-watched for it. **No live Anthropic or SAM spend happened — $0 spent.**
+Every task that was blocked on agents-core is built and has run live:
+`uv run agents-run grants [--dry-run]` works through agents-core's entry-point
+registry. It fetches SAM.gov (budgeted) and Grants.gov, scores with the LLM
+rubric via the Batch API, writes guarded top-20 summaries, and publishes the
+full data-branch contract to `public-data/`.
 
-**128 tests passing, `ruff check .` clean**, on `claude/tender-knuth-y8srha`
-(all work committed and pushed incrementally; see `git log` for the full
-history and `DECISIONS.md` for the reasoning behind each judgment call).
+- **Tests: 203 passing, `ruff check .` clean** (all HTTP mocked; no network in tests).
+- **agents-core:** tag `v0.1.0` → commit `b0a292daa0d669bcecc7f28e2cf9aa50f49843e3` (locked in `uv.lock`).
+- **SAM.gov requests used this session: 3 of the 3 allowed** (ledger:
+  `data/grants/state.json` → `sam.requests["2026-09-26"] = 3`): 1 window
+  search (the dry run; later runs reused it from agents-core's HTTP cache) + 2
+  description fetches (first real run).
+- **Anthropic spend this session: $0.2321** = agent runs $0.0719
+  (`data/costs.jsonl`) + evals $0.1602 (`data/evals_costs.jsonl`, agent
+  `grants-evals`, kept out of the published costs summary).
 
-## Done
+## Live runs (2026-09-26, `--lookback-days=1 --sam-request-budget=3`)
 
-1. **normalize.py** (§4): SAM + Grants.gov raw JSON → `Opportunity`. SAM
-   notice-type mapping, agency/sub_agency/office path splitting, set-aside
-   label lookup; Grants.gov applicant-type/value/ALN extraction from
-   `search2` + optional `fetchOpportunity` detail. Deadlines with no UTC
-   offset are assumed US/Eastern and flagged via `Opportunity.deadline_tz_assumed`
-   (§10). `content_hash` covers only the fields that should invalidate a
-   cached score/summary. Fixtures in `tests/fixtures/grants/` are hand-built
-   to match the documented API shapes (see "Blockers" — live recording
-   wasn't possible here).
-2. **Dedupe, hard filters, relevance, store** (§5.1-§5.3): `store.py`
-   (within-source dedupe by latest `postedDate` + SAM amendment collapsing
-   by `solicitation_number`; cross-source dedupe via rapidfuzz
-   `token_set_ratio >= 0.9` on normalized title + matching agency;
-   `merge_into_store` tracking new/changed ids; `prune_store` dropping
-   expired then lowest-relevance overflow). `filters.py` (the 8 ordered hard
-   filters with reject-reason codes + a `partition()` helper for the reject
-   table). `relevance.py` (the 0-100 deterministic pre-score + candidate
-   selection, thresholded and capped).
-5. **Output schema (§6) + `--dry-run` (§13)**: `schema.py` (`GrantsLatest`/
-   `GrantsAll` pydantic models matching the `latest.json`/`all.json` JSON
-   contract field-for-field, `cap_all_rows()` for the row cap and sort
-   order). `state.py` (SAM fetch-window/request-count bookkeeping,
-   Grants.gov last-run, `profile_hash`, `prompt_versions`, with a
-   `profile_changed()` check for §10's rescore-on-profile-edit rule).
-   `pipeline.py` (the fetch-free dedupe → hard-filter → relevance core,
-   zero LLM calls) + `cli.py` (a **temporary** standalone `--dry-run` that
-   runs the pipeline against the eval dataset as demo data and prints the
-   reject-reason table plus top-N by relevance — see "For the morning" for
-   how this gets replaced once agents-core lands).
-6. **Evals (§11)**: `evals/grants/dataset.json` (40 hand-built
-   `Opportunity` records: 16 good_fit, 12 maybe, 12 bad_fit, including 2
-   explicit hard-blocker cases — clearance-required and 8(a)-sole-source
-   ineligibility — and 3 clean/injected description pairs for
-   injection-resistance testing). `labels_proposed.json` (my proposed
-   labels with a one-line reason each, explicitly marked **PROVISIONAL** —
-   not human-reviewed). `run_evals.py` runs the §11 checks; results in
-   `evals/results/grants-2026-09-24.json`. **Ranking quality** and
-   **injection resistance** run against a deterministic PROXY score (the
-   §5.3 relevance pre-score + a regex clearance cap) rather than the real
-   LLM rubric — every affected check is tagged `provisional_proxy`,
-   `not_applicable`, or `pending_task4` in the output so this is
-   unambiguous. Provisional results: precision@10 = 1.0 (pass, ≥0.8), no
-   bad_fit in top 5 (pass), hard-blocker handling 100% (pass, both
-   explicit cases correctly rejected/capped), injection-resistance pairs
-   all Δ=0 (pass, though this only proves the deterministic proxy ignores
-   injected text — it says nothing about the real LLM's behavior).
-   Stability and summary fidelity are not meaningfully testable yet (no
-   real scorer, no summaries built).
-7. **`.github/workflows/agent-grants.yml`**: cron `0 13 * * *` (06:00 PT)
-   plus `workflow_dispatch` with `rescore_all`/`lookback_days` inputs,
-   calling `Kghaffari26/agents-core/.github/workflows/run-agent.yml@main`
-   with `agent: grants`, `max_run_usd: 0.50`, `site_repo:
-   Kghaffari26/agents-hub`, and `SAM_API_KEY`/`ANTHROPIC_API_KEY` secrets,
-   exactly as instructed. **This will not pass GitHub Actions validation
-   yet** — see "Needed from agents-core" below; the gap is documented
-   in-file and here rather than worked around by modifying agents-core.
-8. **README.md / CLAUDE.md**: describe the multi-repo architecture (this
-   repo holds only the grants agent; `agents-core` provides shared
-   http/llm/costs/guards/publish/runner; `agents-hub` is the site), what's
-   implemented, and repo conventions.
+| Run | What happened | LLM calls | Cost (`data/costs.jsonl`) | SAM requests |
+|---|---|---|---|---|
+| dry run | SAM window 09/25-09/26: 473 notices (1 page); Grants.gov 354 unique hits, 60 details; reject table + top 20 printed | 0 | $0 | 1 (search) |
+| real run 1 | 9 candidates scored (1 batch), top 9: 2 SAM descriptions fetched then 2 sync rescores, 9 summaries (all `llm`, 0 guard failures) | 20 | **$0.0625** | 2 (descriptions) |
+| real run 2 | after the red-flag cap fix + score prompt v2: 9 rescored in 1 batch; all 9 summaries served from cache | 9 | $0.0094 | 0 |
+| rerun 3 (immediate) | **0 LLM calls, 0 description fetches, 0 SAM requests**; exposed a bug: the SAM search wasn't read from the free HTTP cache once the budget was used up (fixed) | 0 | $0 | 0 |
+| rerun 4 (immediate, after fix) | SAM search served from cache (473 notices), 9 scores + 9 summaries from cache | **0** | **$0** | **0** |
 
-## Needed from agents-core
+Output sizes (rerun 4): `latest.json` 23,686 B (limit ~200 KB), `all.json`
+230,996 B, 486 rows (limit ~1 MB), `history/2026-09-26.json` 23,686 B,
+`manifest-entry.json` 918 B, `costs-summary.json` 114 B, `schema.json`
+11,233 B. `data/grants/store.json.gz` 131 KB (target ≤ 2 MB).
 
-Checked `Kghaffari26/agents-core` roughly every 15 minutes from ~05:47 UTC
-to the 4-hour cutoff at ~09:48 UTC. It never changed: `main` stayed at
-`f79b6aa`, and no other branch was ever created. Specifically:
+Latest headline: "0 new matches today; 3 close within 14 days. Top: PRIMED-AI:
+Data-to-Model Academic-Industrial Partnerships (D2M-AIP) for Precisi… (National
+Institutes of Health), fit 73." 7 active matches (Pursue/Consider), 486 active
+items. `meta.sam_budget_exhausted` is `true` because the session capped SAM at
+3 requests.
 
-- **No `src/agents_core/` package.** The repo is still monorepo-shaped:
-  `core/` (not `src/agents_core/`), `pyproject.toml` name is `agents-hub`,
-  `[tool.uv] package = false` (not built as an installable wheel at all).
-  `core/guards.py` and `core/registry.py` exist, but not at the
-  `src/agents_core/guards.py` / `src/agents_core/registry.py` paths this
-  session was told to look for. **This blocked essentially everything
-  multi-repo-shaped**: installing it as a git dependency, importing
-  `agents_core.llm`/`agents_core.http`/`agents_core.guards`, and
-  registering `grants` through an `agents_core.agents` entry point.
-- **No `agents_core.agents` entry-point group.** `core/registry.py`
-  currently uses a plain `AGENT_IDS` list + `agents/<id>/agent.py:AGENT`
-  convention (monorepo-style), not a pip entry-point group a separate repo
-  could register against.
-- **`run-agent.yml` doesn't support a multi-repo caller.** It only declares
-  `agent`/`args` `workflow_call` inputs (no `max_run_usd`, no `site_repo`),
-  checks out and commits straight to the *calling* repo's own `main`
-  (assuming that repo *is* the monorepo with `core/` and `site/` in it),
-  and runs the hardcoded `python -m core.runner <agent>` rather than an
-  installed package's entry point. There's also no documented "public-data
-  data-branch contract" anywhere in agents-core for a separate repo like
-  this one to publish against.
+## Done this session
 
-None of this was modified in `agents-core` (per instructions). Where a gap
-blocked a task outright (fetchers, scoring), that task simply didn't start.
-Where a minimal local workaround was possible, it's built inside
-`agents/grants/` and flagged as temporary (`pipeline.py`/`cli.py`'s
-standalone `--dry-run`; `evals/grants/run_evals.py`'s proxy scorer).
+- **(a) agents-core for everything shared.** HTTP (`ctx.http`: retries,
+  2 req/s Grants.gov policy, cache, SAM `HostPolicy(daily_budget)`), LLM
+  (`ctx.llm`: batch, structured, sync), costs, guards
+  (`fields_guard`/`verify_numbers`/`extract_numbers`), publish, runner. There
+  are no local copies, and `anthropic` isn't imported anywhere here. The SAM
+  budget is enforced by agents-core's per-host daily budget, tightened to the
+  committed ledger by `fetch_sam.SamBudget` so even Http's own retries stop at
+  the tighter limit.
+- **(b) Registration.** `[project.entry-points."agents_core.agents"] grants =
+  "agents.grants.agent:AGENT"`. The temporary `cli.py` is deleted.
+- **(c) Fetchers.**
+  - `fetch_sam.py`: one window per run from `last_posted_to` minus 1 day of
+    overlap, a 1-year max, pagination only past 1,000 and only within budget,
+    404 treated as empty without advancing the window, 401/403 and 429
+    handled, and each description fetch counted as one request.
+    `max_sam_description_fetches` is a per-UTC-day cap.
+  - `fetch_grants_gov.py`: `search2` per `grant_keywords` entry, unioned and
+    deduped by id; `fetchOpportunity` for prefiltered new/changed ids, up to
+    60 per run, cached permanently by `id|closeDate` in
+    `data/grants/grants_gov_details.json.gz`.
+- **(d) Scoring and summaries.**
+  - `scoring.py`: fast tier over the Batch API, 30-minute timeout then sync
+    fallback. Cache key is content_hash + profile_hash + prompt version +
+    model. Code clamps and sums the sub-scores, applies the caps (hard blocker
+    → 20; no description + low confidence → 70), and sets the Pursue ≥75 /
+    Consider ≥55 bands. `reasons`/`red_flags` are guarded, with a
+    deterministic scrub fallback.
+  - `summarize.py`: smart tier for the top 20, same cache-key scheme,
+    number guard plus the §7.3 date check plus non-empty next steps, and a
+    template fallback (`templates.py`).
+  - Top-20 SAM description fetches rescore an item when its content hash
+    changes (§5.5).
+- **(e) Publishing.** agents-core writes `public-data/latest.json`,
+  `all.json`, `history/`, `manifest-entry.json`, `costs-summary.json` and
+  `schema.json`. The §6.1/§6.2 shapes are unchanged, and the schema is pinned
+  by `tests/fixtures/grants/schema_snapshot.json`.
+- **(f) Workflow.** `.github/workflows/agent-grants.yml` calls
+  `Kghaffari26/agents-core/.github/workflows/run-agent.yml@v0.1.0` with
+  `agent: grants`, `max_run_usd: "0.50"`, `site_repo: Kghaffari26/agents-hub`
+  and `secrets: inherit`. It also sets `extra_args` from the dispatch inputs
+  (`--rescore-all`, `--lookback-days`) and `cache_path` (see gaps below). It
+  passes actionlint 1.7.7.
+- **Fixtures recorded live.**
+  - `sam_search_live.json`: the real SAM page, trimmed to 50 notices with
+    contacts redacted, recorded from the HTTP cache at no extra request.
+  - `grants_gov_search2_live.json`, plus
+    `grants_gov_fetch_opportunity_live_{posted,forecasted}.json`.
+  - The live shapes differed from the old hand-built fixtures (`cfdaList`,
+    fields nested under `synopsis`/`forecast`, `"none"` amounts), and
+    `normalize.py` now handles both. `tools/record_fixtures.py` re-records them.
+- **Evals re-run against the real scorer.** Labels are still **PROVISIONAL**.
+  Results: `evals/results/grants-2026-09-26.json` (second sample); the first
+  sample's numbers are below.
 
-## Not started (blocked on agents-core)
+  | Check | Result |
+  |---|---|
+  | Ranking | precision@10 = 1.0, no bad_fit in top 5 — **pass** (both samples) |
+  | Hard blockers | clearance item capped at 20; 8(a) item rejected by the set_aside filter — **pass** |
+  | Injection resistance | Δfit 1/0/1 and 1/0/0 — **pass** |
+  | Summary fidelity | 5/5 top summaries `llm`, all pass the guard and date check, next steps non-empty — **pass** |
+  | Stability | sample 1: 96.7% within ±5 but only 86.7% same recommendation (**fail**, needs ≥90%); sample 2: 100% / 96.7% (**pass**). Flips sit on the 55/75 band edges (e.g. `sam:m010`: Consider 55 → Pass 50). Borderline; see gaps. |
 
-- **Task 3**: `fetch_sam.py` (budgeted SAM window fetch, pagination,
-  description-fetch accounting, 404-as-empty) and `fetch_grants_gov.py`
-  (per-keyword `search2` + `fetchOpportunity` with caching) — need
-  `agents_core.http`'s budgeted/cached request client.
-- **Task 4**: `scoring.py` (LLM rubric via Batch API, caching by
-  `content_hash`+`profile_hash`+prompt version, caps, recommendation
-  bands) and `summarize.py` (top-20 summaries with guard + template
-  fallback) — need `agents_core.llm` and `agents_core.guards`.
-- Re-running `evals/grants/run_evals.py` against the *real* rubric scorer
-  once task 4 exists, and actually exercising stability and summary
-  fidelity (currently `not_applicable`/`pending_task4`).
-- Wiring `agents/grants/` into `agents_core`'s `Agent` base class and
-  registry so `uv run agents-run grants [--dry-run]` works for real,
-  replacing `cli.py`'s temporary standalone dry-run.
+  The previous proxy result (`grants-2026-09-24.json`) is kept for history.
 
-## Environment / cost notes
+## Needed from agents-core (not modified here; local workarounds noted)
 
-- No `ANTHROPIC_API_KEY`, `SAM_API_KEY`, or `MAX_RUN_USD` in this
-  environment all night. **No live Anthropic spend happened or was
-  possible — $0 spent.** No SAM.gov calls were made (correctly — no key
-  present, and the spec requires never calling SAM without one).
-- `api.grants.gov` is blocked by this environment's egress policy (the
-  proxy 403s the CONNECT). The instruction to "use Grants.gov live to
-  record fixtures" couldn't be carried out here; `tests/fixtures/grants/`
-  and `evals/grants/dataset.json` are hand-built to match the documented
-  response shapes instead. Worth a real recording pass from an environment
-  with access.
-- `agents-core` pinned SHA: **none** — never became installable tonight.
+1. **Agent-specific `meta` fields.** The runner builds `RunMeta` itself with
+   no extension hook, but §6.1 needs `meta.sam_budget_exhausted` and
+   `meta.sam_requests_used`. Workaround: `GrantsMeta(RunMeta)` plus a
+   before-validator on `GrantsLatest` that moves a `sam_meta` body key into
+   `meta`. The published shape matches the spec.
+2. **`run-agent.yml` never restores the previous `data` branch into
+   `public-data/`.** So `history/` would hold only one snapshot, and
+   `manifest-entry.json`'s `last_data_change_at` / `ctx.previous_latest()`
+   reset every run. agents-core's `.cache/http` budget file is also lost on a
+   fresh checkout. Workaround: `cache_path: .cache/http + public-data`
+   (actions/cache, best effort: evicted after 7 days unused). The committed
+   `state.json` ledger still guarantees the SAM cap.
+3. **Per-host retry control in `HostPolicy`.** Http retries 429/5xx up to 4
+   times, and every attempt counts against SAM's ~10/day. The ledger sync
+   stops retries at the budget, but one transient 5xx can still burn up to 4
+   of the day's requests.
+4. **Temperature (or another sampling knob) per tier.** `TierConfig` has
+   none. Rubric stability is borderline on the recommendation criterion (see
+   evals).
+5. **A warning channel for "ok with a warning" (§10, SAM key 401/403).**
+   `RunMeta` has no warnings field, and there's no helper for opening a
+   GitHub issue. The agent logs the error and records
+   `state.sam.key_rejected_at`; the issue at most once a week isn't
+   implemented.
+6. Minor: agents-core's request-budget day uses `date.today()` (local time)
+   while the spec says a UTC day. The two are identical in CI and in this
+   container (both UTC).
 
-## For the morning
+## What you need to do by hand
 
-1. Read `DECISIONS.md` (full chronological log of every judgment call) and
-   this file.
-2. Check whether `Kghaffari26/agents-core` now has an installable
-   `src/agents_core/` package. If someone finishes it (or extends
-   `run-agent.yml` per "Needed from agents-core" above), pick a commit SHA
-   and:
-   ```
-   cd /home/user/sam-agent
-   uv add "agents-core @ git+https://github.com/Kghaffari26/agents-core@<sha>"
-   ```
-   Then build task 3 (fetchers) and task 4 (scoring/summaries), replace
-   `agents/grants/cli.py`'s temporary standalone `--dry-run` with a real
-   `AGENT = ...` registered as `grants`, and re-run
-   `evals/grants/run_evals.py` against the real scorer (delete or clearly
-   relabel the proxy-scorer path in that file once it's no longer needed).
-3. If `agents-core` is still monorepo-shaped: it needs either (a) a
-   `src/agents_core/` package extracted from `core/` with a real
-   `pyproject.toml`/entry points, or (b) `run-agent.yml` extended with
-   `max_run_usd`/`site_repo` inputs and a `public-data/` publish contract
-   documented somewhere. This repo is otherwise ready to consume whichever
-   lands first.
-4. `evals/grants/labels_proposed.json` needs a human pass — it's my
-   overnight guess at `good_fit`/`maybe`/`bad_fit` for the 40 items, not
-   reviewed by you. The dataset itself (`dataset.json`) is hand-built, not
-   pulled from real listings — a live Grants.gov recording pass (from
-   network access that isn't blocked) would improve realism.
-5. Try `uv run python -m agents.grants.cli --dry-run` to see the current
-   pipeline work end-to-end against demo data (zero LLM calls, ~instant).
+1. **Secrets in `Kghaffari26/sam-agent`** (Settings → Secrets → Actions):
+   `SAM_API_KEY`, `ANTHROPIC_API_KEY` and, for the agents-hub dispatch,
+   `SITE_DISPATCH_TOKEN`. `secrets: inherit` passes whichever exist.
+2. **Actions workflow permissions: "Read and write".** run-agent.yml commits
+   `data/` and force-pushes the `data` branch; the caller also declares
+   `permissions: contents: write`.
+3. **Point agents-hub at this repo's `data` branch** (`latest.json`,
+   `all.json`, `manifest-entry.json`, `costs-summary.json`, `schema.json`).
+4. **Review `evals/grants/labels_proposed.json`.** Still Claude's guesses.
+   The eval dataset is still hand-built; real notices from
+   `data/grants/store.json.gz` would make better eval items.
+5. Optional: a SAM key tied to an entity registration (~1,000/day). Then
+   raise `max_sam_description_fetches` in `config/grants.toml` (e.g. 50).
+   With the basic key, top-20 SAM items mostly lack descriptions, get scored
+   `confidence: low` and are capped at 70.
+6. If this landed on the session branch instead of `main`, merge it.
+
+## Notes / next steps
+
+- Only 9 of about 500 active items reach relevance 25 (most SAM notices
+  aren't IT NAICS; grants have no NAICS). Grants now also count
+  `grant_keywords` (see DECISIONS.md). Grants.gov details backfill at 60 per
+  run, so a few more grants will qualify over the next runs.
+- `largest_value` is null today: no match has a known value (SAM search
+  results carry none).
+- The first scheduled CI run will resume from this session's committed
+  `data/` (store with cached scores and summaries, state with today's
+  ledger).

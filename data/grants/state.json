@@ -1,0 +1,20 @@
+{
+  "grants_gov": {
+    "last_run": "2026-09-26T18:17:48Z"
+  },
+  "profile_hash": "a872b5bff1c4375305eb2c0314cfa38761bbcce5e1a93c7e44156e4d8825f4a1",
+  "prompt_versions": {
+    "score": "v2",
+    "summary": "v1"
+  },
+  "sam": {
+    "description_fetches": {
+      "2026-09-26": 2
+    },
+    "key_rejected_at": null,
+    "last_posted_to": "2026-09-26",
+    "requests": {
+      "2026-09-26": 3
+    }
+  }
+}
