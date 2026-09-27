@@ -265,8 +265,9 @@ SUMMARY_RUBRIC = (
     "The output is a bid/no-bid summary of the opportunity in <input> for a small software"
     " consultancy. Score 5 when: what_they_want accurately restates the opportunity in at"
     " most 2 sentences; why_fit and risks are specific to this opportunity, not generic;"
-    " next_steps are concrete and ordered; nothing promises or predicts winning; and no"
-    " number, dollar amount or date appears that isn't in the input."
+    " next_steps are concrete and ordered; and nothing promises or predicts winning."
+    " Numbers, dollar amounts and dates copied from the input are correct and expected;"
+    " deduct only for ones that do not appear in the input."
 )
 
 
