@@ -1,11 +1,11 @@
 # Status
 
-_Updated 2026-09-27 (session: agents-core v0.3.0, bid research, tracing, evals)._
+_Updated 2026-09-27 (session: agents-core v0.3.1 upgrade; before that: v0.3.0, bid research, tracing, evals)._
 
 ## Summary
 
-The agent runs on **agents-core v0.3.0** (tag `v0.3.0` → `bcfb9c5`, locked in
-`uv.lock`) with every v0.1.0 workaround that v0.2.0 made unnecessary removed. New
+The agent runs on **agents-core v0.3.1** (tag `v0.3.1` → `dba5e86`, locked in
+`uv.lock`; the v0.3.0 notes below are from the previous session) with every v0.1.0 workaround that v0.2.0 made unnecessary removed. New
 this session: a bid-research agent loop (SPEC §6.3, additive output), run
 tracing (`trace.json`), evals ported to `agents_core.evals` with a history and a
 PR gate, warnings and ops alerts, and a no-Anthropic-key fallback.
@@ -21,6 +21,19 @@ PR gate, warnings and ops alerts, and a no-Anthropic-key fallback.
   `data/grants/state.json` → `sam.requests["2026-09-27"] = 3`): 1 window search
   (the dry run; the real run reused it from the HTTP cache) + 2 description
   fetches.
+
+## agents-core v0.3.1 upgrade (2026-09-27)
+
+Pin and both workflow refs → `v0.3.1`. `llm_compat.py` and the `suites.Judge`
+subclass deleted (v0.3.1 sends `temperature` in `extra_body`); judges use
+`LLMJudge(temperature=0)`; the per-suite eval shares replaced by one total cap
+(`evals.yml` `total_max_usd: "1.00"`). Tests 244 passing, ruff clean.
+**Stability re-run** (`grants-scoring` only, 2 Batch API samples, total cap $0.30,
+no SAM requests): **same recommendation 0.967** (29/30; ≥ 0.90 ✅), within ±5 1.00,
+all other scoring checks 1.00, **$0.055**. The one flip is `gg:g007` (Consider 74 ↔
+Pursue 75) on the band edge. Same result as the v0.3.0 run: scoring goes through
+batches, where temperature 0 already applied, so the fix changes the sync paths
+(rescores, guard retries, judges), not this number.
 
 ## Live run (2026-09-27, `--sam-request-budget=3`, `AGENTS_CORE_MAX_RUN_USD=0.40`)
 
@@ -110,19 +123,11 @@ the USAspending query shape and agency-name mapping (`usaspending.agency_name`).
 
 ## Needed from agents-core (not modified here; local workarounds noted)
 
-1. **Per-tier `temperature` breaks synchronous calls.** v0.3.0 passes it as a
-   keyword to `messages.create`/`parse`, which anthropic SDK 1.8 (agents-core's
-   own pin) doesn't accept: `TypeError` on every sync call on a tier that sets a
-   temperature. Batches work because their params travel as JSON. Workaround:
-   `agents/grants/llm_compat.py` moves it into `extra_body`. Suggested fix
-   upstream: send sampling params via `extra_body` (the API accepts
-   `temperature` for Haiku 4.5; Sonnet 5 rejects it as deprecated).
-2. **`LLMJudge` has no temperature/client hook**, so judges on a tier with a
-   temperature need the same shim (`suites.Judge` subclass).
-3. Minor: `run_suite` records `git rev-parse HEAD`, so evals run on an
+1. Minor: `run_suite` records `git rev-parse HEAD`, so evals run on an
    uncommitted tree are attributed to the previous commit.
 
-(Resolved by v0.2.0/v0.3.0 and removed here: agent meta fields, data-branch
+(Resolved by v0.2.0/v0.3.0/v0.3.1 and removed here: sync-call `temperature`
+(`llm_compat.py`), an `LLMJudge` temperature hook, a total eval cap, agent meta fields, data-branch
 restore, per-host retry control, a warnings channel + issue helper, UTC budget
 day.)
 
