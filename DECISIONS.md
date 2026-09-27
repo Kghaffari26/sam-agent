@@ -72,3 +72,11 @@ Timestamps are UTC.
 - `r3-nsf-grant` stays labelled `go` even though the model's `no_go` is defensible: I won't change a label to match an output. It's flagged for human review in STATUS.md.
 - Replay tests pin three live-recorded trajectories (`tests/fixtures/grants/research_trajectory_*.json`); `evals/grants/trajectories/` is overwritten by every eval run and feeds `python -m evals.grants.demo`.
 - Live runs this session: `--sam-request-budget=3` (1 search + 2 descriptions) and `AGENTS_CORE_MAX_RUN_USD=0.40`, so SAM stayed at 3 requests and Anthropic spend under $1.50 even if the evals had used their whole $1.00 cap.
+
+## 2026-09-27 session (agents-core v0.3.1)
+
+- Pinned agents-core `tag = "v0.3.1"` (`dba5e86`); `uv add` wrote `rev =`, changed back to `tag =` to match the previous pin style.
+- Deleted `agents/grants/llm_compat.py` and the `suites.Judge` subclass: they only moved `temperature` into `extra_body`, which v0.3.1 now does itself. Scoring keeps `[tiers.fast] temperature = 0`; the judges pass `LLMJudge(temperature=0)` explicitly (same value as the tier, stated where it's used).
+- `test_llm_compat.py` became `test_sampling.py`: the same SDK-1.8-like stand-in (rejects a `temperature` keyword) now checks agents-core's own `LLM` sends it in `extra_body`. No other fake asserted `kwargs["temperature"]`.
+- Replaced the per-suite spend shares (25/20/55% of `AGENTS_CORE_EVAL_MAX_USD`) with v0.3.1's total cap: suites set no `max_usd`, `evals.yml` sets `total_max_usd: "1.00"` (and keeps `max_usd: "1.00"` per suite), docs use `--total-max-usd 1.00`.
+- Stability re-check ran only `grants-scoring` (`--total-max-usd 0.30`, SAM key unset so no SAM.gov requests possible). Its history line is committed so the PR gate compares against it. Note: scoring runs over the Batch API, where temperature 0 already worked on v0.3.0, so this run tests reproducibility more than a change in sampling.

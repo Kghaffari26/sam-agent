@@ -22,15 +22,16 @@ jobs:
   evals:
     permissions:
       contents: read
-    uses: Kghaffari26/agents-core/.github/workflows/run-evals.yml@v0.3.0
+    uses: Kghaffari26/agents-core/.github/workflows/run-evals.yml@v0.3.1
     with:
       eval_command: >-
         uv run agents-evals run evals.grants.suites:SCORING
         evals.grants.suites:SUMMARIES evals.grants.suites:RESEARCH
-      # Spend cap for the whole run (AGENTS_CORE_EVAL_MAX_USD): suites.py gives
-      # scoring 25%, summaries 20% and bid research 55% of it; a suite that would pass
-      # its share skips its remaining cases and reports budget_exhausted.
+      # One spend cap across all three suites (AGENTS_CORE_EVAL_TOTAL_MAX_USD): each
+      # suite gets the smaller of max_usd and what the earlier suites left; a suite
+      # that would pass it skips its remaining cases and reports budget_exhausted.
       max_usd: "1.00"
+      total_max_usd: "1.00"
       # The research and summary suites have five cases each, so one case flipping
       # moves a score by 0.2: tolerate one, fail on two.
       regression_threshold: "0.20"

@@ -38,4 +38,4 @@ target-version = "py312"
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.uv.sources]
-agents-core = { git = "https://github.com/Kghaffari26/agents-core", tag = "v0.3.0" }
+agents-core = { git = "https://github.com/Kghaffari26/agents-core", tag = "v0.3.1" }

@@ -149,7 +149,6 @@ sam-agent/
 │   ├── research.py              # bid-research agent loop: tools, guard, fallback (§6.3)
 │   ├── attachments.py           # SAM attachments: naming, PDF/DOCX text extraction
 │   ├── usaspending.py           # USAspending.gov prior-award search
-│   ├── llm_compat.py            # local shim: per-tier temperature on sync calls
 │   ├── templates.py             # template fallback summary + headline
 │   ├── output.py                # builds the §6 latest.json body and all.json
 │   ├── schema.py                # §6 output models (the site contract)
@@ -198,7 +197,7 @@ committed ledger in `data/grants/state.json` both enforce it.
 ```bash
 uv run pytest                              # all mocked/fixture-based, no network
 uv run ruff check .
-AGENTS_CORE_EVAL_MAX_USD=1.00 uv run agents-evals run evals.grants.suites:SCORING \
+uv run agents-evals run --total-max-usd 1.00 evals.grants.suites:SCORING \
   evals.grants.suites:SUMMARIES evals.grants.suites:RESEARCH   # real LLM calls
 uv run agents-evals compare                # latest vs previous history entry
 uv run python -m tools.record_fixtures grants-gov      # re-record Grants.gov fixtures

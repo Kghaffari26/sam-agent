@@ -70,7 +70,6 @@ from agents.grants.fetch_sam import (
     sam_window,
 )
 from agents.grants.filters import REJECT_REASONS, check_hard_filters, partition
-from agents.grants.llm_compat import sampling_llm
 from agents.grants.models import Opportunity, ResearchCache, Score, Summary
 from agents.grants.normalize import (
     normalize_grants_gov,
@@ -449,8 +448,7 @@ class GrantsAgent(Agent):
         llm_ok = llm_available(ctx.llm)
         if not llm_ok:
             ctx.warn(NO_LLM_WARNING)
-        # Same tracker (MAX_RUN_USD, costs, tracing); see llm_compat for why.
-        llm = sampling_llm(ctx.llm) if llm_ok else ctx.llm
+        llm = ctx.llm
 
         if profile_changed(raw.state, p_hash):
             log.info("profile changed: rescoring up to %d items", len(data.above))

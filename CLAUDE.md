@@ -13,7 +13,7 @@ disagree on repo layout, this file wins; its §2-§13 content, especially the
   HTTP with request budgets and conditional downloads, cost tracking, publish
   helpers, the number guard, the agent loop (`agent_loop`), tracing, evals,
   ops alerts, the agent registry/runner. Installed as a git dependency pinned
-  to tag `v0.3.0` (commit `bcfb9c5`, locked in `uv.lock`); read its README and
+  to tag `v0.3.1` (commit `dba5e86`, locked in `uv.lock`); read its README and
   CHANGELOG for the agent contract. This agent is `agents.grants.agent:AGENT`,
   registered under the `agents_core.agents` entry point as `grants`.
 - **`agents-hub`**: the website that reads published data.
@@ -22,7 +22,7 @@ Never write our own http/llm/costs/guards/publish/runner/loop/tracing/evals code
 here — that all belongs in `agents-core`. If something needed doesn't exist
 there yet (or is broken there), don't patch it from this repo; note the gap in
 STATUS.md under "Needed from agents-core" and build the smallest local
-workaround inside `agents/grants/` (today: `llm_compat.py`).
+workaround inside `agents/grants/` (today: none).
 
 ## Commands
 
@@ -32,7 +32,7 @@ uv run pytest                              # unit tests, no live network calls
 ruff check .
 uv run agents-run grants [--dry-run]       # agent flags: --rescore-all, --lookback-days=N,
                                            #   --sam-request-budget=N
-AGENTS_CORE_EVAL_MAX_USD=1.00 uv run agents-evals run evals.grants.suites:SCORING \
+uv run agents-evals run --total-max-usd 1.00 evals.grants.suites:SCORING \
   evals.grants.suites:SUMMARIES evals.grants.suites:RESEARCH   # real LLM calls, see evals/grants/
 uv run agents-evals compare                # latest vs previous entry of evals/history.jsonl
 uv run python -m tools.record_fixtures grants-gov|sam-from-cache
@@ -69,10 +69,11 @@ uv run python -m tools.make_research_fixtures   # rebuild the research eval PDF/
   `ctx.alert` (one `ops-alert` issue per title, at most weekly). A run without
   an Anthropic key must still publish (status ok, cached/template output, a
   warning).
-- Sync LLM calls go through `llm_compat.sampling_llm` (moves the fast tier's
-  `temperature` from `config/models.toml` into `extra_body`, since agents-core
-  v0.3.0 passes it as a keyword its pinned SDK rejects). Drop it once
-  agents-core fixes that.
+- Sampling: the fast tier (scoring) runs at `temperature = 0` from
+  `config/models.toml`; the LLM judges pass `temperature=0` to `LLMJudge`.
+  agents-core (>= v0.3.1) sends it in `extra_body`, so fakes that check it read
+  `kwargs["extra_body"]["temperature"]`. Eval spend is one total cap
+  (`--total-max-usd` / `run-evals.yml` `total_max_usd`).
 - `content_hash` (in `agents/grants/normalize.py`) covers only the fields
   that should invalidate a cached score/summary/research. `profile_hash` (in
   `agents/grants/config.py`) covers the whole business profile. Both are part

@@ -21,9 +21,10 @@ which `.github/workflows/evals.yml` compares on pull requests.
   steps, stop reason), the go/no-go call, guard and content checks, and an LLM
   judge. Each case's trajectory is saved to `evals/grants/trajectories/` for replay.
 
-Spend: each suite's cap is a share of `AGENTS_CORE_EVAL_MAX_USD` (default $1.00;
-the PR workflow sets it) — scoring 25%, summaries 20%, research 55% — so one full
-run stays under that total. `--max-usd` on the command line overrides it per suite.
+Spend: one total cap across the suites (`--total-max-usd` /
+`AGENTS_CORE_EVAL_TOTAL_MAX_USD`; the PR workflow sets `total_max_usd: "1.00"`); each
+suite gets the smaller of its own cap (`AGENTS_CORE_EVAL_MAX_USD`) and what the
+earlier suites left.
 """
 
 from __future__ import annotations
@@ -53,7 +54,6 @@ from agents_core.llm import LLM
 
 from agents.grants.config import load_business_profile, load_grants_config, profile_hash
 from agents.grants.filters import check_hard_filters
-from agents.grants.llm_compat import sampling_llm
 from agents.grants.models import Opportunity
 from agents.grants.research import RESEARCH_PROMPT_VERSION
 from agents.grants.scoring import SCORE_PROMPT_VERSION, profile_context, score_opportunities
@@ -77,17 +77,8 @@ SUMMARY_CASE_IDS = ["sam:g002", "sam:g005", "sam:g006", "sam:g008", "sam:g011"]
 RESEARCH_MAX_STEPS = 10
 
 
-class Judge(LLMJudge):
-    """`LLMJudge` on the fast tier, through the local temperature shim
-    (agents/grants/llm_compat.py): the tier sets temperature 0, which agents-core
-    v0.3.0 can't send on a sync call with its pinned SDK."""
-
-    def judge(self, llm: LLM, case: EvalCase, output: Any) -> tuple[float, str]:
-        return super().judge(sampling_llm(llm), case, output)
-
-
-def _cap(share: float) -> float:
-    return round(settings.eval_max_usd() * share, 4)
+# The LLM judges run on the fast tier at temperature 0, like scoring.
+JUDGE_TEMPERATURE = 0
 
 
 def load_dataset() -> list[Opportunity]:
@@ -135,7 +126,7 @@ def scored_samples(llm: LLM) -> dict[str, Any]:
 
 
 def scoring_task(case: EvalCase, ectx: EvalContext) -> dict[str, Any]:
-    s = scored_samples(sampling_llm(ectx.llm))
+    s = scored_samples(ectx.llm)
     a, b = s["a"], s["b"]
     return {
         "mode": s["mode"],
@@ -221,7 +212,6 @@ SCORING = EvalSuite(
     task=scoring_task,
     scorers=[precision_at_10, no_bad_fit_in_top_5, hard_blockers,
              stability_same_recommendation, stability_within_5, injection_resistance],
-    max_usd=_cap(0.25),
 )
 
 
@@ -230,7 +220,7 @@ SCORING = EvalSuite(
 
 def summary_task(case: EvalCase, ectx: EvalContext) -> dict[str, Any]:
     profile, config = _profile_and_config()
-    llm = sampling_llm(ectx.llm)
+    llm = ectx.llm
     s = scored_samples(llm)
     opp = s["survivors"][case.id]
     score = s["a"][case.id]
@@ -284,10 +274,9 @@ SUMMARIES = EvalSuite(
     cases=_summary_cases(),
     task=summary_task,
     scorers=[guard_and_dates, next_steps_nonempty, llm_written,
-             Judge(SUMMARY_RUBRIC, output=lambda o: {k: o[k] for k in
-                      ("what_they_want", "why_fit", "risks", "next_steps")},
-                      name="judge_quality")],
-    max_usd=_cap(0.20),
+             LLMJudge(SUMMARY_RUBRIC, output=lambda o: {k: o[k] for k in
+                         ("what_they_want", "why_fit", "risks", "next_steps")},
+                      name="judge_quality", temperature=JUDGE_TEMPERATURE)],
 )
 
 
@@ -300,7 +289,7 @@ def trajectories_dir() -> Path:
 
 def research_task(case: EvalCase, ectx: EvalContext) -> EvalOutput:
     with tempfile.TemporaryDirectory(prefix="grants-research-eval-") as tmp:
-        outcome = research_world.run_research(sampling_llm(ectx.llm), case, Path(tmp))
+        outcome = research_world.run_research(ectx.llm, case, Path(tmp))
     outcome.loop.trajectory.save(trajectories_dir() / f"{case.id}.json")
     return EvalOutput(outcome.block.model_dump(mode="json"), loop=outcome.loop)
 
@@ -388,9 +377,8 @@ RESEARCH = EvalSuite(
         content_checks,
         attachment_cap,
         cites_usaspending,
-        Judge(RESEARCH_RUBRIC, name="judge_quality"),
+        LLMJudge(RESEARCH_RUBRIC, name="judge_quality", temperature=JUDGE_TEMPERATURE),
     ],
-    max_usd=_cap(0.55),
 )
 
 SUITES = [SCORING, SUMMARIES, RESEARCH]

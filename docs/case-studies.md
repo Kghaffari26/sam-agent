@@ -95,7 +95,8 @@ keeps the same CostTracker. The gap is listed for agents-core in STATUS.md.
 shim at temperature 0, and the `grants-scoring` eval (two Batch API samples of the
 40-item set) kept the same recommendation for **96.7%** of the 30 scored items,
 all within ±5 points ($0.055). Scored the same way before the change, one sample was
-86.7%. Commit
+86.7%. agents-core v0.3.1 then fixed the keyword upstream (it sends `temperature`
+in `extra_body`), so `llm_compat.py` and the judge subclass were deleted. Commit
 [`4b8c0cc`](https://github.com/Kghaffari26/sam-agent/commit/4b8c0cc44693b9e0e3e93690ce9edb6e38f5681e).
 
 ## 5. A rescored notice kept its old summary
