@@ -7,6 +7,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "agents-core",
     "pydantic>=2.6",
+    "pypdf>=6.19.0",
     "rapidfuzz>=3.9",
 ]
 
@@ -37,4 +38,4 @@ target-version = "py312"
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.uv.sources]
-agents-core = { git = "https://github.com/Kghaffari26/agents-core", tag = "v0.1.0" }
+agents-core = { git = "https://github.com/Kghaffari26/agents-core", tag = "v0.3.0" }

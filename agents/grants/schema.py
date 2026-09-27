@@ -7,28 +7,28 @@ JSON Schema as `public-data/schema.json`. `GrantsAll` is published alongside it
 as `all.json`.
 
 §6.1 puts two SAM fields inside `meta` (`sam_budget_exhausted`,
-`sam_requests_used`). agents-core's runner builds `meta` itself and has no hook
-for agent-specific meta fields (see STATUS.md "Needed from agents-core"), so
-`GrantsMeta` extends `RunMeta` with them and `GrantsLatest` moves them from a
-`sam_meta` key in the analyze() body into `meta` before validation. The
-published shape is exactly §6.1's.
+`sam_requests_used`): `GrantsMeta` declares them on a `RunMeta` subclass and
+`analyze()` returns their values in `AgentResult.meta_fields` (agents-core
+>= v0.2.0 merges them into `meta` before validation).
+
+Bid research (§6.3, additive in schema 1.1.0): `TopMatch.research` and
+`AllRow.has_research`.
 """
 
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Any, Literal
+from typing import Literal
 
-from agents_core.schema import AgentOutput, KeyStat, RunMeta, Timestamp
+from agents_core.schema import AgentOutput, Citation, KeyStat, RunMeta, Timestamp
 from agents_core.schema import Model as CoreModel
-from pydantic import HttpUrl, model_validator
+from pydantic import HttpUrl
 
 from agents.grants.models import Confidence, Recommendation, SubScores
 
 __all__ = ["KeyStat"]
 
 ALL_JSON_ROW_CAP_DEFAULT = 2000
-SAM_META_KEY = "sam_meta"
 
 
 class Model(CoreModel):
@@ -105,6 +105,42 @@ class SummaryBlock(Model):
     generated_at: Timestamp
 
 
+class PriorAward(Model):
+    """One prior award from USAspending.gov (§6.3). Every value is copied from the
+    USAspending response in code; `url` is the award's USAspending page."""
+
+    award_id: str
+    recipient: str | None = None
+    amount: float | None = None
+    start_date: date | None = None
+    end_date: date | None = None
+    awarding_agency: str | None = None
+    url: HttpUrl
+
+
+class ResearchBlock(Model):
+    """Bid research brief for a Pursue match (§6.3), from the research agent loop."""
+
+    status: Literal["complete", "partial"]
+    stop_reason: str
+    narrative_source: Literal["llm", "template"]
+    what_theyre_buying: str
+    evaluation_criteria: list[str]
+    likely_incumbent: str | None = None
+    incumbent_notes: str
+    prior_awards: list[PriorAward]
+    risks: list[str]
+    go_no_go: Literal["go", "no_go"]
+    rationale: str
+    citations: list[Citation]
+    tools_used: list[str]
+    steps: int
+    cost_usd: float
+    model: str
+    prompt_version: str
+    researched_at: Timestamp
+
+
 class TopMatch(Model):
     id: str
     source: Literal["sam", "grants_gov"]
@@ -133,6 +169,7 @@ class TopMatch(Model):
     is_new: bool
     changed: bool
     summary: SummaryBlock | None = None
+    research: ResearchBlock | None = None  # §6.3, additive (schema 1.1.0)
 
 
 class DeadlineEntry(Model):
@@ -160,15 +197,6 @@ class GrantsLatest(AgentOutput):
     sources: list[SourceLink]
     disclaimer: str
 
-    @model_validator(mode="before")
-    @classmethod
-    def _merge_sam_meta(cls, data: Any) -> Any:
-        if isinstance(data, dict) and SAM_META_KEY in data:
-            data = dict(data)
-            extra = data.pop(SAM_META_KEY) or {}
-            data["meta"] = {**(data.get("meta") or {}), **extra}
-        return data
-
 
 class AllRow(Model):
     id: str
@@ -189,6 +217,7 @@ class AllRow(Model):
     url: HttpUrl
     is_new: bool
     in_top: bool
+    has_research: bool = False  # §6.3, additive (schema 1.1.0)
 
 
 class GrantsAll(Model):

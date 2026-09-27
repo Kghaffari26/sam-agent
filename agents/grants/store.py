@@ -15,7 +15,7 @@ from pathlib import Path
 from pydantic import BaseModel
 from rapidfuzz import fuzz
 
-from agents.grants.models import Opportunity, Score, Summary
+from agents.grants.models import Opportunity, ResearchCache, Score, Summary
 
 TITLE_SIMILARITY_THRESHOLD = 90.0  # rapidfuzz token_set_ratio is 0-100, spec asks for >= 0.9
 _PUNCT_RE = re.compile(r"[^\w\s]")
@@ -152,12 +152,13 @@ def prune_store(
 
 class StoreEntry(BaseModel):
     """One active opportunity that passed hard filters, with its latest score
-    and summary (each carrying its own cache key fields)."""
+    and summary (each carrying its own cache key fields), and its bid research."""
 
     opportunity: Opportunity
     relevance: int = 0
     score: Score | None = None
     summary: Summary | None = None
+    research: ResearchCache | None = None
 
 
 def load_store(path: Path) -> dict[str, StoreEntry]:

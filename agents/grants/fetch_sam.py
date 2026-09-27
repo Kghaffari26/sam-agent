@@ -5,16 +5,19 @@ All HTTP goes through `agents_core.http.Http`. SAM.gov's daily request cap is
 enforced twice over:
 
 1. `agents_core.http`'s per-host `daily_budget` (`HostPolicy`, set by
-   `GrantsAgent` from `sam_daily_request_budget`), which counts every network
-   attempt, retries included, and never counts cache hits; and
+   `GrantsAgent` from `sam_daily_request_budget`), which counts requests actually
+   sent per UTC day (never cache hits), with a single attempt per request (no
+   retries on a budgeted host since agents-core v0.2.0); and
 2. the committed ledger in `data/grants/state.json` (`sam.requests[date]`),
    which survives fresh CI checkouts where agents-core's own budget file
    (under `.cache/http`) might not.
 
-`SamBudget` syncs the Http policy down to the smaller of the two (so Http's own
-retries stop there too), `remaining()` reports it, and every network request
-made through it is recorded in the ledger, so the ledger never undercounts.
-Cache hits are free under both.
+`SamBudget` syncs the Http policy down to the smaller of the two,
+`remaining()` reports it, and every network request made through it is
+recorded in the ledger, so the ledger never undercounts. Cache hits are free
+under both. Attachment downloads (bid research) go through
+`SamBudget.download`, agents-core's conditional-GET `Http.download`, and are
+counted in the same ledger.
 """
 
 from __future__ import annotations
@@ -22,16 +25,25 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass, field
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlsplit
 
-from agents_core.http import HostPolicy, Http, HttpError, RequestBudgetExceeded, Response
+from agents_core.http import (
+    DownloadResult,
+    HostPolicy,
+    Http,
+    HttpError,
+    RequestBudgetExceeded,
+    Response,
+)
 
 from agents.grants.state import SamState
 
 log = logging.getLogger(__name__)
 
 SAM_HOST = "api.sam.gov"
+SAM_FILES_HOST = "sam.gov"  # attachment downloads (`resourceLinks`)
 SEARCH_URL = "https://api.sam.gov/prod/opportunities/v2/search"
 PAGE_LIMIT = 1000  # the API's maximum
 MAX_WINDOW_DAYS = 364  # postedFrom/postedTo may span at most one year
@@ -75,9 +87,9 @@ class SamBudget:
         self._sync_http_policy()
 
     def _sync_http_policy(self) -> None:
-        """Tighten agents-core's own per-host cap to the committed ledger, so that
-        even Http's internal retries (each one a billed attempt) stop at the
-        tighter of the two limits, not just the pre-request check below."""
+        """Tighten agents-core's own per-host cap to the committed ledger, so a
+        fresh checkout (no `.cache/http` budget file) still stops at the ledger.
+        One attempt per request: a 5xx must not burn a scarce SAM request twice."""
         http_left = self.http.budget_remaining(SAM_HOST)
         if http_left is None:
             http_used, http_left = 0, self.daily_budget
@@ -91,6 +103,7 @@ class SamBudget:
             HostPolicy(
                 min_interval_seconds=policy.min_interval_seconds,
                 daily_budget=max(http_used, 0) + min(ledger_left, http_left),
+                max_attempts=1,
             ),
         )
 
@@ -122,6 +135,26 @@ class SamBudget:
             if used > 0:
                 self.state.record_request(self.today, count=used)
                 self.used_this_run += used
+
+    def download(self, url: str, dest: Path) -> DownloadResult:
+        """Download one SAM attachment through agents-core's conditional-GET
+        `Http.download` (ETag/Last-Modified sidecar next to `dest`). Costs one
+        request of the day's SAM budget, recorded in the ledger even when it fails."""
+        host = urlsplit(url).netloc.lower()
+        if host not in (SAM_HOST, SAM_FILES_HOST):
+            raise ValueError(f"not a SAM.gov URL: {host}")
+        if self.remaining() <= 0:
+            self.exhausted = True
+            raise RequestBudgetExceeded(f"SAM.gov daily budget of {self.daily_budget} used up")
+        before = self.http.network_requests
+        try:
+            return self.http.download(url, dest)
+        finally:
+            used = self.http.network_requests - before  # sent requests only
+            if used > 0:
+                self.state.record_request(self.today, count=used)
+                self.used_this_run += used
+                self._sync_http_policy()
 
 
 @dataclass

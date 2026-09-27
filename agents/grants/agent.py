@@ -9,7 +9,16 @@ transform normalize -> dedupe -> merge into store -> hard filters -> relevance
           (--dry-run stops here and prints the reject table + top 20; no LLM)
 analyze   rubric scoring (Batch API, cached) -> top 20 -> budgeted SAM
           description fetches (+ rescore on change) -> summaries (cached,
-          guarded) -> latest.json / all.json bodies
+          guarded) -> bid research for up to 3 new Pursue matches (agent loop,
+          cached, guarded) -> latest.json / all.json bodies
+
+Problems that shouldn't fail the run are published in `meta.warnings`
+(`ctx.warn`); the ones a human must fix (SAM key rejected or expiring, SAM or
+Anthropic budget exhausted) also open an `ops-alert` issue (`ctx.alert`, at most
+weekly per title). Without an Anthropic key the run still publishes, status ok:
+cached scores, template summaries, no new research, and a warning saying so.
+Every run is traced by agents-core (`trace.json`); each analyze step adds a
+`custom` span.
 
 Local run state lives under `agents_core.settings.data_dir()/grants/`
 (`data/grants/` by default, committed back by run-agent.yml): `state.json`
@@ -28,13 +37,14 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 
-from agents_core import settings
+from agents_core import settings, tracing
 from agents_core.agent import Agent, AgentResult, RunContext
 from agents_core.http import HostPolicy, Http, HttpError, RequestBudgetExceeded
+from agents_core.llm import LLM
 from agents_core.schema import Source
 from pydantic import ValidationError
 
-from agents.grants import scoring, summarize
+from agents.grants import research, scoring, summarize
 from agents.grants.config import (
     BusinessProfile,
     GrantsConfig,
@@ -51,6 +61,7 @@ from agents.grants.fetch_grants_gov import (
     search_all,
 )
 from agents.grants.fetch_sam import (
+    SAM_FILES_HOST,
     SAM_HOST,
     SamBudget,
     SamFetchResult,
@@ -59,7 +70,8 @@ from agents.grants.fetch_sam import (
     sam_window,
 )
 from agents.grants.filters import REJECT_REASONS, check_hard_filters, partition
-from agents.grants.models import Opportunity, Score, Summary
+from agents.grants.llm_compat import sampling_llm
+from agents.grants.models import Opportunity, ResearchCache, Score, Summary
 from agents.grants.normalize import (
     normalize_grants_gov,
     normalize_sam,
@@ -68,7 +80,7 @@ from agents.grants.normalize import (
 )
 from agents.grants.output import RunFacts, build_documents, rank_top
 from agents.grants.relevance import compute_relevance
-from agents.grants.schema import FetchedCounts, GrantsLatest
+from agents.grants.schema import FetchedCounts, GrantsLatest, ResearchBlock
 from agents.grants.state import GrantsState, load_state, profile_changed, save_state
 from agents.grants.store import (
     StoreEntry,
@@ -79,8 +91,15 @@ from agents.grants.store import (
     prune_store,
     save_store,
 )
+from agents.grants.usaspending import MIN_INTERVAL_SECONDS as USA_MIN_INTERVAL
+from agents.grants.usaspending import USA_HOST
 
 log = logging.getLogger(__name__)
+
+NO_LLM_WARNING = (
+    "No Anthropic API key: new candidates were left unscored, and summaries and bid"
+    " research were skipped. Published cached scores with template summaries."
+)
 
 CONFIG_PATH = Path("config/grants.toml")
 
@@ -156,7 +175,7 @@ class GrantsAgent(Agent):
     id = "grants"
     name = "Grants & Contracts Finder"
     route = "/grants"
-    schema_version = "1.0.0"
+    schema_version = "1.1.0"  # 1.1.0: additive bid research (§6.3), meta.warnings
     expected_interval_hours = 24
     next_run_hint = "Daily 06:00 PT"
     history_keep = 90
@@ -171,10 +190,14 @@ class GrantsAgent(Agent):
 
     def configure_http(self, http: Http) -> None:
         config, _ = self.load_config()  # fails fast on a bad config/profile
+        # One attempt per SAM request (agents-core's default for a budgeted host).
         http.set_policy(
             SAM_HOST, HostPolicy(daily_budget=config.settings.sam_daily_request_budget)
         )
+        # Attachment downloads: counted in the SAM ledger by SamBudget.download.
+        http.set_policy(SAM_FILES_HOST, HostPolicy(min_interval_seconds=1.0, max_attempts=1))
         http.set_policy(GG_HOST, HostPolicy(min_interval_seconds=MIN_INTERVAL_SECONDS))
+        http.set_policy(USA_HOST, HostPolicy(min_interval_seconds=USA_MIN_INTERVAL))
 
     # ---- fetch --------------------------------------------------------------------
 
@@ -219,8 +242,9 @@ class GrantsAgent(Agent):
     ) -> tuple[SamFetchResult | None, SamBudget | None, str | None]:
         api_key = os.environ.get("SAM_API_KEY")
         if not api_key:
-            log.warning("SAM_API_KEY not set; skipping SAM.gov (never called without a key)")
+            ctx.warn("SAM_API_KEY is not set: SAM.gov contract notices were skipped this run.")
             return None, None, None
+        self._check_sam_key_expiry(ctx, config, today)
         daily = config.settings.sam_daily_request_budget
         if options.sam_request_budget is not None:
             daily = min(daily, options.sam_request_budget)
@@ -237,9 +261,49 @@ class GrantsAgent(Agent):
         result = fetch_window(budget, api_key, window=window, ptypes=config.sam.ptypes)
         if result.auth_failed:
             state.sam.key_rejected_at = today.isoformat()
+            ctx.warn(f"{result.error}. SAM.gov notices were skipped; renew SAM_API_KEY.")
+            ctx.alert(
+                "SAM.gov API key rejected",
+                f"SAM.gov answered {result.error} for the opportunities search on {today}."
+                " SAM.gov personal API keys expire every 90 days: generate a new key"
+                " (SAM.gov > Account Details > API Key), update the `SAM_API_KEY` Actions"
+                " secret, and set `[sam_key] expires_on` in config/grants.toml.",
+            )
         elif result.records or result.complete:
             state.sam.key_rejected_at = None
+        if result.budget_exhausted:
+            ctx.warn(
+                "SAM.gov's daily request budget ran out before the search window"
+                f" {result.window_from}..{result.window_to} finished; it resumes next run."
+            )
+            ctx.alert(
+                "SAM.gov request budget exhausted",
+                f"The SAM.gov search for {result.window_from}..{result.window_to} stopped"
+                f" at {len(result.records)} records on {today}: the daily budget"
+                f" ({daily} requests, `sam_daily_request_budget`) or SAM's rate limit ran"
+                " out. The window catches up on the next runs; if this repeats, lower the"
+                " lookback or use an entity-registered key (1,000 requests/day).",
+            )
         return result, budget, api_key
+
+    def _check_sam_key_expiry(self, ctx: RunContext, config: GrantsConfig, today: date) -> None:
+        """`[sam_key] expires_on`: an ops alert `alert_days_before` the key lapses,
+        and a published warning once it has."""
+        expires = config.sam_key.expires_on
+        if expires is None:
+            return
+        days = (expires - today).days
+        body = (
+            f"The SAM.gov API key in `SAM_API_KEY` expires on {expires}. Generate a new"
+            " key (SAM.gov > Account Details > API Key), update the Actions secret, and"
+            " set `[sam_key] expires_on` in config/grants.toml to the new expiry date."
+        )
+        if days < 0:
+            ctx.warn(f"The SAM.gov API key expired on {expires}; SAM.gov calls will fail.")
+            ctx.alert("SAM.gov API key expired", body)
+        elif days <= config.sam_key.alert_days_before:
+            log.warning("SAM.gov API key expires in %d days (%s)", days, expires)
+            ctx.alert("SAM.gov API key expires soon", body)
 
     def _fetch_grants_gov(
         self,
@@ -261,6 +325,7 @@ class GrantsAgent(Agent):
             )
         except (GrantsGovSchemaError, HttpError) as e:
             log.error("Grants.gov portion failed: %s", e)
+            ctx.warn(f"Grants.gov search failed ({e}); grants were not refreshed this run.")
             return [], cache, str(e), 0
 
         # Prefilter on the search hit alone, then fetch details for the most
@@ -378,18 +443,30 @@ class GrantsAgent(Agent):
         profile, config, today, now = raw.profile, raw.config, raw.today, raw.now
         p_hash = profile_hash(profile)
         score_model, summary_model = scoring.model_id(), summarize.model_id()
+        research_model = research.model_id()
         active = dict(data.active)
         relevance = dict(data.relevance)
+        llm_ok = llm_available(ctx.llm)
+        if not llm_ok:
+            ctx.warn(NO_LLM_WARNING)
+        # Same tracker (MAX_RUN_USD, costs, tracing); see llm_compat for why.
+        llm = sampling_llm(ctx.llm) if llm_ok else ctx.llm
 
         if profile_changed(raw.state, p_hash):
             log.info("profile changed: rescoring up to %d items", len(data.above))
 
-        # 1. cached scores/summaries (§5.4 / §7.3 cache keys)
+        # 1. cached scores/summaries/research (§5.4 / §7.3 / §6.3 cache keys)
         scores: dict[str, Score] = {}
         summaries: dict[str, Summary] = {}
+        research_cache: dict[str, ResearchCache] = {}
         for id_, opp in active.items():
             prior = raw.store.get(id_)
-            if prior is None or raw.options.rescore_all:
+            if prior is None:
+                continue
+            if research.cache_valid(prior.research, opp, profile_hash=p_hash,
+                                    model=research_model):
+                research_cache[id_] = prior.research
+            if raw.options.rescore_all:
                 continue
             if scoring.cache_key_matches(prior.score, opp, profile_hash=p_hash, model=score_model):
                 scores[id_] = scoring.refinalize(prior.score, opp, profile, config)
@@ -398,59 +475,95 @@ class GrantsAgent(Agent):
             ):
                 summaries[id_] = prior.summary
         cached = len(scores)
+        budget_hit: list[str] = []
 
         # 2. score the cache misses among the candidates, capped (§5.3/§5.4)
         to_score = [active[id_] for id_ in data.above if id_ not in scores]
         to_score = to_score[: config.settings.max_llm_scoring_per_run]
-        run = scoring.score_opportunities(
-            ctx.llm, to_score, profile, config, profile_hash=p_hash, today=today, now=now
-        )
-        scores.update(run.scores)
-        scored_this_run = run.scored
-        log.info(
-            "scoring: %d cached, %d scored (%s), %d failed/deferred",
-            cached,
-            run.scored,
-            run.mode,
-            len(run.failed),
-        )
+        scored_this_run = 0
+        with tracing.span("custom", "score candidates", candidates=len(to_score),
+                          cached=cached, llm=llm_ok) as sp:
+            if llm_ok:
+                run = scoring.score_opportunities(
+                    llm, to_score, profile, config, profile_hash=p_hash, today=today, now=now,
+                )
+                scores.update(run.scores)
+                scored_this_run = run.scored
+                if run.budget_limited:
+                    budget_hit.append(f"{len(run.failed)} candidates left unscored")
+                sp.set(scored=run.scored, failed=len(run.failed), mode=run.mode)
+                log.info("scoring: %d cached, %d scored (%s), %d failed/deferred",
+                         cached, run.scored, run.mode, len(run.failed))
 
         # 3. top N, then budgeted SAM description fetches + rescore on change (§5.5)
         top_n = config.settings.top_n_summaries
         top_ids = rank_top(active, scores, top_n)
-        rescored = self._fetch_top_descriptions(
-            ctx, raw, active, relevance, scores, top_ids, p_hash
-        )
-        scored_this_run += rescored
-        top_ids = rank_top(active, scores, top_n)
+        if llm_ok:  # a fetched description changes the hash and needs a rescore
+            with tracing.span("custom", "fetch top descriptions") as sp:
+                rescored = self._fetch_top_descriptions(
+                    llm, raw, active, relevance, scores, top_ids, p_hash
+                )
+                sp.set(rescored=rescored)
+            scored_this_run += rescored
+            top_ids = rank_top(active, scores, top_n)
 
         # 4. summaries for top-N entries without a valid cached one (§5.5 #3, §7.3)
         uncacheable: set[str] = set()
-        for id_ in top_ids:
-            if id_ in summaries:
-                continue
-            summary, cacheable = summarize.summarize_one(
-                ctx.llm, active[id_], scores[id_], profile, profile_hash=p_hash,
-                today=today, now=now,
-            )
-            summaries[id_] = summary
-            if not cacheable:
-                uncacheable.add(id_)
+        summary_budget_hits: list[str] = []
+        with tracing.span("custom", "summaries", top=len(top_ids)) as sp:
+            for id_ in top_ids:
+                if id_ in summaries:
+                    continue
+                if not llm_ok:
+                    summaries[id_] = summarize.template_summary(
+                        active[id_], scores[id_], profile_hash=p_hash, now=now
+                    )
+                    uncacheable.add(id_)
+                    continue
+                summary, cacheable = summarize.summarize_one(
+                    llm, active[id_], scores[id_], profile, profile_hash=p_hash,
+                    today=today, now=now, budget_hits=summary_budget_hits,
+                )
+                summaries[id_] = summary
+                if not cacheable:
+                    uncacheable.add(id_)
+            sp.set(written=sum(1 for i in top_ids if summaries[i].generated_at == now))
+        if summary_budget_hits:
+            budget_hit.append(f"{len(summary_budget_hits)} summaries fell back to templates")
 
-        # 5. persist store + state (only on a full run; dry runs never reach here)
+        # 5. bid research for new Pursue matches (§6.3)
+        blocks = {id_: ResearchBlock.model_validate(c.block) for id_, c in research_cache.items()}
+        researched_now = self._research(
+            ctx, llm, raw, active, scores, top_ids, p_hash, research_cache, blocks, budget_hit,
+            llm_ok=llm_ok,
+        )
+
+        if budget_hit:
+            detail = "; ".join(budget_hit)
+            ctx.warn(f"MAX_RUN_USD reached: {detail}. The rest is retried next run.")
+            ctx.alert(
+                "Grants agent hit MAX_RUN_USD",
+                f"Run {ctx.run_id} reached its LLM spend cap (MAX_RUN_USD): {detail}."
+                " Unscored candidates, template summaries and unfinished research are"
+                " retried next run. If this repeats, raise `max_run_usd` in"
+                " .github/workflows/agent-grants.yml or lower `max_llm_scoring_per_run`.",
+            )
+
+        # 6. persist store + state (only on a full run; dry runs never reach here)
         entries = {
             id_: StoreEntry(
                 opportunity=opp,
                 relevance=relevance[id_],
                 score=scores.get(id_),
                 summary=summaries.get(id_) if id_ not in uncacheable else None,
+                research=research_cache.get(id_),
             )
             for id_, opp in active.items()
         }
         store_bytes = save_store(entries, store_path())
         self._save_state(raw, p_hash)
 
-        # 6. documents
+        # 7. documents
         sam_state = raw.state.sam
         facts = RunFacts(
             now=now,
@@ -475,13 +588,16 @@ class GrantsAgent(Agent):
                 or (raw.sam_budget and raw.sam_budget.exhausted)
             ),
             sam_requests_used=sam_state.requests_today(today),
+            research={id_: b for id_, b in blocks.items() if id_ in active},
         )
         docs = build_documents(facts)
         log.info(
-            "published %d active (%d matches), top %d, store %d bytes",
+            "published %d active (%d matches), top %d, %d researched (%d new), store %d bytes",
             len(active),
             docs.active_matches,
             len(top_ids),
+            len(facts.research),
+            researched_now,
             store_bytes,
         )
         sources_ok = [raw.sam is not None and raw.sam.error is None, raw.gg_error is None]
@@ -495,17 +611,64 @@ class GrantsAgent(Agent):
             headline=docs.headline,
             key_stats=docs.key_stats,
             data_changed=bool(
-                data.new_ids or data.changed_ids or scored_this_run
+                data.new_ids or data.changed_ids or scored_this_run or researched_now
                 or any(summaries[i].generated_at == now for i in top_ids)
             ),
             items_count=docs.active_matches,
             files={"all.json": docs.all_json},
             status="ok" if any(sources_ok) else "stale",
+            meta_fields=docs.meta_fields,
         )
+
+    def _research(
+        self,
+        ctx: RunContext,
+        llm: LLM,
+        raw: RawFetch,
+        active: dict[str, Opportunity],
+        scores: dict[str, Score],
+        top_ids: list[str],
+        p_hash: str,
+        research_cache: dict[str, ResearchCache],
+        blocks: dict[str, ResearchBlock],
+        budget_hit: list[str],
+        *,
+        llm_ok: bool,
+    ) -> int:
+        """§6.3: research up to `max_per_run` top Pursue matches without valid
+        research. Updates `research_cache`/`blocks`; returns how many ran."""
+        settings_ = raw.config.research
+        ids = research.candidates(top_ids, scores, set(research_cache), settings_.max_per_run)
+        with tracing.span("custom", "bid research", candidates=len(ids), llm=llm_ok) as sp:
+            if not (settings_.enabled and llm_ok and ids):
+                return 0
+            env = research.ResearchEnv(
+                http=ctx.http, profile=raw.profile, today=raw.today, settings=settings_,
+                sam_budget=raw.sam_budget,
+            )
+            done = 0
+            for id_ in ids:
+                outcome = research.research_one(llm, env, active[id_], scores[id_],
+                                                now=raw.now)
+                blocks[id_] = outcome.block
+                done += 1
+                if outcome.cacheable:
+                    research_cache[id_] = research.to_cache(outcome.block, active[id_],
+                                                            profile_hash=p_hash)
+                stop = outcome.loop.stop_reason
+                if stop == "run_budget":
+                    budget_hit.append(f"bid research for {id_} was cut short")
+                    break
+                if not outcome.loop.ok:
+                    ctx.warn(f"Bid research for {id_} stopped ({stop}); published a template"
+                             " brief.")
+            save_state(raw.state, state_path())  # attachment downloads are in the ledger
+            sp.set(researched=done, sam_requests=env.sam_requests_used)
+            return done
 
     def _fetch_top_descriptions(
         self,
-        ctx: RunContext,
+        llm: LLM,
         raw: RawFetch,
         active: dict[str, Opportunity],
         relevance: dict[str, int],
@@ -555,7 +718,7 @@ class GrantsAgent(Agent):
             relevance[id_] = compute_relevance(updated, raw.profile)
             if updated.content_hash != opp.content_hash:
                 run = scoring.score_opportunities(
-                    ctx.llm, [updated], raw.profile, raw.config, profile_hash=p_hash,
+                    llm, [updated], raw.profile, raw.config, profile_hash=p_hash,
                     today=raw.today, now=raw.now, use_batch=False,
                 )
                 if updated.id in run.scores:
@@ -576,6 +739,16 @@ class GrantsAgent(Agent):
         state.prompt_versions.summary = summarize.SUMMARY_PROMPT_VERSION
         state.sam.trim(raw.today)
         save_state(state, state_path())
+
+
+def llm_available(llm: LLM) -> bool:
+    """False when no Anthropic key is configured (agents-core raises RuntimeError
+    building the client): the run then degrades instead of failing."""
+    try:
+        llm.client  # noqa: B018 - builds the SDK client, or raises without a key
+    except RuntimeError:
+        return False
+    return True
 
 
 AGENT = GrantsAgent()

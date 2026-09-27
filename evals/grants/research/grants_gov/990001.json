@@ -1,0 +1,41 @@
+{
+ "errorcode": 0,
+ "msg": "Webservice Succeeds",
+ "data": {
+  "id": 990001,
+  "opportunityNumber": "NSF 26-551",
+  "opportunityTitle": "Cyberinfrastructure for AI-Ready Research Data (CIARD)",
+  "synopsis": {
+   "agencyName": "National Science Foundation",
+   "synopsisDesc": "<p>CIARD supports teams that build open, AI-ready research data infrastructure: pipelines that clean, document and publish scientific datasets with machine-readable metadata. Proposals are reviewed on the two NSF merit review criteria, Intellectual Merit and Broader Impacts, plus the solicitation-specific criterion of data sustainability after the award period.</p><p>Small businesses may apply as lead or as subawardees.</p>",
+   "applicantTypes": [
+    {
+     "id": "23",
+     "description": "Small businesses"
+    },
+    {
+     "id": "25",
+     "description": "Others (see text field entitled \"Additional Information on Eligibility\" for clarification)"
+    },
+    {
+     "id": "20",
+     "description": "Private institutions of higher education"
+    }
+   ],
+   "applicantEligibilityDesc": "Non-profit, non-academic organizations and small businesses with research capability.",
+   "awardCeiling": "1500000",
+   "awardFloor": "300000",
+   "estimatedFunding": "12000000",
+   "numberOfAwards": "8",
+   "costSharing": false,
+   "responseDateDesc": "Full proposal deadline: December 1, 2026, 5 p.m. submitter's local time",
+   "fundingDescLinkUrl": "https://www.nsf.gov/funding/opportunities/ciard"
+  },
+  "cfdas": [
+   {
+    "cfdaNumber": "47.070",
+    "programTitle": "Computer and Information Science and Engineering"
+   }
+  ]
+ }
+}

@@ -129,12 +129,14 @@ def summarize_one(
     profile_hash: str,
     today: date,
     now: datetime,
+    budget_hits: list[str] | None = None,
 ) -> tuple[Summary, bool]:
     """One guarded smart-tier summary; template fallback on a double guard
     failure, a model error, or a call the run budget can't afford.
 
     Returns (summary, cacheable). A template produced because of an error or
-    the budget isn't cacheable, so the next run tries the LLM again."""
+    the budget isn't cacheable, so the next run tries the LLM again. An id that
+    fell back because of MAX_RUN_USD is appended to `budget_hits`."""
     payload = summary_input(opp, score, profile, today)
     context = profile_context(profile)
     guard = make_guard(payload, context)
@@ -158,6 +160,8 @@ def summarize_one(
     except BudgetExceeded:
         log.warning("summary %s: over MAX_RUN_USD; using template", opp.id)
         output, source, cacheable = fallback, "template", False
+        if budget_hits is not None:
+            budget_hits.append(opp.id)
     except Exception as e:  # refusal, truncation, API error
         log.warning("summary %s failed (%s); using template", opp.id, e)
         output, source, cacheable = fallback, "template", False
@@ -176,3 +180,24 @@ def summarize_one(
         generated_at=now,
     )
     return summary, cacheable
+
+
+def template_summary(
+    opp: Opportunity, score: Score, *, profile_hash: str, now: datetime
+) -> Summary:
+    """The §7.4 template as a Summary, for runs that can't call the LLM (no key).
+    Callers don't cache it, so the next run with a key writes the real summary."""
+    output = _tidy(SummaryOutput(**summary_fallback(opp, score)))
+    return Summary(
+        opportunity_id=opp.id,
+        what_they_want=output.what_they_want,
+        why_fit=output.why_fit,
+        risks=output.risks,
+        next_steps=output.next_steps,
+        narrative_source="template",
+        model=model_id(),
+        profile_hash=profile_hash,
+        prompt_version=SUMMARY_PROMPT_VERSION,
+        content_hash=opp.content_hash,
+        generated_at=now,
+    )

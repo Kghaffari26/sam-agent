@@ -23,3 +23,20 @@ first_run_lookback_days = 7
 [grants_gov]
 opp_statuses = "forecasted|posted"
 rows_per_query = 100
+
+# Bid research (SPEC_GRANTS.md §6.3): an agent loop per Pursue match that hasn't
+# been researched at its current content hash, at most `max_per_run` per run.
+[research]
+enabled = true
+max_per_run = 3
+max_steps = 10
+max_usd_per_opportunity = 0.12
+max_attachments_per_opportunity = 3
+max_sam_requests_per_run = 4           # attachment downloads, also counted in the SAM ledger
+max_usaspending_calls_per_opportunity = 3
+
+# SAM.gov personal API keys expire every 90 days. Set the current key's expiry
+# date to get an ops-alert issue `alert_days_before` it lapses.
+[sam_key]
+# expires_on = 2026-12-20
+alert_days_before = 14

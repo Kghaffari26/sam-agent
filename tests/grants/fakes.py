@@ -4,6 +4,7 @@ Anthropic client for `agents_core.llm` (no live network calls in tests)."""
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Callable
 from pathlib import Path
 from types import SimpleNamespace
@@ -32,12 +33,16 @@ class FixtureServer:
         sam_descriptions: dict[str, str] | None = None,
         gg_search: dict[str, Any] | None = None,
         gg_details: dict[str, dict[str, Any]] | None = None,
+        usaspending: dict[str, Any] | None = None,
+        files: dict[str, bytes] | None = None,
     ) -> None:
         self.sam_pages = sam_pages or []
         self.sam_status = sam_status
         self.sam_descriptions = sam_descriptions or {}
         self.gg_search = gg_search
         self.gg_details = gg_details or {}
+        self.usaspending = usaspending if usaspending is not None else {"results": []}
+        self.files = files or {}  # SAM attachment resource id -> bytes
         self.calls: list[httpx.Request] = []
 
     def calls_to(self, host: str, path_part: str = "") -> list[httpx.Request]:
@@ -72,6 +77,13 @@ class FixtureServer:
                 if detail is None:
                     return httpx.Response(404, content=b"")
                 return httpx.Response(200, json=detail)
+        if url.host == "api.usaspending.gov" and url.path.endswith("/spending_by_award/"):
+            return httpx.Response(200, json=self.usaspending)
+        if url.host == "sam.gov" and url.path.endswith("/download"):
+            data = self.files.get(url.path.split("/")[-2])
+            if data is None:
+                return httpx.Response(404, content=b"")
+            return httpx.Response(200, content=data, headers={"etag": '"1"'})
         return httpx.Response(599, content=b"unexpected host")
 
     def transport(self) -> httpx.MockTransport:
@@ -111,6 +123,36 @@ def default_summary(prompt: str) -> dict[str, Any]:
     }
 
 
+BRIEF = {
+    "what_theyre_buying": "Software modernization support.",
+    "evaluation_criteria": ["Technical approach", "Past performance", "Price"],
+    "likely_incumbent": None,
+    "incumbent_notes": "No prior award was relied on.",
+    "prior_award_ids": [],
+    "risks": ["Scope is unverified until the attachments are read"],
+    "go_no_go": "go",
+    "rationale": "Strong capability match with manageable risks.",
+}
+
+
+def first_text(params: dict[str, Any]) -> str:
+    content = params["messages"][0]["content"]
+    return content if isinstance(content, str) else content[0]["text"]
+
+
+def default_research(params: dict[str, Any]) -> list[dict[str, Any]]:
+    """Deterministic 'model' for the research loop: look up the notice and prior
+    awards in one turn, then finish with a number-free brief."""
+    opp_id = re.search(r"opportunity (\S+) and", first_text(params)).group(1)
+    if len(params["messages"]) == 1:
+        return [
+            {"type": "tool_use", "id": "t1", "name": "get_opportunity", "input": {"id": opp_id}},
+            {"type": "tool_use", "id": "t2", "name": "usaspending_prior_awards",
+             "input": {"keywords": ["software"]}},
+        ]
+    return [{"type": "tool_use", "id": "t3", "name": "finish", "input": dict(BRIEF)}]
+
+
 def _message(text: str, parsed: Any = None) -> SimpleNamespace:
     return SimpleNamespace(
         content=[SimpleNamespace(type="text", text=text)],
@@ -139,9 +181,12 @@ class FakeClient:
         summary: Callable[[str], dict[str, Any]] = default_summary,
         *,
         batch_polls: int = 0,
+        research: Callable[[dict[str, Any]], list[dict[str, Any]]] = default_research,
     ) -> None:
         self.rubric = rubric
         self.summary = summary
+        self.research = research
+        self.research_calls: list[dict[str, Any]] = []
         self.batch_polls = batch_polls
         self.sync_calls: list[dict[str, Any]] = []
         self.batch_requests: list[list[dict[str, Any]]] = []
@@ -161,7 +206,8 @@ class FakeClient:
 
     @property
     def total_calls(self) -> int:
-        return len(self.sync_calls) + sum(len(b) for b in self.batch_requests)
+        return (len(self.sync_calls) + sum(len(b) for b in self.batch_requests)
+                + len(self.research_calls))
 
     def _answer(self, params: dict[str, Any]) -> dict[str, Any]:
         prompt = params["messages"][0]["content"]
@@ -170,11 +216,25 @@ class FakeClient:
         return self.rubric(prompt)
 
     def _create(self, **params: Any) -> SimpleNamespace:
+        if params.get("tools"):  # the research agent loop (LLM.converse)
+            self.research_calls.append(params)
+            blocks = self.research(params)
+            return SimpleNamespace(
+                content=[SimpleNamespace(**b) for b in blocks],
+                usage=SimpleNamespace(input_tokens=2000, output_tokens=200,
+                                      cache_creation_input_tokens=0, cache_read_input_tokens=0),
+                stop_reason="tool_use" if any(b["type"] == "tool_use" for b in blocks)
+                else "end_turn",
+                stop_details=None,
+            )
         self.sync_calls.append(params)
         return _message(json.dumps(self._answer(params)))
 
     def _parse(self, output_format: Any, **params: Any) -> SimpleNamespace:
         self.sync_calls.append(params)
+        if output_format.__name__ == "JudgeVerdict":  # agents_core.evals.LLMJudge
+            data = {"reasoning": "Meets the rubric.", "score": 4}
+            return _message(json.dumps(data), parsed=output_format.model_validate(data))
         data = self._answer(params)
         return _message(json.dumps(data), parsed=output_format.model_validate(data))
 

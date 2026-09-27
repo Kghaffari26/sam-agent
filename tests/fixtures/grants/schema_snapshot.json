@@ -1,5 +1,43 @@
 {
  "$defs": {
+  "Citation": {
+   "additionalProperties": false,
+   "description": "Backs one narrative claim. Every claim in an AI brief carries at least one.",
+   "properties": {
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "What the citation supports",
+     "title": "Note"
+    },
+    "source": {
+     "description": "Source name, e.g. 'FRED'",
+     "title": "Source",
+     "type": "string"
+    },
+    "url": {
+     "format": "uri",
+     "maxLength": 2083,
+     "minLength": 1,
+     "title": "Url",
+     "type": "string"
+    }
+   },
+   "required": [
+    "source",
+    "url",
+    "note"
+   ],
+   "title": "Citation",
+   "type": "object"
+  },
   "DeadlineEntry": {
    "additionalProperties": false,
    "properties": {
@@ -81,6 +119,12 @@
      "title": "Finished At",
      "type": "string"
     },
+    "meta_schema_version": {
+     "default": "1.1.0",
+     "pattern": "^\\d+\\.\\d+\\.\\d+$",
+     "title": "Meta Schema Version",
+     "type": "string"
+    },
     "model_usage": {
      "$ref": "#/$defs/ModelUsage"
     },
@@ -122,6 +166,13 @@
      ],
      "title": "Status",
      "type": "string"
+    },
+    "warnings": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Warnings",
+     "type": "array"
     }
    },
    "required": [
@@ -135,6 +186,8 @@
     "cost_usd",
     "model_usage",
     "sources",
+    "warnings",
+    "meta_schema_version",
     "sam_budget_exhausted",
     "sam_requests_used"
    ],
@@ -276,6 +329,96 @@
    "title": "ModelUsage",
    "type": "object"
   },
+  "PriorAward": {
+   "additionalProperties": false,
+   "description": "One prior award from USAspending.gov (\u00a76.3). Every value is copied from the\nUSAspending response in code; `url` is the award's USAspending page.",
+   "properties": {
+    "amount": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Amount"
+    },
+    "award_id": {
+     "title": "Award Id",
+     "type": "string"
+    },
+    "awarding_agency": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Awarding Agency"
+    },
+    "end_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "End Date"
+    },
+    "recipient": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Recipient"
+    },
+    "start_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Start Date"
+    },
+    "url": {
+     "format": "uri",
+     "maxLength": 2083,
+     "minLength": 1,
+     "title": "Url",
+     "type": "string"
+    }
+   },
+   "required": [
+    "award_id",
+    "recipient",
+    "amount",
+    "start_date",
+    "end_date",
+    "awarding_agency",
+    "url"
+   ],
+   "title": "PriorAward",
+   "type": "object"
+  },
   "ProfileSummary": {
    "additionalProperties": false,
    "properties": {
@@ -379,6 +522,141 @@
     "negative_keyword"
    ],
    "title": "RejectedCounts",
+   "type": "object"
+  },
+  "ResearchBlock": {
+   "additionalProperties": false,
+   "description": "Bid research brief for a Pursue match (\u00a76.3), from the research agent loop.",
+   "properties": {
+    "citations": {
+     "items": {
+      "$ref": "#/$defs/Citation"
+     },
+     "title": "Citations",
+     "type": "array"
+    },
+    "cost_usd": {
+     "title": "Cost Usd",
+     "type": "number"
+    },
+    "evaluation_criteria": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evaluation Criteria",
+     "type": "array"
+    },
+    "go_no_go": {
+     "enum": [
+      "go",
+      "no_go"
+     ],
+     "title": "Go No Go",
+     "type": "string"
+    },
+    "incumbent_notes": {
+     "title": "Incumbent Notes",
+     "type": "string"
+    },
+    "likely_incumbent": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Likely Incumbent"
+    },
+    "model": {
+     "title": "Model",
+     "type": "string"
+    },
+    "narrative_source": {
+     "enum": [
+      "llm",
+      "template"
+     ],
+     "title": "Narrative Source",
+     "type": "string"
+    },
+    "prior_awards": {
+     "items": {
+      "$ref": "#/$defs/PriorAward"
+     },
+     "title": "Prior Awards",
+     "type": "array"
+    },
+    "prompt_version": {
+     "title": "Prompt Version",
+     "type": "string"
+    },
+    "rationale": {
+     "title": "Rationale",
+     "type": "string"
+    },
+    "researched_at": {
+     "title": "Researched At",
+     "type": "string"
+    },
+    "risks": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Risks",
+     "type": "array"
+    },
+    "status": {
+     "enum": [
+      "complete",
+      "partial"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "steps": {
+     "title": "Steps",
+     "type": "integer"
+    },
+    "stop_reason": {
+     "title": "Stop Reason",
+     "type": "string"
+    },
+    "tools_used": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Tools Used",
+     "type": "array"
+    },
+    "what_theyre_buying": {
+     "title": "What Theyre Buying",
+     "type": "string"
+    }
+   },
+   "required": [
+    "status",
+    "stop_reason",
+    "narrative_source",
+    "what_theyre_buying",
+    "evaluation_criteria",
+    "likely_incumbent",
+    "incumbent_notes",
+    "prior_awards",
+    "risks",
+    "go_no_go",
+    "rationale",
+    "citations",
+    "tools_used",
+    "steps",
+    "cost_usd",
+    "model",
+    "prompt_version",
+    "researched_at"
+   ],
+   "title": "ResearchBlock",
    "type": "object"
   },
   "Source": {
@@ -778,6 +1056,17 @@
      "title": "Red Flags",
      "type": "array"
     },
+    "research": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/ResearchBlock"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
     "set_aside_label": {
      "anyOf": [
       {
@@ -866,7 +1155,8 @@
     "red_flags",
     "is_new",
     "changed",
-    "summary"
+    "summary",
+    "research"
    ],
    "title": "TopMatch",
    "type": "object"

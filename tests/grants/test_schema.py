@@ -235,15 +235,28 @@ def test_all_json_round_trips():
     assert restored == all_json
 
 
-def test_sam_meta_key_is_merged_into_meta():
-    data = make_latest().model_dump(mode="json")
-    data["meta"].pop("sam_budget_exhausted")
-    data["meta"].pop("sam_requests_used")
-    data["sam_meta"] = {"sam_budget_exhausted": True, "sam_requests_used": 5}
-    latest = GrantsLatest.model_validate(data)
-    assert latest.meta.sam_budget_exhausted is True
-    assert latest.meta.sam_requests_used == 5
-    assert "sam_meta" not in latest.model_dump(mode="json")
+def test_sam_meta_fields_live_in_meta():
+    """§6.1's SAM fields are GrantsMeta fields (agents-core merges
+    AgentResult.meta_fields into meta); agents-core adds warnings + meta version."""
+    meta = make_latest().model_dump(mode="json")["meta"]
+    assert {"sam_budget_exhausted", "sam_requests_used", "warnings",
+            "meta_schema_version"} <= set(meta)
+    assert meta["meta_schema_version"] == "1.1.0"
+
+
+def test_every_delta_format_is_a_standard_stat_format():
+    """agents-hub renders key stats with agents-core's StatFormat only."""
+    from typing import get_args
+
+    from agents_core.schema import StatFormat
+
+    schema = schema_dict(GrantsLatest)
+    key_stat = schema["$defs"]["KeyStat"]["properties"]
+    allowed = set(get_args(StatFormat))
+    for prop in ("format", "delta_format"):
+        enums = [v for branch in key_stat[prop].get("anyOf", [key_stat[prop]])
+                 for v in branch.get("enum", [])]
+        assert enums and set(enums) <= allowed, prop
 
 
 def test_published_timestamps_are_utc_z():

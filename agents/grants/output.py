@@ -3,7 +3,7 @@ key stats from computed data. Pure Python: no LLM, no I/O."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime
 
 from agents_core.schema import KeyStat
@@ -12,7 +12,6 @@ from agents.grants.config import BusinessProfile, GrantsConfig
 from agents.grants.models import Opportunity, Score, Summary
 from agents.grants.prompting import NOTICE_TYPE_LABELS, days_left, place_text
 from agents.grants.schema import (
-    SAM_META_KEY,
     AllRow,
     DeadlineEntry,
     FetchedCounts,
@@ -20,6 +19,7 @@ from agents.grants.schema import (
     LargestValue,
     ProfileSummary,
     RejectedCounts,
+    ResearchBlock,
     SourceLink,
     Stats,
     SummaryBlock,
@@ -64,6 +64,7 @@ class RunFacts:
     llm_scored_cached: int
     sam_budget_exhausted: bool
     sam_requests_used: int
+    research: dict[str, ResearchBlock] = field(default_factory=dict)  # §6.3, by id
 
 
 def set_asides_eligible(profile: BusinessProfile) -> list[str]:
@@ -135,6 +136,7 @@ def _top_match(f: RunFacts, id_: str) -> TopMatch:
             model=summary.model,
             generated_at=summary.generated_at,
         ),
+        research=f.research.get(id_),
     )
 
 
@@ -145,6 +147,7 @@ class Documents:
     headline: str
     key_stats: list[KeyStat]
     active_matches: int
+    meta_fields: dict  # GrantsMeta's own fields, for AgentResult.meta_fields
 
 
 def build_documents(f: RunFacts) -> Documents:
@@ -196,11 +199,11 @@ def build_documents(f: RunFacts) -> Documents:
         pursue=f.config.recommendation.pursue,
         consider=f.config.recommendation.consider,
     )
+    meta_fields = {
+        "sam_budget_exhausted": f.sam_budget_exhausted,
+        "sam_requests_used": f.sam_requests_used,
+    }
     body = {
-        SAM_META_KEY: {
-            "sam_budget_exhausted": f.sam_budget_exhausted,
-            "sam_requests_used": f.sam_requests_used,
-        },
         "headline": text,
         "key_stats": [k.model_dump(mode="json") for k in key_stats],
         "profile": ProfileSummary(
@@ -262,10 +265,11 @@ def build_documents(f: RunFacts) -> Documents:
                 url=opp.url,
                 is_new=id_ in f.new_ids,
                 in_top=id_ in top_set,
+                has_research=id_ in f.research,
             )
         )
     all_json = GrantsAll(
         generated_at=f.now,
         rows=cap_all_rows(rows, max_rows=f.config.settings.all_json_max_rows),
     )
-    return Documents(body, all_json, text, key_stats, len(matches))
+    return Documents(body, all_json, text, key_stats, len(matches), meta_fields)

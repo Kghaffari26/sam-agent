@@ -1,8 +1,11 @@
 # Daily run of the grants/contracts finder agent (SPEC_GRANTS.md §9), via
-# agents-core's reusable workflow: it runs `uv run agents-run grants`, commits
-# data/ (cost log, data/grants/ state + store) back to this branch, and
-# force-pushes public-data/ to this repo's `data` branch (the data-branch
-# contract), then notifies agents-hub if SITE_DISPATCH_TOKEN is set.
+# agents-core's reusable workflow. run-agent.yml restores this repo's `data` branch
+# into public-data/ (so history/ accumulates and last_data_change_at survives),
+# runs `uv run agents-run grants`, commits data/ (cost log, guard failures, ops-alert
+# state, data/grants/ state + store) back to this branch, force-pushes public-data/
+# (latest.json, all.json, history/, manifest-entry.json, costs-summary.json,
+# schema.json, trace.json, trace.schema.json) to the `data` branch, then notifies
+# agents-hub if SITE_DISPATCH_TOKEN is set.
 name: Agent - Grants
 
 on:
@@ -21,12 +24,19 @@ on:
         type: string
         default: ""
 
-permissions:
-  contents: write
+# Nothing by default; the job below grants exactly what the agent needs.
+permissions: {}
 
 jobs:
   run:
-    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@v0.1.0
+    # run-agent.yml (agents-core >= v0.2.0) declares no permissions: it inherits
+    # exactly this job's grant. contents: write commits data/ and pushes the `data`
+    # branch; issues: write lets the agent open ops-alert issues (SAM key rejected or
+    # expiring, SAM/Anthropic budget exhausted) via ctx.alert.
+    permissions:
+      contents: write
+      issues: write
+    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@v0.3.0
     with:
       agent: grants
       max_run_usd: "0.50"
@@ -34,11 +44,11 @@ jobs:
       extra_args: >-
         ${{ inputs.rescore_all && '--rescore-all' || '' }}
         ${{ inputs.lookback_days != '' && format('--lookback-days={0}', inputs.lookback_days) || '' }}
-      # Restored between runs with actions/cache: agents-core's HTTP cache and its
-      # SAM daily request-budget file (.cache/http; data/grants/state.json keeps the
-      # committed ledger too), and public-data/ so history/ accumulates up to 90
-      # snapshots and manifest-entry.json keeps last_data_change_at across runs.
+      # agents-core's HTTP cache and its SAM daily request-budget file (.cache/http;
+      # data/grants/state.json keeps the committed ledger too), and downloaded SAM
+      # attachments with their extracted text (.cache/grants). public-data/ is no
+      # longer cached: run-agent.yml restores it from the `data` branch.
       cache_path: |
         .cache/http
-        public-data
+        .cache/grants
     secrets: inherit

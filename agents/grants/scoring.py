@@ -315,6 +315,7 @@ class ScoringRun:
     scored: int  # LLM-scored this run
     failed: list[str]  # ids left unscored (errors or budget)
     mode: str  # "batch", "sync", "batch+sync" or "none"
+    budget_limited: bool = False  # MAX_RUN_USD left some candidates unscored
 
 
 def score_opportunities(
@@ -356,6 +357,10 @@ def score_opportunities(
                     purpose="score",
                     poll_seconds=poll_seconds,
                     timeout_seconds=config.settings.batch_poll_timeout_min * 60,
+                    # §5.4: a batch still running after the timeout is cancelled and
+                    # rerun as sync calls (agents-core's run_many, max_concurrency
+                    # from config/models.toml).
+                    on_timeout="sync",
                 )
             except BudgetExceeded:
                 # Worst-case estimate too high for what's left: halve and retry.
@@ -363,10 +368,11 @@ def score_opportunities(
                 deferred.update(batch_ids[len(batch_ids) // 2 :])
                 batch_ids = batch_ids[: len(batch_ids) // 2]
                 continue
-            except LLMError as e:  # batch timed out: fall back to sync calls (§5.4)
+            except LLMError as e:  # the batch itself failed: items go to sync calls below
                 log.warning("score batch failed (%s); falling back to sync calls", e)
                 break
-            modes.append("batch")
+            modes.append("batch+sync" if any(r.via == "sync" for r in results.values())
+                         else "batch")
             ok_items = [i for i in items if results[i.custom_id].ok]
             guarded = llm.guard_batch(
                 SCORE_TIER,
@@ -402,6 +408,7 @@ def score_opportunities(
             )
         except BudgetExceeded:
             log.warning("MAX_RUN_USD reached; %d items left unscored this run", len(pending))
+            deferred.add(cid)
             break
         except Exception as e:  # LLMError, API errors: leave unscored, retry next run
             log.warning("score %s failed: %s", cid, e)
@@ -417,4 +424,5 @@ def score_opportunities(
         for cid, raw in raws.items()
     }
     failed = [j.opp.id for cid, j in jobs.items() if cid not in raws]
-    return ScoringRun(scores, len(scores), failed, "+".join(modes) or "none")
+    return ScoringRun(scores, len(scores), failed, "+".join(modes) or "none",
+                      budget_limited=bool(deferred))

@@ -82,3 +82,10 @@ def _isolated_agents_core_dirs(tmp_path, monkeypatch):
     monkeypatch.setenv("AGENTS_CORE_DATA_DIR", str(tmp_path / "data"))
     monkeypatch.setenv("AGENTS_CORE_PUBLISH_DIR", str(tmp_path / "public-data"))
     monkeypatch.setenv("AGENTS_CORE_HTTP_CACHE_DIR", str(tmp_path / "http-cache"))
+    monkeypatch.setenv("AGENTS_CORE_EVALS_DIR", str(tmp_path / "evals"))
+    # No ops-alert issues and no real Anthropic calls from tests: alerts are a logged
+    # no-op without GITHUB_TOKEN/GITHUB_REPOSITORY, and every test that reaches the
+    # LLM injects a fake client (a missing key must degrade, never crash).
+    for var in ("GITHUB_TOKEN", "GITHUB_REPOSITORY", "ANTHROPIC_API_KEY",
+                "AGENTS_ANTHROPIC_API_KEY", "SAM_API_KEY"):
+        monkeypatch.delenv(var, raising=False)

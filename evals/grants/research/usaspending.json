@@ -1,0 +1,130 @@
+{
+ "veterans": {
+  "results": [
+   {
+    "internal_id": 1,
+    "Award ID": "36C10B21C0045",
+    "Recipient Name": "ACME DIGITAL SERVICES LLC",
+    "Award Amount": 3412500.0,
+    "Start Date": "2021-05-01",
+    "End Date": "2026-04-30",
+    "Awarding Agency": "Department of Veterans Affairs",
+    "Awarding Sub Agency": "Veterans Benefits Administration",
+    "Description": "VBA BENEFITS STATUS DASHBOARD SUSTAINMENT AND ENHANCEMENTS",
+    "generated_internal_id": "CONT_AWD_36C10B21C0045_3600_-NONE-_-NONE-"
+   },
+   {
+    "internal_id": 1,
+    "Award ID": "36C10B23F0188",
+    "Recipient Name": "BLUE HARBOR TECHNOLOGIES INC",
+    "Award Amount": 1250000.0,
+    "Start Date": "2023-02-15",
+    "End Date": "2025-02-14",
+    "Awarding Agency": "Department of Veterans Affairs",
+    "Awarding Sub Agency": "Veterans Benefits Administration",
+    "Description": "REPORTING DATABASE MIGRATION SUPPORT",
+    "generated_internal_id": "CONT_AWD_36C10B23F0188_3600_36C10B20D0003_3600"
+   },
+   {
+    "internal_id": 1,
+    "Award ID": "36C10X20C0007",
+    "Recipient Name": "SUMMIT DATA CORP",
+    "Award Amount": 9800000.0,
+    "Start Date": "2020-09-30",
+    "End Date": "2025-09-29",
+    "Awarding Agency": "Department of Veterans Affairs",
+    "Awarding Sub Agency": "Veterans Health Administration",
+    "Description": "EHR INTEROPERABILITY TESTING",
+    "generated_internal_id": "CONT_AWD_36C10X20C0007_3600_-NONE-_-NONE-"
+   }
+  ],
+  "page_metadata": {
+   "page": 1,
+   "hasNext": false
+  }
+ },
+ "general services": {
+  "results": [
+   {
+    "internal_id": 1,
+    "Award ID": "47QTCA22F0033",
+    "Recipient Name": "NIMBUS API WORKS LLC",
+    "Award Amount": 2180000.0,
+    "Start Date": "2022-06-01",
+    "End Date": "2025-05-31",
+    "Awarding Agency": "General Services Administration",
+    "Awarding Sub Agency": "Federal Acquisition Service",
+    "Description": "API GATEWAY OPERATIONS AND DEVELOPER PORTAL SUPPORT",
+    "generated_internal_id": "CONT_AWD_47QTCA22F0033_4732_47QTCA19D00AB_4732"
+   },
+   {
+    "internal_id": 1,
+    "Award ID": "47QTCA23C0071",
+    "Recipient Name": "STREAMLINE DATA PARTNERS INC",
+    "Award Amount": 1675000.0,
+    "Start Date": "2023-08-01",
+    "End Date": "2026-07-31",
+    "Awarding Agency": "General Services Administration",
+    "Awarding Sub Agency": "Federal Acquisition Service",
+    "Description": "ACQUISITION DATA PIPELINE OPERATIONS",
+    "generated_internal_id": "CONT_AWD_47QTCA23C0071_4732_-NONE-_-NONE-"
+   }
+  ],
+  "page_metadata": {
+   "page": 1,
+   "hasNext": false
+  }
+ },
+ "science": {
+  "results": [
+   {
+    "internal_id": 1,
+    "Award ID": "2230111",
+    "Recipient Name": "RIVERBEND ANALYTICS INC",
+    "Award Amount": 999876.0,
+    "Start Date": "2022-10-01",
+    "End Date": "2025-09-30",
+    "Awarding Agency": "National Science Foundation",
+    "Awarding Sub Agency": "Directorate for Computer and Information Science and Engineering",
+    "Description": "CC* DATA: AI-READY RESEARCH DATA SERVICES",
+    "generated_internal_id": "ASST_NON_2230111_4900"
+   },
+   {
+    "internal_id": 1,
+    "Award ID": "2329402",
+    "Recipient Name": "UNIVERSITY OF EXAMPLE",
+    "Award Amount": 1480000.0,
+    "Start Date": "2023-09-01",
+    "End Date": "2026-08-31",
+    "Awarding Agency": "National Science Foundation",
+    "Awarding Sub Agency": "Directorate for Computer and Information Science and Engineering",
+    "Description": "CYBERINFRASTRUCTURE FOR FAIR RESEARCH DATA",
+    "generated_internal_id": "ASST_NON_2329402_4900"
+   }
+  ],
+  "page_metadata": {
+   "page": 1,
+   "hasNext": false
+  }
+ },
+ "defense": {
+  "results": [
+   {
+    "internal_id": 1,
+    "Award ID": "HC102821F0412",
+    "Recipient Name": "IRONCLAD CYBER DEFENSE INC",
+    "Award Amount": 24500000.0,
+    "Start Date": "2021-03-01",
+    "End Date": "2026-02-28",
+    "Awarding Agency": "Department of Defense",
+    "Awarding Sub Agency": "Defense Information Systems Agency",
+    "Description": "CLOUD SECURITY OPERATIONS CENTER SUPPORT",
+    "generated_internal_id": "CONT_AWD_HC102821F0412_9700_HC102818D0002_9700"
+   }
+  ],
+  "page_metadata": {
+   "page": 1,
+   "hasNext": false
+  }
+ }
+}

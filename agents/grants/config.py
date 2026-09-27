@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import tomllib
+from datetime import date
 from pathlib import Path
 from typing import Literal
 
@@ -86,6 +87,30 @@ class GrantsGovSettings(BaseModel):
     rows_per_query: int = 100
 
 
+class ResearchSettings(BaseModel):
+    """Bid research (§6.3): an agent loop per Pursue match, cached by content hash."""
+
+    enabled: bool = True
+    max_per_run: int = 3
+    max_steps: int = 10
+    max_usd_per_opportunity: float = 0.12
+    max_seconds_per_opportunity: float = 240.0
+    max_attachments_per_opportunity: int = 3
+    # SAM.gov requests (attachment downloads) the research step may spend per run,
+    # on top of being counted in the day's SAM ledger/budget.
+    max_sam_requests_per_run: int = 4
+    max_usaspending_calls_per_opportunity: int = 3
+    attachment_chars: int = 6000
+
+
+class SamKeySettings(BaseModel):
+    """SAM.gov API keys expire (every 90 days for a personal key). Set the date the
+    current key expires to get an ops alert `alert_days_before` it does."""
+
+    expires_on: date | None = None
+    alert_days_before: int = 14
+
+
 class GrantsConfig(BaseModel):
     """`config/grants.toml`, validated (SPEC_GRANTS.md §8)."""
 
@@ -93,6 +118,8 @@ class GrantsConfig(BaseModel):
     recommendation: RecommendationThresholds = Field(default_factory=RecommendationThresholds)
     sam: SamSettings = Field(default_factory=SamSettings)
     grants_gov: GrantsGovSettings = Field(default_factory=GrantsGovSettings)
+    research: ResearchSettings = Field(default_factory=ResearchSettings)
+    sam_key: SamKeySettings = Field(default_factory=SamKeySettings)
 
 
 def load_business_profile(path: str | Path) -> BusinessProfile:

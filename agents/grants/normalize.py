@@ -267,6 +267,7 @@ def normalize_sam(
         url=f"https://sam.gov/opp/{notice_id}/view",
         description_text=description,
         description_fetched=description_text is not None,
+        attachments=[u for u in raw.get("resourceLinks") or [] if isinstance(u, str)],
         content_hash=compute_content_hash(fields_for_hash),
         first_seen_at=now,
         last_seen_at=now,

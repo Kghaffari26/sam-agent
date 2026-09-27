@@ -6,7 +6,7 @@ See docs/specs/SPEC_GRANTS.md §4 and §5.4/§7.3.
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, HttpUrl
 
@@ -56,6 +56,9 @@ class Opportunity(BaseModel):
     url: HttpUrl
     description_text: str | None = None  # truncated to 8,000 chars; HTML stripped
     description_fetched: bool = False
+    # SAM `resourceLinks` (attachment download URLs), for bid research. Not part of
+    # content_hash: a new attachment alone doesn't invalidate a score or summary.
+    attachments: list[str] = []
     content_hash: str  # sha256 of the fields above that matter for scoring
     first_seen_at: datetime
     last_seen_at: datetime
@@ -104,3 +107,16 @@ class Summary(BaseModel):
     prompt_version: str
     content_hash: str
     generated_at: datetime
+
+
+class ResearchCache(BaseModel):
+    """A bid-research brief (§6.3) with its cache key: researched once per
+    `(content_hash, profile_hash, prompt_version, model)`. `block` is the published
+    `agents.grants.schema.ResearchBlock` as JSON."""
+
+    opportunity_id: str
+    content_hash: str
+    profile_hash: str
+    prompt_version: str
+    model: str
+    block: dict[str, Any]

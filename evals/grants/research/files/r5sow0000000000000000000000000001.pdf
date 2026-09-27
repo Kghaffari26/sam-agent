@@ -1,0 +1,45 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 739 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+54 750 Td
+(DEFENSE INFORMATION SYSTEMS AGENCY - STATEMENT OF WORK) Tj T*
+(Cloud Security Operations Support \(HC1028-26-R-0033\)) Tj T*
+(The contractor shall provide 24x7 security operations for DISA cloud enclaves:) Tj T*
+(monitoring, incident response and DevSecOps pipeline hardening.) Tj T*
+(PERSONNEL SECURITY: All contractor personnel must hold an active TOP SECRET/SCI) Tj T*
+(clearance at the time of proposal submission. The facility requires a TOP SECRET) Tj T*
+(facility clearance \(FCL\). Work is performed on-site at Fort Meade, MD.) Tj T*
+(EVALUATION: Factor 1 Technical/Management Approach; Factor 2 Security) Tj T*
+(Clearance Compliance \(pass/fail\); Factor 3 Past Performance; Factor 4 Price.) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000185 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1101
+%%EOF

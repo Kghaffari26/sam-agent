@@ -1,0 +1,52 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 1217 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+54 750 Td
+(DEPARTMENT OF VETERANS AFFAIRS - STATEMENT OF WORK) Tj T*
+(Solicitation 36C10B26Q0417: VBA Benefits Dashboard Modernization) Tj T*
+(1. Background. The Veterans Benefits Administration \(VBA\) runs a legacy) Tj T*
+(benefits-status dashboard built on ASP.NET Web Forms and SQL Server.) Tj T*
+(2. Scope. The contractor shall re-platform the dashboard as a React front end) Tj T*
+(and Python \(FastAPI\) services on AWS GovCloud, migrate the reporting database to) Tj T*
+(PostgreSQL, and deliver automated tests and a CI/CD pipeline.) Tj T*
+(3. Period of performance: a 12-month base period and two 12-month option periods.) Tj T*
+(4. Place of performance: contractor site \(remote\). No security clearance is) Tj T*
+(required; personnel must pass a VA Tier 1 background investigation.) Tj T*
+(5. Key personnel: a technical lead and a senior full-stack developer.) Tj T*
+(SECTION M - EVALUATION FACTORS FOR AWARD) Tj T*
+(Award will be made on a best-value tradeoff basis. Factors, in descending order) Tj T*
+(of importance: Factor 1 Technical Approach; Factor 2 Past Performance;) Tj T*
+(Factor 3 Price. Factors 1 and 2 combined are significantly more important) Tj T*
+(than price.) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000185 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1580
+%%EOF

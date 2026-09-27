@@ -34,7 +34,7 @@ def _write(name: str, data: object) -> None:
 def record_grants_gov() -> None:
     with Http() as http:
         body = {"keyword": "software", "oppStatuses": "forecasted|posted", "rows": 25}
-        search = http.request("POST", SEARCH_URL, json_body=body, headers=HEADERS, ttl_seconds=0)
+        search = http.request("POST", SEARCH_URL, json_body=body, headers=HEADERS)
         data = search.json()
         data.pop("token", None)
         _write("grants_gov_search2_live.json", data)
@@ -46,7 +46,7 @@ def record_grants_gov() -> None:
                 continue
             r = http.request(
                 "POST", DETAIL_URL, json_body={"opportunityId": int(hit["id"])},
-                headers=HEADERS, ttl_seconds=0,
+                headers=HEADERS,
             )
             detail = r.json()
             detail.pop("token", None)

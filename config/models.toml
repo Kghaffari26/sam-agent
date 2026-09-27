@@ -1,0 +1,16 @@
+# Overrides for agents-core's shipped config/models.toml (deep-merged; see the
+# agents-core README "Cost cap" and "Sampling and concurrency").
+#
+# Scoring (fast tier) runs at temperature 0: the rubric's recommendation bands
+# (Pursue >= 75, Consider >= 55) turn a few points of sampling noise into a flipped
+# recommendation, and SPEC_GRANTS.md §11 wants >= 90% of items to keep the same
+# recommendation across two samples. The smart tier (summaries, bid research)
+# keeps the model default: it sets `effort`, and not every smart model accepts
+# sampling parameters.
+[tiers.fast]
+temperature = 0
+
+# Synchronous calls made together (a timed-out score batch rerun through
+# run_many, guard retries) run up to 5 at a time.
+[llm]
+max_concurrency = 5

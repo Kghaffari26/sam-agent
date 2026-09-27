@@ -169,7 +169,9 @@ def test_batch_timeout_falls_back_to_sync(tmp_path):
     run = score_opportunities(llm, [make_opportunity()], make_profile(), config,
                               profile_hash="p", today=TODAY, now=NOW, poll_seconds=30)
     assert client.cancelled == ["batch_1"]
-    assert run.mode == "sync" and run.scored == 1
+    # agents-core's on_timeout="sync" reran the item through run_many.
+    assert run.mode == "batch+sync" and run.scored == 1
+    assert len(client.sync_calls) == 1
 
 
 def test_over_budget_batch_is_shrunk_not_overspent(tmp_path):

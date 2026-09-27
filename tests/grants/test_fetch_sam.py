@@ -109,7 +109,9 @@ def test_committed_ledger_binds_even_with_a_fresh_http_cache(tmp_path):
     assert srv.calls == [] and result.budget_exhausted
 
 
-def test_http_retries_cannot_overrun_the_ledger(tmp_path):
+def test_a_5xx_costs_exactly_one_request(tmp_path):
+    """agents-core >= v0.2.0 gives a budgeted host one attempt: a transient 5xx
+    must not burn several of the day's ~10 SAM requests."""
     calls = []
 
     def always_503(request):
@@ -121,9 +123,44 @@ def test_http_retries_cannot_overrun_the_ledger(tmp_path):
     http.set_policy(SAM_HOST, HostPolicy(daily_budget=8))
     state = SamState(requests={TODAY.isoformat(): 6})
     budget = SamBudget(http, state, daily_budget=8, today=TODAY)
-    fetch_window(budget, "k", window=(TODAY, TODAY), ptypes=["o"])
-    assert len(calls) == 2  # Http would retry 4x; the synced policy stops it at 2
-    assert state.requests_today(TODAY) == 8
+    result = fetch_window(budget, "k", window=(TODAY, TODAY), ptypes=["o"])
+    assert len(calls) == 1 and result.error and not result.complete
+    assert state.requests_today(TODAY) == 7
+    assert http.policies[SAM_HOST].max_attempts == 1
+
+
+def test_ledger_binds_on_a_fresh_checkout(tmp_path):
+    """No agents-core budget file (fresh CI checkout), but the committed ledger
+    says the day's budget is used: nothing is sent."""
+    srv = FixtureServer(sam_pages=[page(3, 3)])
+    state = SamState(requests={TODAY.isoformat(): 8})
+    budget = SamBudget(make_http(tmp_path, srv), state, daily_budget=8, today=TODAY)
+    result = fetch_window(budget, "k", window=(TODAY, TODAY), ptypes=["o"])
+    assert result.budget_exhausted and srv.calls == []
+
+
+def test_attachment_download_is_budgeted_and_conditional(tmp_path):
+    served = []
+
+    def handler(request):
+        served.append(request)
+        if request.headers.get("if-none-match") == '"v1"':
+            return httpx.Response(304)
+        return httpx.Response(200, content=b"%PDF-1.4 x", headers={"etag": '"v1"'})
+
+    http = Http(cache_dir=tmp_path / "c", transport=httpx.MockTransport(handler),
+                sleep=lambda s: None)
+    state = SamState(requests={TODAY.isoformat(): 6})
+    budget = SamBudget(http, state, daily_budget=8, today=TODAY)
+    url = "https://sam.gov/api/prod/opps/v3/opportunities/resources/files/abc/download"
+    dest = tmp_path / "files" / "abc.bin"
+    first = budget.download(url, dest)
+    second = budget.download(url, dest)
+    assert first.modified and not second.modified and dest.read_bytes() == b"%PDF-1.4 x"
+    assert state.requests_today(TODAY) == 8  # both were sent, both counted
+    with pytest.raises(RequestBudgetExceeded):
+        budget.download(url, dest)
+    assert len(served) == 2
 
 
 def test_cache_hits_are_free(tmp_path):
@@ -158,7 +195,7 @@ def test_429_stops_sam_calls(tmp_path):
     budget = SamBudget(make_http(tmp_path, srv, daily_budget=2), SamState(), daily_budget=2,
                        today=TODAY)
     result = fetch_window(budget, "k", window=(TODAY, TODAY), ptypes=["o"])
-    assert result.budget_exhausted and len(srv.calls) == 2
+    assert result.budget_exhausted and len(srv.calls) == 1  # no retries on a budgeted host
 
 
 def test_recorded_live_fixture_parses(tmp_path):

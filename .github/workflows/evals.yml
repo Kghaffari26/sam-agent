@@ -1,0 +1,39 @@
+# Eval gate for pull requests that touch agent code, prompts, evals or model config,
+# via agents-core's reusable run-evals.yml. It runs the three suites in
+# evals/grants/suites.py (scoring, summaries, bid-research trajectories) with real
+# LLM calls, appends to evals/history.jsonl, and fails the job when any score drops
+# by more than `regression_threshold` against the previous history entry (normally
+# the baseline committed on main). The comparison table lands in the job summary.
+name: Evals
+
+on:
+  pull_request:
+    paths:
+      - "agents/**"
+      - "evals/**"
+      - "config/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/evals.yml"
+
+permissions: {}
+
+jobs:
+  evals:
+    permissions:
+      contents: read
+    uses: Kghaffari26/agents-core/.github/workflows/run-evals.yml@v0.3.0
+    with:
+      eval_command: >-
+        uv run agents-evals run evals.grants.suites:SCORING
+        evals.grants.suites:SUMMARIES evals.grants.suites:RESEARCH
+      # Spend cap for the whole run (AGENTS_CORE_EVAL_MAX_USD): suites.py gives
+      # scoring 25%, summaries 20% and bid research 55% of it; a suite that would pass
+      # its share skips its remaining cases and reports budget_exhausted.
+      max_usd: "1.00"
+      # The research and summary suites have five cases each, so one case flipping
+      # moves a score by 0.2: tolerate one, fail on two.
+      regression_threshold: "0.20"
+      # Second line of defence behind the trigger's path filter (fnmatch globs).
+      paths: "agents/* evals/* config/* pyproject.toml uv.lock"
+    secrets: inherit
