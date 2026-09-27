@@ -506,6 +506,17 @@ class GrantsAgent(Agent):
                 sp.set(rescored=rescored)
             scored_this_run += rescored
             top_ids = rank_top(active, scores, top_n)
+            # A fetched description changed those items' content hash: their cached
+            # summaries and research (validated before the fetch) are stale now.
+            summaries = {
+                i: s for i, s in summaries.items()
+                if summarize.cache_key_matches(s, active[i], profile_hash=p_hash,
+                                               model=summary_model)
+            }
+            research_cache = {
+                i: c for i, c in research_cache.items()
+                if research.cache_valid(c, active[i], profile_hash=p_hash, model=research_model)
+            }
 
         # 4. summaries for top-N entries without a valid cached one (§5.5 #3, §7.3)
         uncacheable: set[str] = set()

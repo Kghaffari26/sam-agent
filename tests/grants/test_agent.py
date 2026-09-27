@@ -315,3 +315,27 @@ def test_max_run_usd_warns_and_alerts(env, alerts, monkeypatch):
 def test_warnings_are_empty_on_a_clean_run(env, alerts):
     assert run_once(env, server(), FakeClient()) == 0
     assert read(env, "latest.json")["meta"]["warnings"] == [] and alerts == []
+
+
+def test_description_fetch_invalidates_cached_summary(env, monkeypatch):
+    """Found on the 2026-09-27 live run: an item rescored after its description was
+    fetched kept publishing the summary cached for its old content hash."""
+    import agents.grants.agent as agent_mod
+
+    srv = server()
+    real_cap = agent_mod.load_grants_config
+
+    def no_descriptions(path):
+        config = real_cap(path)
+        return config.model_copy(update={"settings": config.settings.model_copy(
+            update={"max_sam_description_fetches": 0})})
+
+    monkeypatch.setattr(agent_mod, "load_grants_config", no_descriptions)
+    assert run_once(env, srv, FakeClient()) == 0
+    monkeypatch.setattr(agent_mod, "load_grants_config", real_cap)
+    second = FakeClient()
+    assert run_once(env, srv, second) == 0
+    fetched = [c for c in srv.calls_to("api.sam.gov") if "search" not in c.url.path]
+    assert fetched and second.sync_calls  # descriptions fetched, items rescored
+    summarized = [c for c in second.sync_calls if "bid/no-bid" in c["system"][0]["text"]]
+    assert summarized, "the rescored items must get fresh summaries"
