@@ -31,3 +31,6 @@
 {"ts": "2026-09-26T18:16:23Z", "kind": "run", "agent": "grants", "run_id": "2026-09-26T18-13-29Z-e0ad5a", "status": "ok", "calls": 9, "run_usd": 0.009397}
 {"ts": "2026-09-26T18:17:07Z", "kind": "run", "agent": "grants", "run_id": "2026-09-26T18-16-37Z-f35310", "status": "ok", "calls": 0, "run_usd": 0.0}
 {"ts": "2026-09-26T18:18:19Z", "kind": "run", "agent": "grants", "run_id": "2026-09-26T18-17-48Z-f27ded", "status": "ok", "calls": 0, "run_usd": 0.0}
+{"ts": "2026-09-27T00:36:29Z", "agent": "grants", "run_id": "2026-09-27T00-36-25Z-75634b", "tier": "fast", "model": "claude-haiku-4-5-20251001", "purpose": "score-sync:sam_6c0dc91d0e854834a137db90bd8a8e4f", "batch": false, "input_tokens": 1439, "output_tokens": 118, "cache_write_tokens": 0, "cache_read_tokens": 0, "usd": 0.002029}
+{"ts": "2026-09-27T00:36:31Z", "agent": "grants", "run_id": "2026-09-27T00-36-25Z-75634b", "tier": "fast", "model": "claude-haiku-4-5-20251001", "purpose": "score-sync:sam_49ba69c7b8344d72a15adb8057028af2", "batch": false, "input_tokens": 1696, "output_tokens": 108, "cache_write_tokens": 0, "cache_read_tokens": 0, "usd": 0.002236}
+{"ts": "2026-09-27T00:36:31Z", "kind": "run", "agent": "grants", "run_id": "2026-09-27T00-36-25Z-75634b", "status": "ok", "calls": 2, "run_usd": 0.004265}

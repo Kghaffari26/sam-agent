@@ -39,7 +39,8 @@ def main() -> None:
     loop, b = outcome.loop, outcome.block
     print(f"{case_id}: stop={loop.stop_reason} steps={loop.steps} guard={b.narrative_source}")
     for call in loop.tool_calls:
-        print(f"  step {call.step}: {call.tool}({', '.join(f'{k}={v!r}' for k, v in call.input.items())})")
+        args = ", ".join(f"{k}={v!r}" for k, v in call.input.items())
+        print(f"  step {call.step}: {call.tool}({args})")
     print(f"\nWhat they're buying: {b.what_theyre_buying}")
     print("Evaluation criteria: " + "; ".join(b.evaluation_criteria))
     print(f"Likely incumbent: {b.likely_incumbent}  -- {b.incumbent_notes}")

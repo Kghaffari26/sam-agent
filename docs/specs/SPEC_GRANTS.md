@@ -401,6 +401,53 @@ The pydantic models in `agents/grants/schema.py` are exported to `schemas/grants
 
 `id: "grants"`, `route: "/grants"`, `expected_interval_hours: 24`, `next_run_hint: "Daily 06:00 PT"`, `items_count` = active matches.
 
+### 6.3 Bid research (additive, `schema_version` 1.1.0)
+
+Added 2026-09-27 (agents-core v0.3.0). **Additive only**: no §6.1/§6.2 field changed meaning, type or position; a consumer that ignores the new keys sees the same document as 1.0.0. With agents-core ≥ v0.2.0, `meta` also carries the shared `warnings` (list of plain-language strings, usually empty) and `meta_schema_version` (`"1.1.0"`). With v0.3.0 the data branch also holds `trace.json` and `trace.schema.json`, and `manifest-entry.json` carries `trace_summary`.
+
+**What it is.** For up to `research.max_per_run` (3) top matches recommended **Pursue** that have no research at their current `content_hash`, an agent loop (smart tier, `agents/grants/research.py`) reads the notice, up to 3 SAM attachments (PDF/DOCX), USAspending.gov prior awards and, for grants, the Grants.gov detail, then writes a brief. Budgets per opportunity: 10 model steps, $0.12, 240 s; attachment downloads count against the day's SAM ledger and at most 4 per run. Cached by `(content_hash, profile_hash, research prompt version, model)`: each notice version is researched once.
+
+**`latest.json`: `top_matches[i].research`** — `null` unless the match has research:
+
+```json
+"research": {
+  "status": "complete",            // "complete" (loop finished) | "partial" (a budget or other stop)
+  "stop_reason": "finished",       // agents-core LoopResult.stop_reason: finished, max_steps, max_usd,
+                                   //   max_seconds, run_budget, end_turn_without_finish, refusal, ...
+  "narrative_source": "llm",       // "template" when the guard failed twice or the loop stopped early
+  "what_theyre_buying": "…",       // ≤ 2 sentences
+  "evaluation_criteria": ["Technical Approach", "Past Performance", "Price"],   // ≤ 6
+  "likely_incumbent": "ACME DIGITAL SERVICES LLC",   // or null
+  "incumbent_notes": "…",          // cites award ids
+  "prior_awards": [                // built in code from the USAspending response, never by the model
+    { "award_id": "36C10B21C0045", "recipient": "ACME DIGITAL SERVICES LLC", "amount": 3412500.0,
+      "start_date": "2021-05-01", "end_date": "2026-04-30",
+      "awarding_agency": "Department of Veterans Affairs",
+      "url": "https://www.usaspending.gov/award/CONT_AWD_36C10B21C0045_3600_-NONE-_-NONE-" }
+  ],
+  "risks": ["…"],                  // ≤ 4
+  "go_no_go": "go",                // "go" | "no_go"
+  "rationale": "…",
+  "citations": [                   // agents_core.schema.Citation: the notice, each attachment read,
+    { "source": "USAspending.gov", "url": "https://www.usaspending.gov/award/…",   //   Grants.gov detail,
+      "note": "Prior award 36C10B21C0045" }                                       //   each prior award
+  ],
+  "tools_used": ["get_opportunity", "list_attachments", "read_attachment", "usaspending_prior_awards"],
+  "steps": 3, "cost_usd": 0.0301,
+  "model": "claude-sonnet-5", "prompt_version": "v1",
+  "researched_at": "2026-09-27T12:00:00Z"
+}
+```
+
+**`all.json`: `rows[i].has_research`** — `true` when that item has valid research (published in `top_matches` while it's in the top 20).
+
+**Guarantees.**
+
+- Every number, dollar amount and date in the narrative fields (`what_theyre_buying`, `evaluation_criteria`, `likely_incumbent`, `incumbent_notes`, `risks`, `rationale`) appears in the tool results, the notice or the profile (the agents-core number guard plus the §7.3 date check); every award id the model cites must have been returned by USAspending. A failure is retried once, then replaced by a deterministic template (`narrative_source: "template"`).
+- `prior_awards[].amount`, `recipient` and dates are copied from USAspending in code.
+- Tool outputs are wrapped as untrusted data; instructions inside attachments are ignored (covered by the `r4-gsa-injection` eval case).
+- A run without an Anthropic key publishes cached research only and never starts a loop.
+
 ---
 
 ## 7. LLM usage
