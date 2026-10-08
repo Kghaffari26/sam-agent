@@ -5,8 +5,9 @@
     uv run agents-evals compare            # latest vs previous, exit 1 on a regression
 
 Each run writes `evals/results/<date>.json` and appends one line per suite to
-`evals/history.jsonl` (prompt version, git SHA, model, scores, pass rate, cost),
-which `.github/workflows/evals.yml` compares on pull requests.
+`evals/history.jsonl` (prompt version, git SHA, `dirty`, model, scores, pass rate,
+cost), which `.github/workflows/evals.yml` compares on pull requests. `dirty` is
+agents-core's (v0.3.2) check for uncommitted changes outside `evals/` and `data/`.
 
 - `grants-scoring` (one case: the 40-item labeled set, scored twice with the
   production rubric scorer over the Batch API): the §11 ranking, hard-blocker,

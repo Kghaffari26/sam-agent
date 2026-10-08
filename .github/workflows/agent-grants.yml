@@ -36,7 +36,7 @@ jobs:
     permissions:
       contents: write
       issues: write
-    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@v0.3.1
+    uses: Kghaffari26/agents-core/.github/workflows/run-agent.yml@9e4f342a06b4e74bb27d73cf759e931033fa97bf
     with:
       agent: grants
       max_run_usd: "0.50"

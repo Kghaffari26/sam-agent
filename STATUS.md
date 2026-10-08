@@ -1,11 +1,12 @@
 # Status
 
-_Updated 2026-09-27 (session: agents-core v0.3.1 upgrade; before that: v0.3.0, bid research, tracing, evals)._
+_Updated 2026-10-08 (session: agents-core v0.3.2 upgrade; before that: v0.3.1, v0.3.0, bid research, tracing, evals)._
 
 ## Summary
 
-The agent runs on **agents-core v0.3.1** (tag `v0.3.1` → `dba5e86`, locked in
-`uv.lock`; the v0.3.0 notes below are from the previous session) with every v0.1.0 workaround that v0.2.0 made unnecessary removed. New
+The agent runs on **agents-core v0.3.2**, pinned by commit SHA `9e4f342`
+(the `v0.3.2` tag doesn't exist yet; locked in `uv.lock`; see the v0.3.2
+section below — the other notes are from earlier sessions) with every v0.1.0 workaround that v0.2.0 made unnecessary removed. New
 this session: a bid-research agent loop (SPEC §6.3, additive output), run
 tracing (`trace.json`), evals ported to `agents_core.evals` with a history and a
 PR gate, warnings and ops alerts, and a no-Anthropic-key fallback.
@@ -21,6 +22,19 @@ PR gate, warnings and ops alerts, and a no-Anthropic-key fallback.
   `data/grants/state.json` → `sam.requests["2026-09-27"] = 3`): 1 window search
   (the dry run; the real run reused it from the HTTP cache) + 2 description
   fetches.
+
+## agents-core v0.3.2 upgrade (2026-10-08)
+
+Pin (`rev = "9e4f342a06b4e74bb27d73cf759e931033fa97bf"`) and both workflow refs
+→ that SHA until a human creates the `v0.3.2` tag; then switch to `tag =` /
+`@v0.3.2`. The one item we reported is fixed: eval history lines now carry
+`dirty` (uncommitted tracked changes outside `evals/` and `data/`), and
+`compare` warns about them. No local workaround existed and nothing here reads
+`history.jsonl`, so the change is docs only. The other v0.3.2 additions
+(`no_multiples` guard, `DownloadResult.headers`/`.links`, `LLMJudge(input=)`)
+replace nothing in this repo and weren't adopted. **Tests 245 passing** (245
+before), ruff and actionlint clean. No evals run (nothing that affects scoring
+changed), no agent runs, no SAM.gov requests, $0 spent.
 
 ## agents-core v0.3.1 upgrade (2026-09-27)
 
@@ -123,10 +137,10 @@ the USAspending query shape and agency-name mapping (`usaspending.agency_name`).
 
 ## Needed from agents-core (not modified here; local workarounds noted)
 
-1. Minor: `run_suite` records `git rev-parse HEAD`, so evals run on an
-   uncommitted tree are attributed to the previous commit.
+None open.
 
-(Resolved by v0.2.0/v0.3.0/v0.3.1 and removed here: sync-call `temperature`
+(Resolved by v0.2.0/v0.3.0/v0.3.1/v0.3.2 and removed here: evals on an uncommitted
+tree attributed to the previous commit (v0.3.2 `dirty`), sync-call `temperature`
 (`llm_compat.py`), an `LLMJudge` temperature hook, a total eval cap, agent meta fields, data-branch
 restore, per-host retry control, a warnings channel + issue helper, UTC budget
 day.)

@@ -81,3 +81,10 @@ Timestamps are UTC.
 - Replaced the per-suite spend shares (25/20/55% of `AGENTS_CORE_EVAL_MAX_USD`) with v0.3.1's total cap: suites set no `max_usd`, `evals.yml` sets `total_max_usd: "1.00"` (and keeps `max_usd: "1.00"` per suite), docs use `--total-max-usd 1.00`.
 - Stability re-check ran only `grants-scoring` (`--total-max-usd 0.30`, SAM key unset so no SAM.gov requests possible). Its history line is committed so the PR gate compares against it. Note: scoring runs over the Batch API, where temperature 0 already worked on v0.3.0, so this run tests reproducibility more than a change in sampling.
 - A rejected Anthropic key (401/403) degrades like a missing one: `llm_key_problem` preflights real SDK clients with one free `models.list` call, publishes cached scores with a warning, and opens an "Anthropic API key rejected" ops alert (same pattern as the SAM key). A bad key used to fail the run, since auth errors are not `LLMError`s.
+
+## 2026-10-08 session (agents-core v0.3.2)
+
+- Pinned agents-core by commit SHA (`rev = "9e4f342a06b4e74bb27d73cf759e931033fa97bf"`, both workflow `uses:` refs too) because the `v0.3.2` tag doesn't exist yet; switch back to `tag = "v0.3.2"` / `@v0.3.2` once a human creates it.
+- v0.3.2's eval `dirty` flag needs no code here: there was no local workaround (no wrapper or note recording/comparing SHAs) and nothing in this repo reads `history.jsonl`, so only the docs (README Evals, CLAUDE.md, `suites.py` docstring) mention it. Its exclusions (`evals/`, `data/`) match where our eval runs write (results, trajectories, `data/eval_costs.jsonl`).
+- Didn't adopt `no_multiples=True`, `DownloadResult.headers`/`.links` or `LLMJudge(input=)`: none replaces an existing workaround here (no multiples regex, attachments need no pagination/headers, the judges' input isn't rebuilt), and the task was not to add behaviour. `no_multiples` would also change guard outcomes and so eval scores.
+- No evals run: nothing that affects scoring changed; existing history lines (no `dirty` key) still compare.

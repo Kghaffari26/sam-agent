@@ -108,7 +108,8 @@ per-host rate limits, daily request budgets and an on-disk cache; the LLM
 client (tiers, Batch API, structured outputs, the per-run `MAX_RUN_USD` cap);
 cost tracking; the number guard; publishing; the runner — comes from
 [`agents-core`](https://github.com/Kghaffari26/agents-core), installed as a git
-dependency pinned to tag `v0.3.1` (commit `dba5e86`, see `uv.lock`), plus
+dependency pinned to v0.3.2 by commit SHA (`9e4f342`, see `uv.lock`; the
+`v0.3.2` tag doesn't exist yet), plus
 its agent loop, tracing, evals and ops alerts.
 
 The agent registers under agents-core's `agents_core.agents` entry-point group
@@ -225,3 +226,9 @@ research miss is `r3-nsf-grant`: labelled `go`, but the model called `no_go`
 with a defensible rationale (a competitive research grant, and the firm has no NSF
 track record). The judge scored that brief 1.0; the label needs a human call.
 The LLM judges aren't calibrated against human labels yet.
+
+Each `history.jsonl` line records the git SHA the run was attributed to and
+`dirty` (agents-core v0.3.2): `true` when tracked files outside `evals/` and
+`data/` had uncommitted changes, so the scores don't belong to that SHA alone;
+`null` without git. `agents-evals compare` warns about dirty entries.
+`AGENTS_CORE_GIT_DIRTY=true|false` overrides the check.

@@ -13,7 +13,8 @@ disagree on repo layout, this file wins; its §2-§13 content, especially the
   HTTP with request budgets and conditional downloads, cost tracking, publish
   helpers, the number guard, the agent loop (`agent_loop`), tracing, evals,
   ops alerts, the agent registry/runner. Installed as a git dependency pinned
-  to tag `v0.3.1` (commit `dba5e86`, locked in `uv.lock`); read its README and
+  to v0.3.2 by commit SHA (`rev = "9e4f342..."`, locked in `uv.lock`; switch to
+  `tag = "v0.3.2"` once that tag exists); read its README and
   CHANGELOG for the agent contract. This agent is `agents.grants.agent:AGENT`,
   registered under the `agents_core.agents` entry point as `grants`.
 - **`agents-hub`**: the website that reads published data.
@@ -35,6 +36,7 @@ uv run agents-run grants [--dry-run]       # agent flags: --rescore-all, --lookb
 uv run agents-evals run --total-max-usd 1.00 evals.grants.suites:SCORING \
   evals.grants.suites:SUMMARIES evals.grants.suites:RESEARCH   # real LLM calls, see evals/grants/
 uv run agents-evals compare                # latest vs previous entry of evals/history.jsonl
+                                           #   (entries run on an uncommitted tree: dirty=true)
 uv run python -m tools.record_fixtures grants-gov|sam-from-cache
 uv run python -m tools.make_research_fixtures   # rebuild the research eval PDF/DOCX files
 ```
