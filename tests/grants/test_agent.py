@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from agents_core import registry, runner
@@ -270,6 +271,37 @@ def test_sam_key_rejected_warns_and_alerts(env, alerts):
     assert [t for t, _ in alerts] == ["SAM.gov API key rejected"]
     state = json.loads((env / "data" / "grants" / "state.json").read_text())
     assert state["sam"]["key_rejected_at"] == "2026-09-24"
+
+
+class RejectedKeyClient(FakeClient):
+    """A real-looking SDK client (by module name) whose key the API rejects."""
+
+    __module__ = "anthropic._client"
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.model_lists = 0
+
+        def list_models(**_kw):
+            self.model_lists += 1
+            error = type("AuthenticationError", (Exception,), {"status_code": 401})
+            raise error("invalid x-api-key")
+
+        self.models = SimpleNamespace(list=list_models)
+
+
+def test_anthropic_key_rejected_publishes_ok_warns_and_alerts(env, alerts):
+    """A revoked or mistyped key answers 401, which isn't an LLMError: it used to fail
+    the run. Now it degrades like a missing key, and a human gets an ops alert."""
+    srv = server()
+    client = RejectedKeyClient()
+    assert run_once(env, srv, client) == 0
+    assert client.model_lists == 1 and not client.sync_calls and not client.batch_requests
+    latest = read(env, "latest.json")
+    assert latest["meta"]["status"] == "ok"
+    assert any("Anthropic API key rejected (401)" in w for w in latest["meta"]["warnings"])
+    assert latest["top_matches"] == [] and latest["stats"]["llm_scored_this_run"] == 0
+    assert [t for t, _ in alerts] == ["Anthropic API key rejected"]
 
 
 def test_sam_budget_exhaustion_warns_and_alerts(env, alerts):

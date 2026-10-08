@@ -99,6 +99,11 @@ NO_LLM_WARNING = (
     "No Anthropic API key: new candidates were left unscored, and summaries and bid"
     " research were skipped. Published cached scores with template summaries."
 )
+REJECTED_LLM_KEY_WARNING = (
+    "Anthropic API key rejected ({status}): new candidates were left unscored, and summaries"
+    " and bid research were skipped. Published cached scores with template summaries;"
+    " update the ANTHROPIC_API_KEY secret."
+)
 
 CONFIG_PATH = Path("config/grants.toml")
 
@@ -445,9 +450,18 @@ class GrantsAgent(Agent):
         research_model = research.model_id()
         active = dict(data.active)
         relevance = dict(data.relevance)
-        llm_ok = llm_available(ctx.llm)
-        if not llm_ok:
-            ctx.warn(NO_LLM_WARNING)
+        llm_problem = llm_key_problem(ctx.llm)
+        llm_ok = llm_problem is None
+        if llm_problem:
+            warning, status = llm_problem
+            ctx.warn(warning)
+            if status:
+                ctx.alert(
+                    "Anthropic API key rejected",
+                    f"Anthropic answered HTTP {status} to the key preflight on {today}, so"
+                    " grants were left unscored. Update the `ANTHROPIC_API_KEY` (or"
+                    " `AGENTS_ANTHROPIC_API_KEY`) Actions secret.",
+                )
         llm = ctx.llm
 
         if profile_changed(raw.state, p_hash):
@@ -750,14 +764,32 @@ class GrantsAgent(Agent):
         save_state(state, state_path())
 
 
-def llm_available(llm: LLM) -> bool:
-    """False when no Anthropic key is configured (agents-core raises RuntimeError
-    building the client): the run then degrades instead of failing."""
+def llm_key_problem(llm: LLM) -> tuple[str, int | None] | None:
+    """Why the LLM can't be used this run, as `(warning, http_status)`, or None if it can.
+
+    No key: agents-core raises RuntimeError building the client. A key the API rejects
+    (revoked, or a mistyped secret) would instead fail the batch with a 401/403, which
+    isn't an LLMError, and take the run down; it's checked once up front with a free
+    `models.list` request (real SDK clients only, not injected fakes). Either way the
+    run then degrades instead of failing."""
     try:
-        llm.client  # noqa: B018 - builds the SDK client, or raises without a key
+        client = llm.client  # builds the SDK client, or raises without a key
     except RuntimeError:
-        return False
-    return True
+        return NO_LLM_WARNING, None
+    if type(client).__module__.split(".")[0] != "anthropic":
+        return None
+    try:
+        client.models.list(limit=1)
+    except Exception as e:  # the SDK's error types, without importing the SDK here
+        status = getattr(e, "status_code", None)
+        if status in (401, 403):
+            return REJECTED_LLM_KEY_WARNING.format(status=status), status
+        log.warning("Anthropic key preflight failed (%s); trying the real calls anyway", e)
+    return None
+
+
+def llm_available(llm: LLM) -> bool:
+    return llm_key_problem(llm) is None
 
 
 AGENT = GrantsAgent()
