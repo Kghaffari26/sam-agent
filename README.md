@@ -108,7 +108,7 @@ per-host rate limits, daily request budgets and an on-disk cache; the LLM
 client (tiers, Batch API, structured outputs, the per-run `MAX_RUN_USD` cap);
 cost tracking; the number guard; publishing; the runner — comes from
 [`agents-core`](https://github.com/Kghaffari26/agents-core), installed as a git
-dependency pinned to tag `v0.3.0` (commit `bcfb9c5`, see `uv.lock`), plus
+dependency pinned to tag `v0.3.1` (commit `dba5e86`, see `uv.lock`), plus
 its agent loop, tracing, evals and ops alerts.
 
 The agent registers under agents-core's `agents_core.agents` entry-point group
