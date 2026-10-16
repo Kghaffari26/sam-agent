@@ -77,6 +77,9 @@ rescored item kept publishing the summary cached for its old content hash. See
   `get_opportunity` and used only `grants_gov_detail` (required tools 0.5 on that
   case). Smart-tier sampling isn't pinned, so this varies between runs; the
   PR gate's 0.20 threshold tolerates one such flip.
+  `get_opportunity` is now optional for grants cases (`grants_gov_detail` returns
+  the same facts), so r3 requires only `grants_gov_detail`. Replayed offline, that
+  run's r3 trajectory now passes; the next live run will show 1.00.
 - Labels are still PROVISIONAL (Claude's proposals). Judges are not calibrated
   against human scores (`LLMJudge.calibrate`).
 - Number guard limit seen in the research demo: "3-year total period" (derived

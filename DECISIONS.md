@@ -89,3 +89,4 @@ Timestamps are UTC.
 - Didn't adopt `no_multiples=True`, `DownloadResult.headers`/`.links` or `LLMJudge(input=)`: none replaces an existing workaround here (no multiples regex, attachments need no pagination/headers, the judges' input isn't rebuilt), and the task was not to add behaviour. `no_multiples` would also change guard outcomes and so eval scores.
 - No evals run: nothing that affects scoring changed; existing history lines (no `dirty` key) still compare.
 - 2026-10-16: relabelled `r3-nsf-grant` `no_go` on the owner's call; re-ran only `grants-research` ($0.133): go/no-go 1.00, required tools 0.90 (r3 skipped `get_opportunity` this time). The prompt is unchanged: one sampled tool-order miss isn't a reason to change it.
+- 2026-10-16: `get_opportunity` is optional for grants research cases (r3 requires only `grants_gov_detail`, which carries the same facts). The prompt still suggests calling it first; no prompt change, so no version bump.
