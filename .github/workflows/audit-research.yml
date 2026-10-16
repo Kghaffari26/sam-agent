@@ -20,11 +20,6 @@ on:
         required: false
         type: string
         default: "0"
-  # Temporary, for the 2026-10 audit from its feature branch (workflow_dispatch only
-  # works once the file is on the default branch); removed after the audit.
-  push:
-    branches: ["claude/**"]
-    paths: [".github/workflows/audit-research.yml"]
 
 permissions: {}
 
@@ -57,7 +52,7 @@ jobs:
       - name: Audit
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          RERUN: ${{ github.event_name == 'push' || inputs.rerun_research }}
+          RERUN: ${{ inputs.rerun_research }}
           SAM_BUDGET: ${{ inputs.sam_request_budget || '0' }}
         run: |
           args=(--sam-request-budget "$SAM_BUDGET")

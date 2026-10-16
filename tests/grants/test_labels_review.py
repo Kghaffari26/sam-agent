@@ -73,3 +73,28 @@ def test_suites_read_reviewed_labels_once_they_exist(tmp_files):
     labels.apply_review(fill(labels.REVIEW_MD.read_text(), {}))
     loaded, reviewed = labels.load_labels()
     assert reviewed and loaded.keys() == labels.proposed().keys()
+
+
+def test_import_review_fills_sheet_and_marks(tmp_path, tmp_files, monkeypatch):
+    import shutil
+
+    from evals.grants import calibration as cal
+    from scripts import import_review
+
+    sheet, review = tmp_path / "sheet.csv", tmp_path / "labels_review.md"
+    shutil.copy(cal.SHEET_CSV, sheet)
+    shutil.copy(labels.REVIEW_MD, review)
+    exp = tmp_path / "export"
+    (exp / "scores").mkdir(parents=True)
+    (exp / "labels").mkdir()
+    (exp / "scores" / "c01.json").write_text(json.dumps(
+        {"id": "c01", "data": {"score": 4, "notes": "fine"}}))
+    (exp / "labels" / "sam:m008.json").write_text(json.dumps(
+        {"id": "sam:m008", "data": {"mark": "good_fit"}}))
+    (exp / "labels" / "r3-nsf-grant.json").write_text(json.dumps({"mark": "✓"}))
+    assert import_review.fill_sheet(import_review.read_dir(exp / "scores"), sheet) == 1
+    assert import_review.fill_review(import_review.read_dir(exp / "labels"), review) == 2
+    with pytest.raises(ValueError, match="19 rows"):
+        cal.read_scores(sheet)
+    scoring, research = labels.parse_review(review.read_text())
+    assert scoring["sam:m008"] == "good_fit" and research["r3-nsf-grant"] == "✓"
