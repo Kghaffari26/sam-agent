@@ -16,8 +16,20 @@ from agents.grants.attachments import (
     extract_text,
     resource_id,
 )
-from agents.grants.research import cache_valid, candidates, to_cache
-from agents.grants.usaspending import agency_name, award_query, parse_awards
+from agents.grants.research import (
+    AwardQuery,
+    BriefResult,
+    cache_valid,
+    candidates,
+    repair_leaked_parameters,
+    to_cache,
+)
+from agents.grants.usaspending import (
+    agency_name,
+    award_query,
+    awarding_agency_filter,
+    parse_awards,
+)
 from evals.grants import research_world
 from tests.grants.fakes import BRIEF, FakeClient
 
@@ -97,6 +109,9 @@ def test_attachment_names_follow_resource_links(opportunity_factory):
     ("GENERAL SERVICES ADMINISTRATION", "General Services Administration"),
     ("National Science Foundation", "National Science Foundation"),
     ("TREASURY, DEPARTMENT OF THE", "Department of the Treasury"),
+    ("DEPT OF THE NAVY", "Department of the Navy"),
+    ("DEFENSE HEALTH AGENCY (DHA)", "Defense Health Agency"),
+    ("FEDERAL EMERGENCY MANAGEMENT AGENCY", "Federal Emergency Management Agency"),
 ])
 def test_agency_names_map_to_usaspending_toptier(sam, usa):
     assert agency_name(sam) == usa
@@ -116,6 +131,58 @@ def test_award_query_for_contracts_and_grants():
                     today=date(2026, 9, 27))["filters"]
     assert g["award_type_codes"] == ["02", "03", "04", "05"]
     assert "naics_codes" not in g and "agencies" not in g and "keywords" not in g
+
+
+def test_sub_agency_is_a_subtier_filter():
+    """Live 2026-10-16 (MCCE notice, DEPT OF DEFENSE / DEPT OF THE NAVY): the model
+    asked for "DEPARTMENT OF THE NAVY", which went out as a toptier filter and
+    USAspending returned no awards. The Navy is a DoD subtier."""
+    navy = awarding_agency_filter("DEPARTMENT OF THE NAVY", agency="DEPT OF DEFENSE",
+                                  sub_agency="DEPT OF THE NAVY")
+    assert navy == {"type": "awarding", "tier": "subtier", "name": "Department of the Navy",
+                    "toptier_name": "Department of Defense"}
+    dha = awarding_agency_filter("Defense Health Agency", agency="DEPT OF DEFENSE",
+                                 sub_agency="DEFENSE HEALTH AGENCY (DHA)")
+    assert dha["tier"] == "subtier" and dha["name"] == "Defense Health Agency"
+    # The parent agency, a same-named sub-agency (VA) or no name: toptier.
+    assert awarding_agency_filter("Department of Defense", agency="DEPT OF DEFENSE",
+                                  sub_agency="DEPT OF THE NAVY")["tier"] == "toptier"
+    va = "VETERANS AFFAIRS, DEPARTMENT OF"
+    assert awarding_agency_filter(None, agency=va, sub_agency=va) == {
+        "type": "awarding", "tier": "toptier", "name": "Department of Veterans Affairs"}
+    assert awarding_agency_filter(None, agency=None, sub_agency=None) is None
+
+
+def test_keywords_sent_as_one_string_are_accepted():
+    """Live 2026-10-16: `keywords: "IT operational support"` failed validation and
+    cost the loop a step."""
+    q = AwardQuery.model_validate({"agency": "DEPARTMENT OF THE NAVY", "naics": "541513",
+                                   "keywords": "IT operational support"})
+    assert q.keywords == ["IT operational support"]
+    assert AwardQuery.model_validate({"keywords": "cloud, devsecops"}).keywords == [
+        "cloud", "devsecops"]
+
+
+LEAK = json.loads((Path(__file__).resolve().parents[1] / "fixtures" / "grants"
+                   / "research_finish_leak_live.json").read_text())
+
+
+def test_leaked_prior_award_ids_are_recovered_from_the_live_response():
+    """Live 2026-10-14 (VA IVX/Cerner): prior_award_ids leaked into incumbent_notes as
+    `</incumbent_notes>\n<parameter name="prior_award_ids">[...]`, so the published
+    brief had no prior awards and tool-call markup in its text."""
+    raw = LEAK["finish_input"]
+    assert "<parameter name=" in raw["incumbent_notes"] and "prior_award_ids" not in raw
+    brief_ = BriefResult.model_validate(raw)
+    assert brief_.prior_award_ids == ["36C10B20F0250", "36C26020F0744", "36C26020F0747"]
+    assert brief_.incumbent_notes.endswith("rather than generalist dev shops.")
+    assert "<" not in brief_.incumbent_notes
+
+
+def test_repair_never_overwrites_a_real_field():
+    data = {"rationale": 'Fine.</rationale>\n<parameter name="go_no_go">"go"',
+            "go_no_go": "no_go"}
+    assert repair_leaked_parameters(data) == {"rationale": "Fine.", "go_no_go": "no_go"}
 
 
 def test_parse_awards_copies_values_and_links_usaspending():
@@ -183,6 +250,49 @@ def test_invented_numbers_are_retried_then_templated(tmp_path):
     block = outcome.block
     assert block.narrative_source == "template" and "template" in block.rationale
     assert "7,300,000" not in block.rationale
+
+
+def test_leaked_award_ids_still_publish_code_built_prior_awards(tmp_path):
+    leaked = brief(incumbent_notes='Award 36C10B21C0045 was the closest match.'
+                                   '</incumbent_notes>\n<parameter name="prior_award_ids">'
+                                   '["36C10B21C0045"]')
+    leaked.pop("prior_award_ids")
+    outcome, _ = run(
+        tmp_path, "r1-va-dashboard",
+        [use("a", "usaspending_prior_awards", agency=VA, naics="541512",
+             keywords="dashboard")],
+        [use("b", "finish", **leaked)],
+    )
+    block = outcome.block
+    assert outcome.loop.ok and outcome.loop.guard_attempts == 1
+    assert [a.award_id for a in block.prior_awards] == ["36C10B21C0045"]
+    assert block.incumbent_notes == "Award 36C10B21C0045 was the closest match."
+
+
+def test_the_loop_sends_a_sub_agency_as_a_subtier_filter(tmp_path):
+    world = research_world.World()
+    outcome, _ = run(
+        tmp_path, "r5-disa-top-secret",
+        [use("a", "usaspending_prior_awards", agency="DEFENSE INFORMATION SYSTEMS AGENCY",
+             naics="541512", keywords=["network"])],
+        [use("b", "finish", **brief(go_no_go="no_go"))], world=world,
+    )
+    [call] = [c for c in world.calls if c.url.host == "api.usaspending.gov"]
+    assert json.loads(call.content)["filters"]["agencies"] == [{
+        "type": "awarding", "tier": "subtier", "name": "Defense Information Systems Agency",
+        "toptier_name": "Department of Defense"}]
+    assert outcome.session.awards  # the fixture world routes it to the defense awards
+
+
+def test_markup_left_in_the_text_fails_the_guard(tmp_path):
+    marked = brief(rationale="Good fit.</rationale><invoke name=\"finish\">")
+    outcome, client = run(
+        tmp_path, "r2-gsa-sources-sought",
+        [use("a", "finish", **marked)],
+        [use("b", "finish", **brief())],
+    )
+    assert outcome.loop.guard_attempts == 2 and outcome.block.narrative_source == "llm"
+    assert "markup" in tool_results(client, 1)[0]["content"]
 
 
 def test_unknown_award_ids_fail_the_guard_then_pass_after_retry(tmp_path):

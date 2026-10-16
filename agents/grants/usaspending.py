@@ -37,10 +37,11 @@ _SMALL_WORDS = {"of", "the", "and", "for", "on", "in"}
 
 
 def agency_name(agency: str) -> str:
-    """SAM's upper-case agency names -> USAspending's toptier names, e.g.
+    """SAM's upper-case agency names -> USAspending's agency names, e.g.
     "VETERANS AFFAIRS, DEPARTMENT OF" -> "Department of Veterans Affairs",
-    "DEPT OF DEFENSE" -> "Department of Defense"."""
-    name = " ".join(agency.split())
+    "DEPT OF DEFENSE" -> "Department of Defense", "DEFENSE HEALTH AGENCY (DHA)" ->
+    "Defense Health Agency" (a trailing acronym in parentheses is dropped)."""
+    name = " ".join(re.sub(r"\s*\([^)]*\)\s*$", "", agency).split())
     if name.isupper():  # SAM style; USAspending uses title case
         name = " ".join(
             w if i and w in _SMALL_WORDS else w.capitalize()
@@ -52,6 +53,28 @@ def agency_name(agency: str) -> str:
     return re.sub(r"^Dept\.? of\b", "Department of", name, flags=re.I)
 
 
+def awarding_agency_filter(
+    requested: str | None, *, agency: str | None, sub_agency: str | None
+) -> dict[str, str] | None:
+    """The USAspending `agencies` filter entry for an agency name the model asked for.
+
+    USAspending matches `name` exactly within the given tier, so a sub-agency sent as
+    a toptier agency (e.g. "Department of the Navy", a DoD subtier) matches nothing.
+    A name equal to the notice's sub-agency (when that differs from its agency) is a
+    subtier filter under the notice's agency; anything else stays a toptier filter.
+    No name: the notice's agency."""
+    name = agency_name(requested) if requested else None
+    top = agency_name(agency) if agency else None
+    sub = agency_name(sub_agency) if sub_agency else None
+    if name is None:
+        name = top
+    if name is None:
+        return None
+    if sub and top and sub.lower() != top.lower() and name.lower() == sub.lower():
+        return {"type": "awarding", "tier": "subtier", "name": sub, "toptier_name": top}
+    return {"type": "awarding", "tier": "toptier", "name": name}
+
+
 def award_query(
     *,
     agency: str | None,
@@ -60,7 +83,10 @@ def award_query(
     kind: str,
     today: date,
     limit: int = 8,
+    agency_filter: dict[str, str] | None = None,
 ) -> dict[str, Any]:
+    """The award search body. `agency_filter` (from `awarding_agency_filter`) wins
+    over `agency`, which is treated as a toptier name."""
     filters: dict[str, Any] = {
         "award_type_codes": GRANT_TYPES if kind == "grant" else CONTRACT_TYPES,
         "time_period": [
@@ -70,8 +96,10 @@ def award_query(
             }
         ],
     }
-    if agency:
-        filters["agencies"] = [{"type": "awarding", "tier": "toptier", "name": agency_name(agency)}]
+    if agency_filter is None and agency:
+        agency_filter = {"type": "awarding", "tier": "toptier", "name": agency_name(agency)}
+    if agency_filter:
+        filters["agencies"] = [agency_filter]
     if naics and kind != "grant":
         filters["naics_codes"] = {"require": [naics]}
     words = [k.strip() for k in keywords if len(k.strip()) >= 3][:5]
@@ -138,10 +166,12 @@ def prior_awards(
     kind: str,
     today: date,
     limit: int = 8,
+    agency_filter: dict[str, str] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """(query, awards): the largest matching awards of the last five years."""
     query = award_query(
-        agency=agency, naics=naics, keywords=keywords, kind=kind, today=today, limit=limit
+        agency=agency, naics=naics, keywords=keywords, kind=kind, today=today, limit=limit,
+        agency_filter=agency_filter,
     )
     response = http.request("POST", AWARD_SEARCH_URL, json_body=query)
     return query, parse_awards(response.json())
