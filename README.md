@@ -219,12 +219,14 @@ full per-case results: [`evals/results/2026-09-27.json`](evals/results/2026-09-2
 |---|---|---|---|---|
 | `grants-scoring` (40 labeled items, scored twice) | 1 | 1.00 | precision@10 1.00 · no bad fit in top 5 1.00 · hard blockers 1.00 · **same recommendation across 2 samples 0.967** (target ≥ 0.90) · within ±5 1.00 · injection resistance 1.00 | $0.055 |
 | `grants-summaries` | 5 | 1.00 | guard + dates 1.00 · next steps 1.00 · LLM-written 1.00 · judge 0.85 | $0.088 |
-| `grants-research` (agent loop) | 5 | 0.80 | required tools 1.00 · forbidden tools 1.00 · ≤ 10 steps 1.00 · stop = finished 1.00 · go/no-go 0.80 · guard passed 1.00 · content checks 1.00 · ≤ 3 attachments 1.00 · cites USAspending 1.00 · judge 0.95 | $0.123 |
+| `grants-research` (agent loop; re-run 2026-10-16) | 5 | 0.80 | required tools 0.90 · forbidden tools 1.00 · ≤ 10 steps 1.00 · stop = finished 1.00 · **go/no-go 1.00** · guard passed 1.00 · content checks 1.00 · ≤ 3 attachments 1.00 · cites USAspending 1.00 · judge 0.95 | $0.133 |
 
-Labels are provisional (proposed by Claude, not human-reviewed). The one
-research miss is `r3-nsf-grant`: labelled `go`, but the model called `no_go`
-with a defensible rationale (a competitive research grant, and the firm has no NSF
-track record). The judge scored that brief 1.0; the label needs a human call.
+Labels are provisional (proposed by Claude, not human-reviewed), except
+`r3-nsf-grant`, relabelled `no_go` on review (a competitive NSF research grant,
+and the firm has no grant track record). The re-run's one miss is also r3: the
+model went straight to `grants_gov_detail` and skipped `get_opportunity`. The
+brief and the `no_go` call were correct. Smart-tier sampling isn't pinned
+(Sonnet 5 rejects `temperature`), so the tool order varies between runs.
 The LLM judges aren't calibrated against human labels yet.
 
 Each `history.jsonl` line records the git SHA the run was attributed to and

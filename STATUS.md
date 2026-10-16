@@ -66,13 +66,17 @@ rescored item kept publishing the summary cached for its old content hash. See
 |---|---|---|---|
 | `grants-scoring` | 1.00 | precision@10 1.00, no bad fit in top 5, hard blockers 1.00, **same recommendation 0.967** (≥ 0.90 ✅; was 0.867/0.967 before temperature 0), within ±5 1.00, injection 1.00 | $0.055 |
 | `grants-summaries` | 1.00 (after the judge rubric fix; 0.40 before) | guard+dates 1.00, next steps 1.00, LLM-written 1.00, judge 0.85 | $0.088 |
-| `grants-research` | 0.80 | required/forbidden tools 1.00, ≤ 10 steps 1.00 (3 steps each), finished 1.00, go/no-go 0.80, guard 1.00, content 1.00, ≤ 3 attachments 1.00, USAspending citations 1.00, judge 0.95 | $0.123 |
+| `grants-research` (re-run 2026-10-16, after relabelling r3) | 0.80 | required tools 0.90, forbidden tools 1.00, ≤ 10 steps 1.00 (3 steps each), finished 1.00, go/no-go 1.00 (was 0.80), guard 1.00, content 1.00, ≤ 3 attachments 1.00, USAspending citations 1.00, judge 0.95 | $0.123 |
 
 - The summary judge first scored 0.55: it penalized dollar amounts copied from
   the input, which the rubric allows. The rubric now says so; the re-run scored 0.85.
-- Research miss: `r3-nsf-grant` is labelled `go`; the model said `no_go`
-  (competitive research grant, no NSF track record). The judge scored that
-  brief 1.0. **Needs a human decision on the label.**
+- `r3-nsf-grant` was relabelled `no_go` on 2026-10-16 (it had been `go`; the
+  model's `no_go` was judged sound: a competitive research grant, and the firm
+  has no NSF track record). The re-run ($0.133) scored go/no-go 1.00 on all five
+  cases. The one miss was r3 again, on a different check: the model skipped
+  `get_opportunity` and used only `grants_gov_detail` (required tools 0.5 on that
+  case). Smart-tier sampling isn't pinned, so this varies between runs; the
+  PR gate's 0.20 threshold tolerates one such flip.
 - Labels are still PROVISIONAL (Claude's proposals). Judges are not calibrated
   against human scores (`LLMJudge.calibrate`).
 - Number guard limit seen in the research demo: "3-year total period" (derived
@@ -154,7 +158,7 @@ day.)
    date (SAM.gov → Account Details) to get an alert 14 days ahead.
 3. **Review the eval labels**: `evals/grants/labels_proposed.json`, and the
    research labels in `evals/grants/research/cases.json` (`r3-nsf-grant`
-   especially).
+   was reviewed and relabelled `no_go`).
 4. Optionally allow `api.usaspending.gov` and `sam.gov` in this cloud
    environment's network settings for live research tests here.
 5. Point agents-hub at the new additive fields (`research`, `has_research`,
