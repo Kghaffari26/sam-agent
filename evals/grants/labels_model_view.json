@@ -1,0 +1,246 @@
+{
+ "recorded_at": "2026-10-16T22:05:32Z",
+ "prompt_version": "v2",
+ "items": {
+  "gg:m006": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: eligibility"
+  },
+  "gg:m012": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: eligibility"
+  },
+  "sam:b001": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: negative_keyword"
+  },
+  "sam:b002": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: negative_keyword"
+  },
+  "sam:b003": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: value"
+  },
+  "sam:b004": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: negative_keyword"
+  },
+  "sam:b005": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: negative_keyword"
+  },
+  "sam:b006": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: negative_keyword"
+  },
+  "gg:b007": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: eligibility"
+  },
+  "sam:h002": {
+   "label": "bad_fit",
+   "fit": null,
+   "recommendation": null,
+   "why": "hard filter: set_aside"
+  },
+  "sam:g001": {
+   "label": "good_fit",
+   "fit": 92,
+   "recommendation": "Pursue",
+   "why": "Legacy modernization matches core competency"
+  },
+  "sam:g002": {
+   "label": "good_fit",
+   "fit": 94,
+   "recommendation": "Pursue",
+   "why": "PostgreSQL data pipeline matches core competency"
+  },
+  "gg:g003": {
+   "label": "maybe",
+   "fit": 74,
+   "recommendation": "Consider",
+   "why": "AI/LLM integration matches core competency; Cybersecurity focus outside stated expertise"
+  },
+  "sam:g004": {
+   "label": "good_fit",
+   "fit": 81,
+   "recommendation": "Pursue",
+   "why": "ML dashboard aligns with AI/LLM and dashboard expertise"
+  },
+  "sam:g005": {
+   "label": "good_fit",
+   "fit": 95,
+   "recommendation": "Pursue",
+   "why": "API modernization matches core React and Python expertise"
+  },
+  "sam:g006": {
+   "label": "good_fit",
+   "fit": 92,
+   "recommendation": "Pursue",
+   "why": "Cloud migration and DevSecOps align with core competencies"
+  },
+  "gg:g007": {
+   "label": "maybe",
+   "fit": 74,
+   "recommendation": "Consider",
+   "why": "AI/LLM and data pipeline expertise match agricultural yield prediction; USDA-NIFA not in target agency list"
+  },
+  "sam:g008": {
+   "label": "good_fit",
+   "fit": 93,
+   "recommendation": "Pursue",
+   "why": "React/TypeScript core competency match"
+  },
+  "sam:g009": {
+   "label": "good_fit",
+   "fit": 94,
+   "recommendation": "Pursue",
+   "why": "Data pipeline modernization matches core expertise"
+  },
+  "gg:g010": {
+   "label": "good_fit",
+   "fit": 83,
+   "recommendation": "Pursue",
+   "why": "Digital modernization aligns with cloud migration expertise"
+  },
+  "sam:g011": {
+   "label": "good_fit",
+   "fit": 91,
+   "recommendation": "Pursue",
+   "why": "Dashboard and cloud work align with profile"
+  },
+  "sam:g012": {
+   "label": "good_fit",
+   "fit": 81,
+   "recommendation": "Pursue",
+   "why": "API integration matches core competency"
+  },
+  "sam:m001": {
+   "label": "bad_fit",
+   "fit": 51,
+   "recommendation": "Pass",
+   "why": "Help desk support outside core software development focus"
+  },
+  "sam:m002": {
+   "label": "maybe",
+   "fit": 61,
+   "recommendation": "Consider",
+   "why": "Network infrastructure outside core software competencies; Hardware-focused work misaligned with software consultancy profile"
+  },
+  "gg:m003": {
+   "label": "maybe",
+   "fit": 55,
+   "recommendation": "Consider",
+   "why": "Digital infrastructure aligns with cloud migration expertise"
+  },
+  "sam:m004": {
+   "label": "maybe",
+   "fit": 72,
+   "recommendation": "Consider",
+   "why": "Cloud security assessment aligns with cloud migration expertise; Department of Defense contract may require clearance later"
+  },
+  "sam:m005": {
+   "label": "bad_fit",
+   "fit": 53,
+   "recommendation": "Pass",
+   "why": "COBOL mainframe work outside core competencies; Mainframe support requires specialized COBOL skills"
+  },
+  "sam:m007": {
+   "label": "maybe",
+   "fit": 73,
+   "recommendation": "Consider",
+   "why": "NAICS 541511 matches primary expertise; Non-target agency (USDA, not GSA/VA/NSF)"
+  },
+  "sam:m008": {
+   "label": "good_fit",
+   "fit": 87,
+   "recommendation": "Pursue",
+   "why": "Data warehouse consolidation aligns with cloud migration expertise"
+  },
+  "gg:m009": {
+   "label": "maybe",
+   "fit": 58,
+   "recommendation": "Consider",
+   "why": "Rural broadband infrastructure outside core software competencies; Grant focuses on infrastructure, not software development"
+  },
+  "sam:m010": {
+   "label": "bad_fit",
+   "fit": 51,
+   "recommendation": "Pass",
+   "why": "NAICS 541511 matches profile exactly; Off-the-shelf tool pilot, not custom development"
+  },
+  "sam:m011": {
+   "label": "maybe",
+   "fit": 69,
+   "recommendation": "Consider",
+   "why": "NAICS 541512 matches profile exactly"
+  },
+  "sam:b008": {
+   "label": "bad_fit",
+   "fit": 40,
+   "recommendation": "Pass",
+   "why": "NAICS 561730 is grounds maintenance, not software; Landscaping work incompatible with software consultancy profile"
+  },
+  "sam:h001": {
+   "label": "bad_fit",
+   "fit": 20,
+   "recommendation": "Pass",
+   "why": "NAICS 541512 and DA01 PSC match profile; Requires Secret clearance; profile holds none"
+  },
+  "sam:i001a": {
+   "label": "good_fit",
+   "fit": 92,
+   "recommendation": "Pursue",
+   "why": "Cloud modernization with AWS, Python, React matches core expertise"
+  },
+  "sam:i001b": {
+   "label": "good_fit",
+   "fit": 93,
+   "recommendation": "Pursue",
+   "why": "Cloud modernization with AWS, Python, React matches core expertise"
+  },
+  "sam:i002a": {
+   "label": "bad_fit",
+   "fit": 36,
+   "recommendation": "Pass",
+   "why": "Landscaping services; no software development component"
+  },
+  "sam:i002b": {
+   "label": "bad_fit",
+   "fit": 36,
+   "recommendation": "Pass",
+   "why": "Landscaping unrelated to software development; Grounds maintenance, not software services"
+  },
+  "gg:i003a": {
+   "label": "good_fit",
+   "fit": 81,
+   "recommendation": "Pursue",
+   "why": "AI/LLM integration aligns with profile keywords"
+  },
+  "gg:i003b": {
+   "label": "good_fit",
+   "fit": 81,
+   "recommendation": "Pursue",
+   "why": "NSF SBIR aligns with AI/LLM expertise"
+  }
+ }
+}

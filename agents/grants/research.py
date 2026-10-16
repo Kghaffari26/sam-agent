@@ -330,11 +330,17 @@ def build_tools(session: Session) -> list[Any]:
     def usaspending_prior_awards(args: AwardQuery) -> dict[str, Any]:
         """The largest prior federal awards of the last 5 years matching an awarding
         agency, a NAICS code (contracts) and scope keywords, from USAspending.gov: award
-        id, recipient, amount, start/end dates, awarding agency and a USAspending URL."""
+        id, recipient, amount, start/end dates, awarding agency and a USAspending URL.
+        When nothing matches, the notice's agency and NAICS code without keywords."""
         limit = env.settings.max_usaspending_calls_per_opportunity
         if session.usaspending_calls >= limit:
             raise ToolError(f"USAspending lookup limit reached ({limit} per opportunity).")
         session.usaspending_calls += 1
+        notice_filter = awarding_agency_filter(
+            opp.sub_agency or opp.agency, agency=opp.agency, sub_agency=opp.sub_agency
+        )
+        naics = args.naics or (opp.naics[0] if opp.naics and opp.kind != "grant" else None)
+        out: dict[str, Any] = {}
         try:
             query, awards = prior_awards(
                 env.http,
@@ -347,11 +353,26 @@ def build_tools(session: Session) -> list[Any]:
                     args.agency, agency=opp.agency, sub_agency=opp.sub_agency
                 ),
             )
+            broader = query["filters"].get("agencies") != (
+                [notice_filter] if notice_filter else None
+            ) or "keywords" in query["filters"] or args.naics != naics
+            if not awards and broader:
+                # Seen live: keywords (or an agency name USAspending doesn't know)
+                # narrowed the search to nothing, and the brief then said no prior
+                # awards exist although the agency has an obvious incumbent.
+                query, awards = prior_awards(
+                    env.http, agency=None, naics=naics, keywords=[], kind=opp.kind,
+                    today=env.today, agency_filter=notice_filter,
+                )
+                out["note"] = (
+                    "Nothing matched the requested filters; these are the notice's"
+                    " agency's largest awards under its NAICS code, without keywords."
+                )
         except (HttpError, ValueError) as e:
             raise ToolError(f"USAspending.gov lookup failed: {e}") from e
         for award in awards:
             session.awards.setdefault(award["award_id"], award)
-        return session.record({"filters": query["filters"], "awards": awards})
+        return session.record({"filters": query["filters"], "awards": awards, **out})
 
     @tool(timeout_seconds=30)
     def grants_gov_detail(args: OppRef) -> dict[str, Any]:

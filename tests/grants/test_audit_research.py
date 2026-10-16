@@ -145,6 +145,14 @@ def test_mismatches_are_flagged(tmp_path):
     assert src.sam_skipped == 1  # no SAM budget: names checked by index only
 
 
+def test_no_awards_claim_is_not_rechecked_when_the_text_cites_awards(tmp_path):
+    transport, _ = world(no_award_rows=[{"Award ID": "N0001", "Recipient Name": "X"}])
+    src, _ = sources(tmp_path, transport, budget=0)
+    va = block(prior_awards=[], likely_incumbent=None, citations=block()["citations"][:2],
+               incumbent_notes="No prior award directly matches; CACI NSS (36C10B20F0250).")
+    assert "no prior awards found" not in statuses(audit_brief(opp(), va, src, "x"))
+
+
 def test_no_awards_claim_is_rechecked_with_the_fixed_filter(tmp_path):
     transport, calls = world(no_award_rows=[{"Award ID": "N0001", "Recipient Name": "X"}])
     src, _ = sources(tmp_path, transport, budget=0)

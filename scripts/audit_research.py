@@ -11,18 +11,21 @@ checks each claim:
   awarding agency and NAICS (award detail endpoint) match the notice's;
 - every other dollar figure in the text appears in the notice or a cited attachment;
 - `likely_incumbent` is the recipient of a cited award;
-- every cited attachment is the notice's `resourceLinks` entry at that index, its
-  type matches the file, and (with SAM budget) its real file name from SAM.gov;
+- every cited attachment is the notice's `resourceLinks` entry at that index (the
+  agent names them attachment_N in that order) and its type matches the downloaded
+  file; with `--sam-request-budget` > 0, also its real file name from SAM.gov;
 - every citation points at a source the research fetched (the notice, an attachment
   it read, a USAspending award it cites);
-- a "no prior awards found" claim is re-checked with the agency filter fixed (a
-  sub-agency as a USAspending subtier); finding awards makes it ✗.
+- a "no prior awards found" claim (in a brief citing no award) is re-checked with
+  the notice's agency (a sub-agency as a USAspending subtier) and NAICS code and no
+  keywords; finding awards makes it ✗.
 
 Attachment text comes from the agent's cache (`.cache/grants/attachments/`, restored
 in CI from the daily run's cache) and costs nothing. SAM.gov file listings (public
 sam.gov, not the API key) go through `fetch_sam.SamBudget` against the committed
-ledger (`data/grants/state.json`), capped by `--sam-request-budget` and by what the
-day's budget has left; the ledger isn't saved (CI doesn't commit it from a branch).
+ledger (`data/grants/state.json`), capped by `--sam-request-budget` (default 0: the
+daily run needs the budget) and by what the day's budget has left; the ledger isn't
+saved (CI doesn't commit it from a branch).
 
 `--rerun-research` then re-researches the same opportunities with the current code
 (real LLM calls, capped by `--max-usd`; attachments from the cache) and audits those
@@ -347,7 +350,7 @@ def audit_brief(opp: Opportunity, block: dict[str, Any], src: Sources, label: st
         a.add("likely incumbent: none named", "-", None)
 
     # "No prior awards" re-checked with the fixed agency filter.
-    if not block["prior_awards"] and _NO_AWARDS.search(block["incumbent_notes"]):
+    if not block["prior_awards"] and not ids and _NO_AWARDS.search(block["incumbent_notes"]):
         flt = awarding_agency_filter(opp.sub_agency or opp.agency, agency=opp.agency,
                                      sub_agency=opp.sub_agency)
         query = award_query(agency=None, naics=opp.naics[0] if opp.naics else None,
@@ -433,7 +436,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--store", type=Path, default=STORE)
     ap.add_argument("--out", type=Path, default=OUT)
     ap.add_argument("--json", type=Path, default=OUT.with_suffix(".json"))
-    ap.add_argument("--sam-request-budget", type=int, default=5)
+    ap.add_argument("--sam-request-budget", type=int, default=0)
     ap.add_argument("--rerun-research", action="store_true")
     ap.add_argument("--max-usd", type=float, default=0.40)
     args = ap.parse_args(argv)

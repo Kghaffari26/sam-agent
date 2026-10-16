@@ -16,10 +16,10 @@ on:
         type: boolean
         default: false
       sam_request_budget:
-        description: "SAM.gov requests the audit may use (attachment listings)"
+        description: "SAM.gov requests the audit may use for attachment file names (0: index + file type only)"
         required: false
         type: string
-        default: "5"
+        default: "0"
   # Temporary, for the 2026-10 audit from its feature branch (workflow_dispatch only
   # works once the file is on the default branch); removed after the audit.
   push:
@@ -58,7 +58,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RERUN: ${{ github.event_name == 'push' || inputs.rerun_research }}
-          SAM_BUDGET: ${{ inputs.sam_request_budget || '5' }}
+          SAM_BUDGET: ${{ inputs.sam_request_budget || '0' }}
         run: |
           args=(--sam-request-budget "$SAM_BUDGET")
           if [ "$RERUN" = "true" ]; then args+=(--rerun-research --max-usd 0.40); fi

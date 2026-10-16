@@ -284,6 +284,37 @@ def test_the_loop_sends_a_sub_agency_as_a_subtier_filter(tmp_path):
     assert outcome.session.awards  # the fixture world routes it to the defense awards
 
 
+def test_an_empty_search_falls_back_to_the_notice_agency_without_keywords(tmp_path):
+    """Live 2026-10-16 re-research (MCCE, FEMA): the model's keywords (or an agency name
+    USAspending doesn't know) matched nothing and the brief said there were no prior
+    awards; the agency's largest awards under the NAICS code name the incumbent."""
+    world = research_world.World()
+    outcome, client = run(
+        tmp_path, "r5-disa-top-secret",
+        [use("a", "usaspending_prior_awards", agency="U.S. MARINE CORPS",
+             keywords=["cyberspace operations"])],
+        [use("b", "finish", **brief(go_no_go="no_go"))], world=world,
+    )
+    sent = [json.loads(c.content)["filters"] for c in world.calls
+            if c.url.host == "api.usaspending.gov"]
+    assert sent[0]["agencies"][0]["name"].lower() == "u.s. marine corps" and "keywords" in sent[0]
+    assert sent[1]["agencies"][0] == {
+        "type": "awarding", "tier": "subtier", "name": "Defense Information Systems Agency",
+        "toptier_name": "Department of Defense"}
+    assert "keywords" not in sent[1] and sent[1]["naics_codes"] == {"require": ["541512"]}
+    assert outcome.session.usaspending_calls == 1 and outcome.session.awards
+    assert "Nothing matched" in tool_results(client, 1)[0]["content"]
+
+
+def test_a_search_that_finds_awards_has_no_fallback(tmp_path):
+    world = research_world.World()
+    run(tmp_path, "r1-va-dashboard",
+        [use("a", "usaspending_prior_awards", agency=VA, naics="541512",
+             keywords=["dashboard"])],
+        [use("b", "finish", **brief())], world=world)
+    assert len([c for c in world.calls if c.url.host == "api.usaspending.gov"]) == 1
+
+
 def test_markup_left_in_the_text_fails_the_guard(tmp_path):
     marked = brief(rationale="Good fit.</rationale><invoke name=\"finish\">")
     outcome, client = run(
