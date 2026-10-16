@@ -211,7 +211,7 @@
    }
   },
   "expected": {
-   "go_no_go": "go",
+   "go_no_go": "no_go",
    "required_tools": [
     "get_opportunity",
     "grants_gov_detail"
