@@ -349,6 +349,17 @@ def test_warnings_are_empty_on_a_clean_run(env, alerts):
     assert read(env, "latest.json")["meta"]["warnings"] == [] and alerts == []
 
 
+def test_undelivered_email_alerts_show_in_meta_warnings(env):
+    from agents.grants import alerts as email_alerts
+
+    path = env / "data" / "grants" / "alerts.json"
+    email_alerts.save_state(email_alerts.AlertState(
+        last_status=email_alerts.SKIPPED_NO_SECRETS), path)
+    assert run_once(env, server(), FakeClient()) == 0
+    warnings = read(env, "latest.json")["meta"]["warnings"]
+    assert any("ALERT_EMAIL_API_KEY" in w for w in warnings)
+
+
 def test_description_fetch_invalidates_cached_summary(env, monkeypatch):
     """Found on the 2026-09-27 live run: an item rescored after its description was
     fetched kept publishing the summary cached for its old content hash."""

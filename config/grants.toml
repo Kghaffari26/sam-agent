@@ -40,3 +40,19 @@ max_usaspending_calls_per_opportunity = 3
 [sam_key]
 # expires_on = 2026-12-20
 alert_days_before = 14
+
+# Email digest of strong new matches, to the owner only (agents/grants/alerts.py),
+# sent by the `alerts` job in .github/workflows/agent-grants.yml after a successful
+# run. The recipient and the Resend API key are repo secrets (ALERT_EMAIL_TO,
+# ALERT_EMAIL_API_KEY), never this file. Set enabled = false to stop the emails.
+[alerts]
+enabled = true
+min_fit = 80
+recommendations = ["Pursue"]
+max_per_day = 5
+# Resend's test sender delivers only to the Resend account's own address; use an
+# address on a domain verified in Resend to send from your own domain.
+sender = "Grants Finder <onboarding@resend.dev>"
+# The site's grants page; each entry links to <site_url>#<opportunity id>. Empty: no
+# site link (the SAM.gov / Grants.gov link is always there).
+site_url = ""

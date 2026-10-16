@@ -1,0 +1,22 @@
+2 strong matches on October 16, 2026:
+
+1. Opportunity sam:a
+   GENERAL SERVICES ADMINISTRATION / FEDERAL ACQUISITION SERVICE
+   Fit 86 (Pursue) | Closes October 30, 2026 (14 days left)
+   Value: up to $750,000 | Set-aside: Total Small Business Set-Aside
+   - Reason one for sam:a
+   - Reason two
+   SAM.gov: https://sam.gov/opp/a/view
+   On the site: https://hub.example.com/grants#sam:a
+
+2. Opportunity sam:b
+   GENERAL SERVICES ADMINISTRATION / FEDERAL ACQUISITION SERVICE
+   Fit 81 (Pursue) | Closes November 20, 2026 (35 days left)
+   Value: not stated | Set-aside: None
+   - Reason one for sam:b
+   - Reason two
+   SAM.gov: https://sam.gov/opp/b/view
+   On the site: https://hub.example.com/grants#sam:b
+
+--
+You get this because [alerts] enabled = true in config/grants.toml of the sam-agent repo. To stop these emails, set enabled = false there.

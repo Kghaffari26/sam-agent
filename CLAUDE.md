@@ -39,6 +39,12 @@ uv run agents-evals compare                # latest vs previous entry of evals/h
                                            #   (entries run on an uncommitted tree: dirty=true)
 uv run python -m tools.record_fixtures grants-gov|sam-from-cache
 uv run python -m tools.make_research_fixtures   # rebuild the research eval PDF/DOCX files
+uv run python -m scripts.make_calibration_sheet # judge calibration sheet (S1)
+uv run python -m scripts.calibrate_judges       # after the owner scores it (real LLM calls)
+uv run python -m scripts.review_labels [--apply]  # eval label review (S2)
+uv run python -m scripts.import_review DIR      # owner's answers from the review page
+uv run python -m agents.grants.alerts --dry-run # email digest, printed not sent
+# scripts.audit_research needs USAspending/sam.gov: run the "Audit - Research" workflow
 ```
 
 ## Conventions
@@ -97,6 +103,15 @@ uv run python -m tools.make_research_fixtures   # rebuild the research eval PDF/
 - The reusable workflows declare no permissions: each calling job grants its
   own (agent job: `contents: write` + `issues: write`; evals job:
   `contents: read`).
+- Email alerts (`agents/grants/alerts.py`, `[alerts]` in `config/grants.toml`) run
+  in their own job after the agent job: the recipient and Resend key are secrets
+  (`ALERT_EMAIL_TO`, `ALERT_EMAIL_API_KEY`), never config; they go to the owner only,
+  never fail the run, and dedupe by notice id + content hash in
+  `data/grants/alerts.json`.
+- Judges' pass thresholds come from `evals/grants/calibration/calibration.json`
+  (calibrated against the owner's scores); bump `JUDGE_RUBRIC_VERSION` in
+  `suites.py` and recalibrate when a judge rubric changes. Scoring labels come from
+  `labels_reviewed.json` once it exists.
 - Keep `DECISIONS.md` and `STATUS.md` current: one-line decisions as they're
   made, and an accurate picture of what's built vs. blocked.
 

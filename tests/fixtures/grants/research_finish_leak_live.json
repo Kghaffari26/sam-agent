@@ -1,0 +1,24 @@
+{
+ "_note": "The real `finish` input of the live research run on sam:75b1e510b71d42eb9d1b80524be6c985 (2026-10-14, claude-sonnet-5), as published: prior_award_ids leaked into incumbent_notes and was lost. Trimmed: the fields of the published block that came from the model.",
+ "opportunity_id": "sam:75b1e510b71d42eb9d1b80524be6c985",
+ "finish_input": {
+  "what_theyre_buying": "VA seeks a vendor to deliver, install, and support an HL7 interface between the IVX IV workflow management system and the new EHRM (Cerner) at the Harry S. Truman VA Hospital, including cloud implementation and one year of maintenance/support.",
+  "evaluation_criteria": [
+   "Not found (this is a Sources Sought Notice, not a solicitation)",
+   "Response should include business size/socio-economic status and small business identifiers",
+   "SAM UEI number",
+   "Existing Federal Supply Schedule (FSS) contract usable for the requirement",
+   "Manufacturer 'Authorized to Distribute' letter, if applicable"
+  ],
+  "likely_incumbent": null,
+  "incumbent_notes": "No prior award directly matches the specific IVX-to-Cerner interface; broader VA interface/integration work has gone to large integrators like CACI NSS (36C10B20F0250, $244.6M) and Four Points Technology for a similar Philips-to-Cerner integration pattern (36C26020F0744, $7.6M and 36C26020F0747, $1.7M), suggesting this niche product-interface work is typically awarded to firms with existing vendor/manufacturer relationships rather than generalist dev shops.</incumbent_notes>\n<parameter name=\"prior_award_ids\">[\"36C10B20F0250\", \"36C26020F0744\", \"36C26020F0747\"]",
+  "risks": [
+   "Requirement explicitly asks for a manufacturer 'Authorized to Distribute' letter and FSS contract — this is product/vendor-specific integration work, not open custom software development, and the profile has no manufacturer relationship for IVX",
+   "NAICS code in the notice body is listed as 334118 (Computer Terminal/Peripheral Equipment Manufacturing) despite the posted NAICS 541519, indicating a hardware/product-centric procurement outside the firm's core competency",
+   "On-site work/install required at Columbia, MO; profile is fully remote with only occasional travel capacity",
+   "This is only a Sources Sought (market research); no guarantee a solicitation follows, and set-aside is still TBD"
+  ],
+  "go_no_go": "no_go",
+  "rationale": "Although nominally in VA/NAICS 541519 territory, the actual requirement is for delivery, installation, and support of a specific commercial IVX product interface, requiring a manufacturer authorization letter and on-site hospital installation — capabilities and relationships the five-person remote software consultancy does not have. The rubric's \"Pursue\" score overweights keyword matches (API, interface) without recognizing this is a product-reseller/integrator requirement rather than custom software engineering."
+ }
+}

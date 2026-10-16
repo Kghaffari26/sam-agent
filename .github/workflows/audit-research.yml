@@ -1,0 +1,71 @@
+# Bid research audit (scope S3): re-fetches every award id, dollar figure and
+# attachment the published briefs cite (USAspending.gov, sam.gov; neither is reachable
+# from the dev container) and checks each claim, then optionally re-researches the
+# same opportunities with the current code and audits those briefs too. The report
+# is the job summary and the `research-audit` artifact; nothing is committed or
+# published, and the SAM ledger isn't saved (the script stays under what the day's
+# budget has left).
+name: Audit - Research
+
+on:
+  workflow_dispatch:
+    inputs:
+      rerun_research:
+        description: "Also re-research the same opportunities with the current code (LLM spend)"
+        required: false
+        type: boolean
+        default: false
+      sam_request_budget:
+        description: "SAM.gov requests the audit may use for attachment file names (0: index + file type only)"
+        required: false
+        type: string
+        default: "0"
+
+permissions: {}
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          python-version: "3.12"
+
+      # The daily run's cache: downloaded SAM attachments with their extracted text
+      # (.cache/grants) and agents-core's HTTP cache.
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            .cache/http
+            .cache/grants
+          key: ${{ github.repository }}-grants-audit
+          restore-keys: ${{ github.repository }}-grants-
+
+      - run: uv sync
+
+      - name: Audit
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RERUN: ${{ inputs.rerun_research }}
+          SAM_BUDGET: ${{ inputs.sam_request_budget || '0' }}
+        run: |
+          args=(--sam-request-budget "$SAM_BUDGET")
+          if [ "$RERUN" = "true" ]; then args+=(--rerun-research --max-usd 0.40); fi
+          status=0
+          uv run python -m scripts.audit_research "${args[@]}" || status=$?
+          cat docs/research_audit_2026-10.md >> "$GITHUB_STEP_SUMMARY"
+          echo "audit exit status: $status"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: research-audit
+          path: |
+            docs/research_audit_2026-10.md
+            docs/research_audit_2026-10.json

@@ -193,6 +193,27 @@ one window (1 request per 1,000 notices) plus up to
 `sam_daily_request_budget` (8): agents-core's per-host daily budget and the
 committed ledger in `data/grants/state.json` both enforce it.
 
+## Email alerts
+
+After each successful scheduled run, the `alerts` job in
+`.github/workflows/agent-grants.yml` emails the owner one digest of strong new
+matches (`[alerts]` in `config/grants.toml`: fit ≥ 80 and Pursue, at most 5 a day).
+Each entry has the title, agency, fit, recommendation, closing date with days left,
+value, set-aside, the two-line fit reason and links to SAM.gov / Grants.gov (and the
+site, when `site_url` is set). What was sent is recorded by notice id + content hash
+in `data/grants/alerts.json`, so nothing repeats (an amended notice is alerted again,
+marked "updated"). Delivery is Resend's HTTP API with the repo secrets
+`ALERT_EMAIL_API_KEY` and `ALERT_EMAIL_TO`. Without them it sends nothing, and the next
+run publishes a `meta.warnings` line. It never fails the run. Plain text plus
+simple HTML, no tracking. To stop the emails, set `enabled = false`.
+
+```bash
+uv run python -m agents.grants.alerts --dry-run   # print the digest, send nothing
+```
+
+A manual run of the workflow with **alerts_dry_run** writes the digest to the job
+summary instead of sending it.
+
 ## Development
 
 ```bash
@@ -203,6 +224,12 @@ uv run agents-evals run --total-max-usd 1.00 evals.grants.suites:SCORING \
 uv run agents-evals compare                # latest vs previous history entry
 uv run python -m tools.record_fixtures grants-gov      # re-record Grants.gov fixtures
 uv run python -m tools.record_fixtures sam-from-cache  # SAM fixture from the HTTP cache
+uv run python -m scripts.make_calibration_sheet  # judge calibration sheet (20 items)
+uv run python -m scripts.calibrate_judges        # after the sheet is scored by hand
+uv run python -m scripts.review_labels [--apply] # eval label review sheet / apply it
+uv run python -m scripts.audit_research          # check the live briefs' claims
+                                                 #   (needs USAspending: run it via the
+                                                 #   "Audit - Research" workflow)
 ```
 
 `schema.json` (the JSON Schema of `latest.json`) is written by agents-core on
@@ -219,15 +246,17 @@ full per-case results: [`evals/results/2026-09-27.json`](evals/results/2026-09-2
 |---|---|---|---|---|
 | `grants-scoring` (40 labeled items, scored twice) | 1 | 1.00 | precision@10 1.00 · no bad fit in top 5 1.00 · hard blockers 1.00 · **same recommendation across 2 samples 0.967** (target ≥ 0.90) · within ±5 1.00 · injection resistance 1.00 | $0.055 |
 | `grants-summaries` | 5 | 1.00 | guard + dates 1.00 · next steps 1.00 · LLM-written 1.00 · judge 0.85 | $0.088 |
-| `grants-research` (agent loop; re-run 2026-10-16) | 5 | 0.80 | required tools 0.90 · forbidden tools 1.00 · ≤ 10 steps 1.00 · stop = finished 1.00 · **go/no-go 1.00** · guard passed 1.00 · content checks 1.00 · ≤ 3 attachments 1.00 · cites USAspending 1.00 · judge 0.95 | $0.133 |
+| `grants-research` (agent loop; prompt v2, 2026-10-16) | 5 | 1.00 | required tools 1.00 · forbidden tools 1.00 · ≤ 10 steps 1.00 · stop = finished 1.00 · **go/no-go 1.00** · guard passed 1.00 · content checks 1.00 · ≤ 3 attachments 1.00 · cites USAspending 1.00 · judge 0.95 | $0.124 |
 
 Labels are provisional (proposed by Claude, not human-reviewed), except
 `r3-nsf-grant`, relabelled `no_go` on review (a competitive NSF research grant,
-and the firm has no grant track record). The re-run's one miss is also r3: the
-model went straight to `grants_gov_detail` and skipped `get_opportunity`. The
-brief and the `no_go` call were correct. Smart-tier sampling isn't pinned
-(Sonnet 5 rejects `temperature`), so the tool order varies between runs.
-The LLM judges aren't calibrated against human labels yet.
+and the firm has no grant track record). The owner's review of all labels
+(`evals/grants/labels_review.md`) and the judges' calibration against human
+scores (`evals/grants/calibration/`) are prepared and waiting on the owner. The
+v1 run's `required_tools` 0.90 was r3 skipping `get_opportunity`, which grants
+cases no longer require (`grants_gov_detail` returns the same facts). The live
+briefs were audited against USAspending and SAM in
+[`docs/research_audit_2026-10.md`](docs/research_audit_2026-10.md).
 
 Each `history.jsonl` line records the git SHA the run was attributed to and
 `dirty` (agents-core v0.3.2): `true` when tracked files outside `evals/` and

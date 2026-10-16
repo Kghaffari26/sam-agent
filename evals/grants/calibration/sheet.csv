@@ -1,0 +1,409 @@
+item_id,kind,source,title,rubric,opportunity,output,score_1_to_5,notes
+c01,summary,live,JURY MANAGEMENT SOLUTION (JMS) SYSTEM,"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","JURY MANAGEMENT SOLUTION (JMS) SYSTEM
+Agency: ADMINISTRATIVE OFFICE OF THE US COURTS / ADMINISTRATIVE OFFICE OF THE US COURTS / AOUSC-PROCUREMENT MANAGEMENT DIV
+Type: presolicitation  NAICS: 541511  Set-aside: No Set aside used
+Deadline: 2026-10-30T00:00:00-04:00  Value: -
+Link: https://sam.gov/opp/6ba7c891fdc147868fc0fbca45bd54e7/view
+Description: ALSO KNOW AS THE JURY MANAGEMENT SYSTEM (JMS). This is a pre-solicitation notice for a web-based Jury Management System (JMS) solution and is prepared in accordance with Judiciary Guide Volume 14, § 330 Standard Competitive Contracting Procedures as supplemented with additional information included in this notice, for the Administrative Office of the U.S. Courts (AO). This solicitation is unrestricted and is not set aside for small business. The Judiciary is not subject to the FAR to include small business regulations. The AO is seeking to award a single award Indefinite Delivery, Indefinite Quantity (IDIQ) Contract for a commercial-off-the-shelf (COTS), web-based Jury Management Solution (JMS) to assist the courts with the selection, management, and tracking of jurors, as well as performing financial and statistical calculations including interfacing with the Judiciary’s financial management system, Momentum. The attached DRAFT solicitation USCA27R0009 provides details on the requirement, instructions, and evaluation criteria. Responsible sources shall follow the instructions in the attached RFP. Responses to this solicitation are due no later than 3:00 P.M. ET on TBD, 2026, late ...","What they want: The Administrative Office of the U.S. Courts wants a single-award IDIQ contract for a commercial, web-based Jury Management System (JMS) to handle juror selection, tracking, and financial/statistical reporting, including integration with the Momentum financial system.
+Why it fits:
+- Web-based system aligns with the firm's web application and software development expertise
+- NAICS 541511 matches the consultancy's primary code
+- Presolicitation stage allows early review of draft RFP and attachments before full competition
+Risks:
+- Requirement is for a COTS product; this firm typically builds custom solutions rather than reselling/integrating a packaged COTS tool
+- Judiciary is not subject to FAR, including small business set-aside rules, so no small business preference applies
+- Solicitation may require on-site presence in Washington, DC, and this is a fully remote team with only occasional travel capacity
+Next steps:
+- Download and review the draft RFP, PWS, JMS examples portfolio, and technical matrix attachments to assess true scope and COTS requirements
+- Check USAspending.gov for any incumbent JMS contractor to gauge competitive landscape
+- Confirm current SAM.gov registration status is active and matches NAICS 541511
+- Determine if a COTS JMS product partner or teaming arrangement is needed, since the firm's core strength is custom development rather than off-the-shelf software",,
+c02,summary,live,PRIMED-AI: Data-to-Model Academic-Industrial Partnerships (D2M-AIP) for Precision Medicine with AI: Integrating Imaging with Multimodal Data (UG3/UH3 Clinical Trial Optional),"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","PRIMED-AI: Data-to-Model Academic-Industrial Partnerships (D2M-AIP) for Precision Medicine with AI: Integrating Imaging with Multimodal Data (UG3/UH3 Clinical Trial Optional)
+Agency: National Institutes of Health / - / -
+Type: grant_posted  NAICS: -  Set-aside: -
+Deadline: 2026-10-19T23:59:00-04:00  Value: -
+Link: https://www.grants.gov/search-results-detail/359270
+Description: The overarching goal of this notice of funding opportunity (NOFO) and its companion opportunities is to establish the Precision Medicine with AI: Integrating Imaging with Multimodal Data (PRIMED-AI) Program to support development of innovative, reliable, cost-effective, and sustainable multimodal AI-based clinical decision support (CDS) tools. PRIMED-AI CDS tools are based on the integration of clinical imaging with other types of multimodal health data to enhance care for patients with a wide range of health conditions. The PRIMED-AI Program seeks to catalyze the adoption of AI-based CDS tools into clinical workflows to enable novel personalized medicine strategies that address significant health challenges. The purpose of this Notice of Funding Opportunity (NOFO) is to catalyze the development and testing of Artificial Intelligence (AI)-enabled, image-centered, multimodal Clinical Decision Support (CDS) tools, developed in pursuance as Software as a Medical Device (SaMD). These projects are expected to have high potential for demonstrable, positive impact on patient outcomes and/or healthcare processes.","What they want: NIH wants academic-industrial teams to develop and test AI-based clinical decision support software that integrates medical imaging with other health data, built as Software as a Medical Device.
+Why it fits:
+- Team has relevant AI/LLM and multimodal data pipeline skills
+- Experience modernizing applications with Python and cloud tools could support a technical role
+- Could potentially contribute as a subcontractor to an academic lead
+Risks:
+- NIH grants typically require a nonprofit or academic institution as the lead applicant, not a small business
+- SaMD/FDA regulatory pathway expertise is not part of the team's demonstrated background
+- No prior clinical imaging or clinical validation experience shown
+Next steps:
+- Read the full NOFO and any attachments to confirm eligible applicant types
+- Identify and reach out to potential academic or clinical institutions needing a technical/AI development partner
+- Confirm SAM.gov registration status is current
+- Prepare a capability statement highlighting AI/LLM and data pipeline work for a partnering pitch",,
+c03,summary,live,"Defense Health Agency (DHA), Program Acquisition Executive, Digital Medical Solutions (PAE DMS), Enterprise Intelligence & Data Solutions (EIDS) Program Management Office (PMO), Data Exchange Services Operations, Modernization, and Development","The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","Defense Health Agency (DHA), Program Acquisition Executive, Digital Medical Solutions (PAE DMS), Enterprise Intelligence & Data Solutions (EIDS) Program Management Office (PMO), Data Exchange Services Operations, Modernization, and Development
+Agency: DEPT OF DEFENSE / DEFENSE HEALTH AGENCY (DHA) / DEFENSE HEALTH AGENCY
+Type: solicitation  NAICS: 541512  Set-aside: No Set aside used
+Deadline: 2026-10-28T14:00:00-04:00  Value: -
+Link: https://sam.gov/opp/f680b73a6c10415a83f09f448894e5bb/view
+Description: Area of Interest (AOI) #02: Data Exchange Services Operations, Modernization, and Development PAE DMS is interested in solutions that satisfy the Government’s need for Data Exchange Services operations, modernization, and development in support of the Enterprise Information and Data Solutions (EIDS) Program Management Office (PMO). This AOI #02 is published under the authority of the Defense Health Agency (DHA) Commercial Solutions Opening (CSO), HT003826SC005, available at: https://sam.gov/workspace/contract/opp/cd16b90540b7407fb4de1e028cea74d4/view Consistent with the maturity and nature of the selected commercial solution and applicable law, the Government may use any applicable award authority identified in the CSO. The DHA Portfolio Acquisition Executive for Defense Medical Solutions (PAE DMS), EIDS PMO, seeks commercial solutions to support Data Exchange Platform (DxP) operations, sustainment, modernization, and development. The DxP supports mission-essential MHS Information Platform (MIP) functions by processing real-time clinical and operational data exchanged with more than 15 external systems and partners. It enables secure, standards-based interoperability among DHA, the...","What they want: DHA wants commercial solutions to operate, sustain, modernize, and develop its Data Exchange Platform (DxP), which handles real-time clinical/operational data exchange with 15+ external systems, moving toward cloud-native, API-driven, AI/ML-ready capabilities.
+Why it fits:
+- Cloud migration and modernization work directly matches Python/TypeScript/cloud stack
+- API-driven, standards-based architecture aligns with existing capabilities
+- AI/ML-ready platform direction fits LLM integration experience
+Risks:
+- No security clearance held, and this is a Defense Health Agency opportunity
+- Scope involves 15+ external system integrations, suggesting high complexity for a 5-person team
+- Named support contractors (BCG, Andrew Morgan) may indicate deep incumbent knowledge advantage
+Next steps:
+- Read the full CSO (HT003826SC005) and AOI #02 attachments in detail
+- Submit technical/administrative questions to Lacey Lockard by the 14 October 2026 deadline
+- Check USAspending.gov for incumbent contractors on DxP/EIDS PMO work
+- Assess need for a teaming partner with DoD health IT and clearance-capable staff before preparing a Phase I response",,
+c04,summary,live,36C255-27-AP-0383 - IVX & Cerner to Interface with EHRM,"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","36C255-27-AP-0383 - IVX & Cerner to Interface with EHRM
+Agency: VETERANS AFFAIRS, DEPARTMENT OF / VETERANS AFFAIRS, DEPARTMENT OF / 255-NETWORK CONTRACT OFFICE 15 (36C255)
+Type: sources_sought  NAICS: 541519  Set-aside: -
+Deadline: 2026-10-27T11:00:00-05:00  Value: -
+Link: https://sam.gov/opp/75b1e510b71d42eb9d1b80524be6c985/view
+Description: This is a SOURCES SOUGHT NOTICE for Market Research only, see all details in the attached, Sources Sought Notice and provide the information and documents requested.","What they want: VA is conducting market research (Sources Sought) to find vendors capable of building an interface between IVX and Cerner systems to support EHRM at a facility in Columbia, MO.
+Why it fits:
+- VA is a target agency and this is an EHRM modernization/integration effort matching past app modernization work
+- IVX/Cerner interface work calls for API and systems integration skills the team has
+- Fits within value range and team can staff 2-4 people within 30 days
+Risks:
+- On-site work in Columbia, MO required, but team is fully remote with only occasional travel capability
+- This is a Sources Sought notice only—no guarantee of a future solicitation or award
+- Value and detailed requirements are unknown until attachments are reviewed
+Next steps:
+- Download and review the attached Sources Sought Notice for full requirements and submission instructions
+- Confirm SAM.gov registration is current and active
+- Check USAspending.gov for incumbent and historical award data on similar IVX/Cerner EHRM work
+- Prepare and submit a capability statement addressing API/integration experience and clarify remote vs on-site expectations",,
+c05,summary,live,Marine Corps Cyberspace Environment (MCCE) Operational Support Services (OSS) and Enterprise Artificial Intelligence (AI) Integration,"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","Marine Corps Cyberspace Environment (MCCE) Operational Support Services (OSS) and Enterprise Artificial Intelligence (AI) Integration
+Agency: DEPT OF DEFENSE / DEPT OF THE NAVY / COMMANDER
+Type: sources_sought  NAICS: 541513  Set-aside: No Set aside used
+Deadline: 2026-11-03T13:00:00-05:00  Value: -
+Link: https://sam.gov/opp/6ab1054610d74407aa19a1316e8677b8/view
+Description: Amendment 03 is attached to revise the response due date from 19 October 2026 at 1:00 P.M. to 03 November 2026 at 1:00 P.M. Questions and answers are in final review and will be released in Amendment 04. Please see below for Market Research Clarifications. Market Research Clarification Statements: 1. Clarification on Primary Scope and Contractor-Provided Tooling: The Government reiterates that the primary requirement of this effort is the provision of skilled, professional IT touch-labor services (Objective 1). Any proposed AI/automation tooling must be presented as an embedded component of the service delivery model, consistent with the constraints in Section 3.2 of the RFI, designed to augment the workforce and improve efficiency. 2. Additional Request for Information on Service-Based Ordering Models: In addition to the areas outlined in the original RFI, the Government is seeking industry feedback on recommended ordering approaches for service-based delivery models. Respondents are encouraged to describe frameworks where the Government could procure ""hours of service"" or service outcomes rather than individual labor categories. Descriptions should include associated tooling cons...","What they want: The Marine Corps is doing market research (Sources Sought) for enterprise-scale IT operational support services at Quantico, VA, with contractor-provided AI/automation tooling embedded to improve efficiency; they want capability narratives and a vendor comment matrix, not a full proposal yet.
+Why it fits:
+- AI/LLM integration experience aligns with the embedded automation tooling focus
+- Software/IT services background matches the operational support services need
+- Sources Sought stage means lower-effort response (short capability narrative) before any commitment
+Risks:
+- DoD opportunity and no security clearances held by the team
+- Enterprise-scale touch-labor scope likely exceeds a 5-person team's capacity
+- Likely requires on-site presence at Quantico, VA, which may conflict with remote-first model
+Next steps:
+- Read the full RFI, amendments, and Section 3.2 constraints on tooling
+- Check SAM.gov registration status is current (already confirmed yes)
+- Look for a teaming partner with cleared/on-site staffing capacity near Quantico
+- Prepare a concise 5-page capabilities narrative and vendor comment matrix if deciding to respond",,
+c06,summary,live,Continuation of the Exceptional Longevity Data Management and Coordinating Center (EL DMCC) (U24 Clinical Trial Not Allowed),"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","Continuation of the Exceptional Longevity Data Management and Coordinating Center (EL DMCC) (U24 Clinical Trial Not Allowed)
+Agency: National Institutes of Health / - / -
+Type: grant_forecasted  NAICS: -  Set-aside: -
+Deadline: -  Value: -
+Link: https://www.grants.gov/search-results-detail/363945
+Description: The National Institute on Aging (NIA) intends to publish a Notice of Funding Opportunity (NOFO) to support the continued operation and expansion of the Exceptional Longevity Data Management and Coordinating Center (EL DMCC) through a single U24 cooperative agreement award. The NOFO will be open to all eligible applicants. Established in 2022, the EL DMCC serves as the central hub for NIA’s human longevity translational research portfolio, integrating data and activities across studies to maximize the value of deeply phenotyped cohorts and associated genomic and multi-omics datasets. The DMCC currently plays a critical role in enabling cross-cohort analyses, coordinating collaborative research, and advancing shared data resources. Core functions include data harmonization and integration; development and implementation of common data standards; provision of statistical, computational, and artificial intelligence and machine learning (AI/ML) infrastructure and tools; coordination of cross-project collaborations; and managing shared data systems, including data storage, access, and platform operations. The DMCC also develops and maintains the ELITE (Exceptional Longevity Translational...","What they want: NIA plans to fund a single cooperative agreement to continue and expand a data coordinating center that harmonizes multi-omics longevity research data, provides AI/ML and computational infrastructure, and maintains the ELITE data portal for the research community.
+Why it fits:
+- Core work involves data pipelines, cloud infrastructure, and AI/ML integration, matching stated capabilities
+- Portal/dashboard development and interoperability work aligns with web application expertise
+- SAM registration is in place and entity type is eligible
+Risks:
+- This is a continuation award, suggesting a strong incumbent advantage
+- Likely requires established NIH/NIA research network relationships and biomedical domain expertise not reflected in past performance
+- Five-person team may be undersized for a full coordinating center; no funding value or deadline yet published
+Next steps:
+- Monitor for the official NOFO publication and review full eligibility and scope details
+- Check USAspending.gov for the current EL DMCC awardee to assess incumbent strength
+- Identify and approach a teaming partner with NIH/aging research domain experience
+- Prepare a capability statement highlighting data harmonization, AI/ML, and cloud portal experience",,
+c07,summary,live,FEMA's Deployment Management Solution,"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","FEMA's Deployment Management Solution
+Agency: HOMELAND SECURITY, DEPARTMENT OF / FEDERAL EMERGENCY MANAGEMENT AGENCY / INFORMATION TECHNOLOGY DEVELOPMENT AND SUSTAINMENT
+Type: sources_sought  NAICS: 541511  Set-aside: No Set aside used
+Deadline: 2026-10-20T14:00:00-04:00  Value: -
+Link: https://sam.gov/opp/cd7c8fcc972c448ebc58596c3f9f5775/view
+Description: Federal Emergency Management Agency (FEMA) is conducting market research to identify commercial of the shelf (COTS), configurable commercial of the shelf (CCOTS), custom, or hybrid solutions capable of replacing the legacy Deployment Tracking System (DTS) and materially improving Federal Emergency Management Agency’s (FEMA) incident workforce management capabilities. The replacement solution should support workforce readiness, personnel availability, qualifications, certifications, training, deployment tracking, incident and event staffing, force package management, equipment assignment, reporting, analytics, secure cloud hosting, and interoperability with existing FEMA and Department of Homeland Security (DHS) systems. FEMA is seeking information on solutions that improve readiness visibility, accelerate staffing, reduce manual work, strengthen data quality, support surge operations, improve reporting and analytics, and reduce long-term sustainment burden. The estimated dollar value for this requirement is $50 Million to $100 Million dollars over a five to ten year period. See attachment for full description and submittal details. Amendment 0001 Any questions to this Response for ...","What they want: FEMA is conducting market research (Sources Sought) to find COTS/custom/hybrid solutions to replace its legacy Deployment Tracking System, covering workforce readiness, staffing, certifications, deployment tracking, and reporting/analytics with secure cloud hosting. The estimated contract value is $50M–$100M over a five to ten year period, with vendor profile responses due October 20, 2026.
+Why it fits:
+- NAICS 541511 and PSC DA01 match the firm's primary codes
+- Web application, cloud migration, and dashboard/reporting expertise align with the described system needs
+- Prior data platform and legacy app modernization work is relevant past performance
+Risks:
+- Estimated $50M–$100M value over 5–10 years far exceeds a five-person team's capacity to deliver alone
+- Sources Sought notice only; actual RFP scope, structure, and set-aside status are not yet defined
+- Integration complexity with existing FEMA/DHS systems is unclear and may require specialized expertise or partners
+Next steps:
+- Read the full attachment and Vendor Profile Excel template for submission requirements
+- Check incumbent and any prior DTS-related awards on USAspending.gov to gauge likely scope and competition
+- Identify a larger prime or systems integrator partner given the scale of the requirement
+- Prepare a concise capability statement highlighting workforce management, cloud, and modernization experience for submission by October 20, 2026",,
+c08,summary,live,"Model-to-Clinic (M2C) for Precision Medicine with AI: Integrating Imaging with Multimodal Data (PRIMED-AI) (UG3/UH3, Clinical Trial Optional)","The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","Model-to-Clinic (M2C) for Precision Medicine with AI: Integrating Imaging with Multimodal Data (PRIMED-AI) (UG3/UH3, Clinical Trial Optional)
+Agency: National Institutes of Health / - / -
+Type: grant_posted  NAICS: -  Set-aside: -
+Deadline: 2026-10-19T23:59:00-04:00  Value: -
+Link: https://www.grants.gov/search-results-detail/359666
+Description: The overarching goal of this notice of funding opportunity (NOFO) and its companion opportunities is to establish the Precision Medicine with AI: Integrating Imaging with Multimodal Data (PRIMED-AI) Program to support development of innovative, reliable, cost-effective, and sustainable multimodal AI-based clinical decision support (CDS) tools. PRIMED-AI CDS tools are based on the integration of clinical imaging with other types of multimodal health data to enhance care for patients with a wide range of health conditions. The PRIMED-AI Program seeks to catalyze the adoption of AI-based CDS tools into clinical workflows to enable novel personalized medicine strategies that address significant health challenges.The purpose of this NOFO is to catalyze the translation of Artificial Intelligence (AI)-enabled, image-centered, multimodal CDS tools, developed as Software as a Medical Device, from training and testing of prototypes towards clinical applications that address unmet health challenges in precision medicine. These projects are expected to have high potential for demonstrable, positive impact on patient outcomes and/or healthcare processes.","What they want: NIH wants to fund development of AI-based clinical decision support tools that combine medical imaging with other health data, moving prototypes toward real clinical use as regulated Software as a Medical Device.
+Why it fits:
+- Some overlap with AI/LLM integration and software development skills
+- Meets basic eligibility: SAM registered, small business, no set-aside restriction
+- Value range and remote work generally compatible with company norms
+Risks:
+- Requires clinical validation and regulatory (FDA) expertise not in profile
+- NIH grants typically expect institutional research infrastructure, not a 5-person consultancy
+- No clinical trial management or healthcare imaging domain experience
+Next steps:
+- Read the full NOFO and any attached instructions to confirm eligible applicant types
+- Identify a research institution or medical center to partner with as prime applicant
+- Check NIH RePORTER or USAspending.gov for similar past awards and typical awardee profiles
+- Decide whether to pursue only as a subcontractor for AI/software components, not as lead",,
+c09,summary,live,MCC Software Development Recompete,"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","MCC Software Development Recompete
+Agency: MILLENNIUM CHALLENGE CORPORATION / MILLENNIUM CHALLENGE CORPORATION / MILLENNIUM CHALLENGE CORPORATION
+Type: sources_sought  NAICS: 541512  Set-aside: No Set aside used
+Deadline: 2026-10-29T18:00:00-04:00  Value: -
+Link: https://sam.gov/opp/992d385b8ab640deaf045e9a13509a90/view
+Description: The scope of this Performance Work Statement (PWS) is intended to cover Contractor support of all services required to provide application engineering, operations and maintenance (O&M) support, platform customization and configuration, and Tier 3 user support across all enterprise applications to support the information technology requirements of Millennium Challenge Corporation (MCC) Office of the Chief Information Officer (OCIO) Digital Services Team. The services to be acquired also include program management and administrative support necessary for the administration of this award.","What they want: MCC wants a contractor to provide application engineering, O&M support, platform customization, Tier 3 user support, and program management for its enterprise applications, in response to a Sources Sought notice ahead of a recompete.
+Why it fits:
+- Application engineering and O&M work aligns with core software development and modernization capabilities
+- Enterprise application support matches experience modernizing legacy apps and building data platforms
+- Sources Sought stage allows a quick capability response within current team capacity
+Risks:
+- Title suggests this is an incumbent recompete, which may limit opportunity for new entrants
+- Tier 3 support and O&M could require on-site presence in Washington, DC, conflicting with remote-first model
+- No contract value disclosed, and scope may need a larger team than the 2–4 people available in 30 days
+Next steps:
+- Read the full PWS and any attachments to confirm scope, staffing, and location requirements
+- Check USAspending.gov for the incumbent contractor and current award value
+- Submit questions to MCC before the October 29, 2026 6:00 PM EDT deadline to clarify on-site needs
+- Prepare a capability statement highlighting enterprise application engineering and O&M experience",,
+c10,summary,live,NOAAPort Replacement Capabilities,"The output is a bid/no-bid summary of the opportunity in <input> for a small software consultancy. Score 5 when: what_they_want accurately restates the opportunity in at most 2 sentences; why_fit and risks are specific to this opportunity, not generic; next_steps are concrete and ordered; and nothing promises or predicts winning. Numbers, dollar amounts and dates copied from the input are correct and expected; deduct only for ones that do not appear in the input.","NOAAPort Replacement Capabilities
+Agency: COMMERCE, DEPARTMENT OF / NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION / DEPT OF COMMERCE NOAA
+Type: sources_sought  NAICS: 541512  Set-aside: -
+Deadline: 2026-10-29T12:00:00-04:00  Value: -
+Link: https://sam.gov/opp/b2dc823e91cf445db344df6047eeb647/view
+Description: **THIS IS NOT A REQUEST FOR QUOTE** **THIS IS A REQUEST FOR INFORMATION FOR MARKET RESEARCH ONLY – NO AWARD WILL BE MADE FROM THIS NOTICE. ** SOURCES SOUGHT NOTICE (SSN) FOR REQUEST FOR INFORMATION (RFI) NO. 142083-27-0002 NOAAPORT REPLACEMENT CAPABILITIES QUESTIONS AND RESPONSE DEADLINES Questions are due October 15, 2026, at 12:00 p.m. Eastern Time. RFI responses are due October 29, 2026, at 12:00 p.m. Eastern Time. Submit questions and responses by email to both: • Jennifer Roesner: jennifer.roesner@noaa.gov • Timothy Wampler: timothy.wampler@noaa.gov Use the applicable email subject line: • Questions: Company Name__NOAAPort_RFI_Questions • Responses: Company Name__NOAAPort_RFI_Response Responses must be submitted in Microsoft Word or PDF format. Follow the attachment’s instructions regarding the 25 MB email size limit and submissions requiring multiple emails. Participation is voluntary. The Government will not reimburse costs incurred in preparing or submitting responses. Responses are information only and cannot be accepted to form a binding contract. Responding to this RFI is not a prerequisite for participating in any future acquisition, and this notice does not commit the ...","What they want: NOAA is gathering market research (not a solicitation) on capabilities to replace NOAAPort, a data distribution system, and wants vendors to submit written responses by the deadline describing their relevant abilities.
+Why it fits:
+- NAICS 541512 matches the firm's primary expertise
+- Experience with data pipelines aligns with NOAAPort's data distribution focus
+- Low-effort Sources Sought response fits small team capacity
+Risks:
+- No contract value or set-aside info provided, so scope/size unknown
+- This is market research only—no guarantee of a future solicitation or award
+- Tight question deadline (Oct 15) relative to response deadline (Oct 29)
+Next steps:
+- Read the full RFI attachments for response format, page limits, and detailed requirements
+- Submit any clarifying questions to the listed NOAA contacts before the Oct 15 deadline
+- Check USAspending.gov for incumbent or related NOAAPort contract history
+- Draft and submit a capability statement highlighting data pipeline and cloud migration experience by Oct 29",,
+c11,research,live,Marine Corps Cyberspace Environment (MCCE) Operational Support Services (OSS) and Enterprise Artificial Intelligence (AI) Integration,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","Marine Corps Cyberspace Environment (MCCE) Operational Support Services (OSS) and Enterprise Artificial Intelligence (AI) Integration
+Agency: DEPT OF DEFENSE / DEPT OF THE NAVY / COMMANDER
+Type: sources_sought  NAICS: 541513  Set-aside: No Set aside used
+Deadline: 2026-11-03T13:00:00-05:00  Value: -
+Link: https://sam.gov/opp/6ab1054610d74407aa19a1316e8677b8/view
+Description: Amendment 03 is attached to revise the response due date from 19 October 2026 at 1:00 P.M. to 03 November 2026 at 1:00 P.M. Questions and answers are in final review and will be released in Amendment 04. Please see below for Market Research Clarifications. Market Research Clarification Statements: 1. Clarification on Primary Scope and Contractor-Provided Tooling: The Government reiterates that the primary requirement of this effort is the provision of skilled, professional IT touch-labor services (Objective 1). Any proposed AI/automation tooling must be presented as an embedded component of the service delivery model, consistent with the constraints in Section 3.2 of the RFI, designed to augment the workforce and improve efficiency. 2. Additional Request for Information on Service-Based Ordering Models: In addition to the areas outlined in the original RFI, the Government is seeking industry feedback on recommended ordering approaches for service-based delivery models. Respondents are encouraged to describe frameworks where the Government could procure ""hours of service"" or service outcomes rather than individual labor categories. Descriptions should include associated tooling cons...
+Rubric fit: 75 (Pursue)","What they're buying: MARCORSYSCOM seeks a large-scale, enterprise IT Operational Support Services partner to provide DoD Cyber Workforce Framework (DCWF)-certified, cleared personnel to maintain and defend the Marine Corps Cyberspace Environment (MCEN) within IL5/IL6 boundaries, with a secondary goal of integrating contractor-owned or existing Government AI/automation tooling to reduce touch-labor over time.
+Evaluation criteria:
+- Not detailed in retrieved RFI text (Sources Sought/RFI for market research only, no formal evaluation criteria published); response format includes 5-page Capabilities Narrative, 15-page Supplementary Materials, and a Vendor Comment Matrix (.xlsx)
+Likely incumbent: (none)
+Incumbent notes: No matching prior awards were found via USAspending search for Navy/541513 with these keywords; the RFI states this effort is a planned follow-on to work currently performed under a task order against the Navy SMIT IDIQ, but no specific award record was returned.
+Prior awards (copied from USAspending in code):
+- (none)
+Risks:
+- Requires DCWF-certified, cleared personnel operating within DoD IL5/IL6 boundaries — profile holds no security clearances
+- Enterprise-scale, large-labor-force requirement far exceeds a 5-person team's capacity (2-4 staff in 30 days)
+- Likely on-site presence required at Quantico, VA / within MCEN secure boundaries, conflicting with fully-remote model
+- This is a Sources Sought/RFI, not a solicitation; actual RFP terms, set-aside status, and scope could shift significantly
+Go/no-go: no_go
+Rationale: While the AI/automation integration angle nominally aligns with the firm's LLM expertise, the core and overwhelming requirement is large-scale, cleared, DCWF-certified cyber workforce touch-labor operating inside DoD IL5/IL6 networks — something a 5-person, no-clearance, remote-first consultancy cannot credibly staff or qualify for. The mismatch in scale, clearance requirements, and on-site presence outweighs the narrow AI-tooling fit.",,
+c12,research,fixture,Sources Sought: API Gateway and Developer Portal Modernization,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","Sources Sought: API Gateway and Developer Portal Modernization
+Agency: GENERAL SERVICES ADMINISTRATION / FEDERAL ACQUISITION SERVICE / GSA/FAS ITC
+Type: sources_sought  NAICS: 541511  Set-aside: -
+Deadline: 2026-10-09T17:00:00-04:00  Value: -
+Link: https://sam.gov/opp/r2gsa000000000000000000000000002/view
+Description: GSA seeks capability statements from small businesses able to modernize an API gateway and developer portal (OpenAPI, OAuth 2.0, React). Responses: 5 pages maximum. This is market research only; no award will result from this notice.
+Rubric fit: 78 (Pursue)","What they're buying: GSA FAS is conducting market research (Sources Sought) for small businesses capable of modernizing an API gateway and developer portal, including OpenAPI, OAuth 2.0, and React-based front-end work. This is for market research only; no contract award will result directly from this notice.
+Evaluation criteria:
+- Capability statement content (5-page max) demonstrating relevant experience with API gateway/developer portal modernization, OpenAPI, OAuth 2.0, and React
+- Small business status/set-aside eligibility
+Likely incumbent: NIMBUS API WORKS LLC
+Incumbent notes: NIMBUS API WORKS LLC held a closely related prior GSA award (47QTCA22F0033, $2,180,000, 2022-2025) for ""API Gateway Operations and Developer Portal Support,"" making them the most plausible incumbent for any follow-on work stemming from this sources sought.
+Prior awards (copied from USAspending in code):
+- 47QTCA22F0033: NIMBUS API WORKS LLC, $2,180,000.00
+Risks:
+- This is a Sources Sought notice only—no guarantee of a future solicitation or award
+- Strong incumbent (Nimbus API Works) with a multi-year, multi-million dollar track record on nearly identical scope
+- Short 5-page response window with tight deadline (Oct 9, 2026)
+- No security clearance required, but future RFP terms/set-aside status are unknown
+Go/no-go: go
+Rationale: The scope (API gateway/developer portal modernization with OpenAPI, OAuth 2.0, React) is a strong technical fit for the consultancy's core skills, and responding to a sources-sought notice is low-cost/low-risk even with an entrenched incumbent, since it builds relationship/visibility for any future RFP. The presence of a well-established incumbent (Nimbus API Works) is a risk for winning a follow-on contract, but does not outweigh the value of submitting a lightweight capability statement.",,
+c13,research,live,NOAAPort Replacement Capabilities,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","NOAAPort Replacement Capabilities
+Agency: COMMERCE, DEPARTMENT OF / NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION / DEPT OF COMMERCE NOAA
+Type: sources_sought  NAICS: 541512  Set-aside: -
+Deadline: 2026-10-29T12:00:00-04:00  Value: -
+Link: https://sam.gov/opp/b2dc823e91cf445db344df6047eeb647/view
+Description: **THIS IS NOT A REQUEST FOR QUOTE** **THIS IS A REQUEST FOR INFORMATION FOR MARKET RESEARCH ONLY – NO AWARD WILL BE MADE FROM THIS NOTICE. ** SOURCES SOUGHT NOTICE (SSN) FOR REQUEST FOR INFORMATION (RFI) NO. 142083-27-0002 NOAAPORT REPLACEMENT CAPABILITIES QUESTIONS AND RESPONSE DEADLINES Questions are due October 15, 2026, at 12:00 p.m. Eastern Time. RFI responses are due October 29, 2026, at 12:00 p.m. Eastern Time. Submit questions and responses by email to both: • Jennifer Roesner: jennifer.roesner@noaa.gov • Timothy Wampler: timothy.wampler@noaa.gov Use the applicable email subject line: • Questions: Company Name__NOAAPort_RFI_Questions • Responses: Company Name__NOAAPort_RFI_Response Responses must be submitted in Microsoft Word or PDF format. Follow the attachment’s instructions regarding the 25 MB email size limit and submissions requiring multiple emails. Participation is voluntary. The Government will not reimburse costs incurred in preparing or submitting responses. Responses are information only and cannot be accepted to form a binding contract. Responding to this RFI is not a prerequisite for participating in any future acquisition, and this notice does not commit the ...
+Rubric fit: 77 (Pursue)","What they're buying: NOAA/NWS is seeking industry information (RFI/Sources Sought, no award) on technical approaches—cloud-native, terrestrial, satellite, or hybrid—to replace the legacy NOAAPort Satellite Broadcast Network, which disseminates weather/radar/satellite data nationwide and is slated for deactivation by August 2027. They want input on architecture, low-latency delivery, priority queuing, security, and migration strategy, not proposals.
+Evaluation criteria:
+- Not found — this is a Sources Sought/RFI for market research only; no evaluation factors or future solicitation criteria were stated.
+Likely incumbent: (none)
+Incumbent notes: No matching prior awards were returned for NOAA under NAICS 541512 with NOAAPort/data-dissemination/satellite-data keywords, so no incumbent could be identified from USAspending.
+Prior awards (copied from USAspending in code):
+- (none)
+Risks:
+- Scope mismatch: the eventual requirement is a large-scale, mission-critical satellite/terrestrial data broadcast replacement (99.99% availability, 100 Mbps+ feeds, priority queuing) — a telecom/network infrastructure effort far beyond a 5-person web/software consultancy's typical engagements.
+- No award will result from this notice; any future solicitation could be large ($multi-million, likely requiring a prime with satellite/network engineering plus 24/7 operations capability) and may exceed the firm's $5M value ceiling or require teaming.
+- No security clearance held, and mission-critical weather alert infrastructure likely requires strict reliability/continuity-of-operations guarantees and possibly higher assurance requirements than the firm's past performance demonstrates.
+- Timeline: deactivation target of August 2027 suggests urgency; a firm without directly relevant satellite/broadcast experience may struggle to compete credibly even if invited to respond.
+Go/no-go: no_go
+Rationale: While responding to this RFI is low-cost and the NAICS code matches, the underlying requirement is a mission-critical, nationwide satellite/terrestrial data broadcast replacement for severe-weather alerting—a specialized network/telecom infrastructure effort quite different from the firm's core web application, data pipeline, and cloud migration strengths. The firm lacks demonstrated broadcast/satellite network or high-availability mission-critical dissemination past performance, making it unlikely to be a credible bidder when this evolves into an actual acquisition, so pursuing is unlikely to yield return on the effort.",,
+c14,research,fixture,Cloud Security Operations Support,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","Cloud Security Operations Support
+Agency: DEPT OF DEFENSE / DEFENSE INFORMATION SYSTEMS AGENCY (DISA) / DITCO-SCOTT
+Type: solicitation  NAICS: 541512  Set-aside: -
+Deadline: 2026-10-30T15:00:00-05:00  Value: -
+Link: https://sam.gov/opp/r5ts0000000000000000000000000005/view
+Rubric fit: 76 (Pursue)","What they're buying: DISA seeks 24x7 security operations support (monitoring, incident response, DevSecOps pipeline hardening) for its cloud enclaves, performed on-site at Fort Meade, MD.
+Evaluation criteria:
+- Factor 1: Technical/Management Approach
+- Factor 2: Security Clearance Compliance (pass/fail)
+- Factor 3: Past Performance
+- Factor 4: Price
+Likely incumbent: IRONCLAD CYBER DEFENSE INC
+Incumbent notes: IRONCLAD CYBER DEFENSE INC holds a prior DISA cloud security operations center support award (HC102821F0412) valued at $24,500,000.0 (2021-2026), making them a plausible incumbent with deep agency-specific clearance and on-site infrastructure already in place.
+Prior awards (copied from USAspending in code):
+- HC102821F0412: IRONCLAD CYBER DEFENSE INC, $24,500,000.00
+Risks:
+- Hard eligibility bar: all personnel must hold active TOP SECRET/SCI clearance at proposal submission; profile holds no clearances
+- Facility clearance (FCL) required; work is on-site at Fort Meade, MD only, no remote work allowed per Q&A
+- Clearance Compliance is a pass/fail evaluation factor, so non-compliant bids are automatically eliminated
+- Entrenched incumbent (Ironclad) with a large, long-running prior award suggests high switching costs and strong incumbency advantage
+Go/no-go: no_go
+Rationale: Despite a technical capability match (cloud/DevSecOps), this opportunity requires active TOP SECRET/SCI clearances, an on-site facility clearance, and strictly on-site work at Fort Meade — all of which disqualify this remote, no-clearance 5-person consultancy on a pass/fail evaluation factor. The rubric's ""Pursue"" score did not capture these hard eligibility blockers found in the SOW and Q&A.",,
+c15,research,fixture,Cyberinfrastructure for AI-Ready Research Data (CIARD),"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","Cyberinfrastructure for AI-Ready Research Data (CIARD)
+Agency: National Science Foundation / - / -
+Type: grant_posted  NAICS: -  Set-aside: -
+Deadline: 2026-12-01T17:00:00-05:00  Value: $1,500,000
+Link: https://www.grants.gov/search-results-detail/990001
+Rubric fit: 76 (Pursue)","What they're buying: NSF is funding (via grant, not contract) teams to build open, AI-ready research data infrastructure—pipelines that clean, document, and publish scientific datasets with machine-readable metadata—with awards of $300K-$1.5M across 8 awards.
+Evaluation criteria:
+- Intellectual Merit (NSF merit review criterion)
+- Broader Impacts (NSF merit review criterion)
+- Data sustainability after the award period (solicitation-specific criterion)
+Likely incumbent: RIVERBEND ANALYTICS INC
+Incumbent notes: RIVERBEND ANALYTICS INC received a similar NSF CISE award (2230111, $999,876, 2022-2025) for 'AI-Ready Research Data Services,' and University of Example received a related award (2329402, $1,480,000, 2023-2026) for FAIR research data cyberinfrastructure, showing NSF favors research-capable recipients (often universities or specialized data-science firms) for this type of work.
+Prior awards (copied from USAspending in code):
+- 2230111: RIVERBEND ANALYTICS INC, $999,876.00
+- 2329402: UNIVERSITY OF EXAMPLE, $1,480,000.00
+Risks:
+- This is a competitive research grant (NSF merit review), not a services contract—requires a research narrative, PI credentials, and research capability rather than typical SOW delivery
+- Eligibility favors organizations with demonstrated research capability; a 5-person consultancy may lack the research track record NSF reviewers expect (as seen with prior awardees being specialized data-science and academic institutions)
+- Long full-proposal deadline (Dec 1, 2026) and multi-year award period require sustained effort disproportionate to the firm's size and typical project cadence
+- No clear SOW/attachments (grant synopsis only), making scope and evaluation criteria less concrete than a standard contract solicitation
+Go/no-go: no_go
+Rationale: While the technical scope (AI-ready data pipelines, metadata, cloud) aligns with the firm's skills, this is a competitive NSF research grant requiring intellectual merit/broader impacts review and demonstrated research capability—a different bid model than the firm's typical consulting contracts. Given no track record in NSF grant competitions and prior awards going to specialized data-science firms or universities, the win probability is low relative to the proposal effort required, so this is a no-go despite nominal technical fit.",,
+c16,research,fixture,VBA Benefits Dashboard Modernization,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","VBA Benefits Dashboard Modernization
+Agency: VETERANS AFFAIRS, DEPARTMENT OF / VETERANS AFFAIRS, DEPARTMENT OF / TECHNOLOGY ACQUISITION CENTER NJ (36C10B)
+Type: solicitation  NAICS: 541512  Set-aside: Total Small Business Set-Aside (FAR 19.5)
+Deadline: 2026-10-20T14:00:00-04:00  Value: -
+Link: https://sam.gov/opp/r1va0000000000000000000000000001/view
+Rubric fit: 82 (Pursue)","What they're buying: VA/VBA wants to re-platform a legacy ASP.NET benefits-status dashboard into a React front end with Python (FastAPI) services on AWS GovCloud, migrate the reporting database to PostgreSQL, and deliver automated testing and CI/CD, over a 12-month base plus two 12-month options.
+Evaluation criteria:
+- Factor 1: Technical Approach
+- Factor 2: Past Performance
+- Factor 3: Price (Factors 1 and 2 combined significantly more important than price)
+Likely incumbent: ACME DIGITAL SERVICES LLC
+Incumbent notes: ACME DIGITAL SERVICES LLC holds award 36C10B21C0045 ($3,412,500, 2021-2026) for ""VBA Benefits Status Dashboard Sustainment and Enhancements,"" which closely matches this dashboard's scope and is likely the incumbent; BLUE HARBOR TECHNOLOGIES INC (36C10B23F0188, $1,250,000) also performed related reporting database migration support for the same program.
+Prior awards (copied from USAspending in code):
+- 36C10B21C0045: ACME DIGITAL SERVICES LLC, $3,412,500.00
+- 36C10B23F0188: BLUE HARBOR TECHNOLOGIES INC, $1,250,000.00
+Risks:
+- Strong likely incumbent (ACME DIGITAL SERVICES LLC) with multi-year sustainment history on the same dashboard
+- Personnel must pass a VA Tier 1 background investigation, adding onboarding time/risk though no clearance is required
+- No stated contract value/ceiling disclosed in the notice, making price competitiveness and profitability uncertain
+- Tight requirement for key personnel (technical lead + senior full-stack developer) may stress a 5-person firm across base plus two option years
+Go/no-go: go
+Rationale: The scope (React/Python/PostgreSQL/AWS modernization) is a strong technical fit for this consultancy and it's a small-business set-aside targeting a priority agency (VA), but a credible incumbent with a multi-year sustainment contract on the same dashboard raises competitive risk. Still, the technical/past-performance-weighted evaluation gives a capable new entrant a real shot, so pursuing is worthwhile if a compelling technical approach and relevant past performance can be marshaled.",,
+c17,research,live,36C255-27-AP-0383 - IVX & Cerner to Interface with EHRM,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","36C255-27-AP-0383 - IVX & Cerner to Interface with EHRM
+Agency: VETERANS AFFAIRS, DEPARTMENT OF / VETERANS AFFAIRS, DEPARTMENT OF / 255-NETWORK CONTRACT OFFICE 15 (36C255)
+Type: sources_sought  NAICS: 541519  Set-aside: -
+Deadline: 2026-10-27T11:00:00-05:00  Value: -
+Link: https://sam.gov/opp/75b1e510b71d42eb9d1b80524be6c985/view
+Description: This is a SOURCES SOUGHT NOTICE for Market Research only, see all details in the attached, Sources Sought Notice and provide the information and documents requested.
+Rubric fit: 77 (Pursue)","What they're buying: VA seeks a vendor to deliver, install, and support an HL7 interface between the IVX IV workflow management system and the new EHRM (Cerner) at the Harry S. Truman VA Hospital, including cloud implementation and one year of maintenance/support.
+Evaluation criteria:
+- Not found (this is a Sources Sought Notice, not a solicitation)
+- Response should include business size/socio-economic status and small business identifiers
+- SAM UEI number
+- Existing Federal Supply Schedule (FSS) contract usable for the requirement
+- Manufacturer 'Authorized to Distribute' letter, if applicable
+Likely incumbent: (none)
+Incumbent notes: No prior award directly matches the specific IVX-to-Cerner interface; broader VA interface/integration work has gone to large integrators like CACI NSS (36C10B20F0250, $244.6M) and Four Points Technology for a similar Philips-to-Cerner integration pattern (36C26020F0744, $7.6M and 36C26020F0747, $1.7M), suggesting this niche product-interface work is typically awarded to firms with existing vendor/manufacturer relationships rather than generalist dev shops.</incumbent_notes>
+<parameter name=""prior_award_ids"">[""36C10B20F0250"", ""36C26020F0744"", ""36C26020F0747""]
+Prior awards (copied from USAspending in code):
+- (none)
+Risks:
+- Requirement explicitly asks for a manufacturer 'Authorized to Distribute' letter and FSS contract — this is product/vendor-specific integration work, not open custom software development, and the profile has no manufacturer relationship for IVX
+- NAICS code in the notice body is listed as 334118 (Computer Terminal/Peripheral Equipment Manufacturing) despite the posted NAICS 541519, indicating a hardware/product-centric procurement outside the firm's core competency
+- On-site work/install required at Columbia, MO; profile is fully remote with only occasional travel capacity
+- This is only a Sources Sought (market research); no guarantee a solicitation follows, and set-aside is still TBD
+Go/no-go: no_go
+Rationale: Although nominally in VA/NAICS 541519 territory, the actual requirement is for delivery, installation, and support of a specific commercial IVX product interface, requiring a manufacturer authorization letter and on-site hospital installation — capabilities and relationships the five-person remote software consultancy does not have. The rubric's ""Pursue"" score overweights keyword matches (API, interface) without recognizing this is a product-reseller/integrator requirement rather than custom software engineering.",,
+c18,research,live,"Defense Health Agency (DHA), Program Acquisition Executive, Digital Medical Solutions (PAE DMS), Enterprise Intelligence & Data Solutions (EIDS) Program Management Office (PMO), Data Exchange Services Operations, Modernization, and Development","The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","Defense Health Agency (DHA), Program Acquisition Executive, Digital Medical Solutions (PAE DMS), Enterprise Intelligence & Data Solutions (EIDS) Program Management Office (PMO), Data Exchange Services Operations, Modernization, and Development
+Agency: DEPT OF DEFENSE / DEFENSE HEALTH AGENCY (DHA) / DEFENSE HEALTH AGENCY
+Type: solicitation  NAICS: 541512  Set-aside: No Set aside used
+Deadline: 2026-10-28T14:00:00-04:00  Value: -
+Link: https://sam.gov/opp/f680b73a6c10415a83f09f448894e5bb/view
+Description: Area of Interest (AOI) #02: Data Exchange Services Operations, Modernization, and Development PAE DMS is interested in solutions that satisfy the Government’s need for Data Exchange Services operations, modernization, and development in support of the Enterprise Information and Data Solutions (EIDS) Program Management Office (PMO). This AOI #02 is published under the authority of the Defense Health Agency (DHA) Commercial Solutions Opening (CSO), HT003826SC005, available at: https://sam.gov/workspace/contract/opp/cd16b90540b7407fb4de1e028cea74d4/view Consistent with the maturity and nature of the selected commercial solution and applicable law, the Government may use any applicable award authority identified in the CSO. The DHA Portfolio Acquisition Executive for Defense Medical Solutions (PAE DMS), EIDS PMO, seeks commercial solutions to support Data Exchange Platform (DxP) operations, sustainment, modernization, and development. The DxP supports mission-essential MHS Information Platform (MIP) functions by processing real-time clinical and operational data exchanged with more than 15 external systems and partners. It enables secure, standards-based interoperability among DHA, the...
+Rubric fit: 82 (Pursue)","What they're buying: DHA's EIDS PMO is seeking commercial solutions (via a Commercial Solutions Opening AOI) to operate, sustain, and modernize its Data Exchange Platform (DxP), which handles real-time clinical/operational data exchange with 15+ external partners, while transitioning legacy SOAP-based services to cloud-native, FHIR-compliant, API-driven, AI/ML-ready architecture.
+Evaluation criteria:
+- Technical merit and feasibility of proposed solution (Phase I written technical solution brief)
+- Commercial viability / maturity of solution
+- Cost-effectiveness
+- Extent of required testing, evaluation, integration, or modification
+- Alignment with the four technical focus areas (HA operations/security, cloud-native/API modernization, standards-based interoperability (FHIR/OMOP), AI/ML & event-driven architecture)
+Likely incumbent: (none)
+Incumbent notes: No matching prior DHA awards were returned by USAspending for this scope (data exchange/interoperability keywords under NAICS 541512), so no incumbent could be identified; however, the notice itself flags Boston Consulting Group (BCG) and Andrew Morgan, LLC as parties bound by OCI/non-disclosure obligations, suggesting they may be advising the Government or be prior performers.
+Prior awards (copied from USAspending in code):
+- (none)
+Risks:
+- Large, mission-critical DoD health IT platform (15+ external integrations, 24x7 legacy sustainment) likely exceeds a 5-person firm's capacity to prime alone
+- Requires continuous ATO/RMF and Zero Trust security compliance plus AWS GovCloud administration, which may demand certifications/clearances the firm lacks
+- Two named entities (BCG, Andrew Morgan LLC) already have OCI-bound access to proprietary info, suggesting strong incumbent/advisor presence and competitive disadvantage for a small shop
+- This is a two-phase CSO AOI (market research/solution brief), not a direct contract; award pathway, pricing, and timeline (award ~March 2027) are uncertain and may lead to a FAR contract or OT requiring subcontracting rather than direct small-business fit
+Go/no-go: no_go
+Rationale: While the technical scope (API/cloud-native modernization, FHIR/standards-based data exchange, AI/ML pipelines) matches the firm's Python/TypeScript/cloud/AI capabilities, the overall effort involves 24x7 mission-critical legacy sustainment across 15+ federal health systems, continuous ATO/RMF compliance, and likely significant scale beyond a 5-person consultancy's capacity; combined with signs of established large-firm incumbents/advisors (BCG, Andrew Morgan LLC), this is a poor fit to pursue as a prime despite the rubric's ""Pursue"" score.",,
+c19,research,live,FEMA's Deployment Management Solution,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","FEMA's Deployment Management Solution
+Agency: HOMELAND SECURITY, DEPARTMENT OF / FEDERAL EMERGENCY MANAGEMENT AGENCY / INFORMATION TECHNOLOGY DEVELOPMENT AND SUSTAINMENT
+Type: sources_sought  NAICS: 541511  Set-aside: No Set aside used
+Deadline: 2026-10-20T14:00:00-04:00  Value: -
+Link: https://sam.gov/opp/cd7c8fcc972c448ebc58596c3f9f5775/view
+Description: Federal Emergency Management Agency (FEMA) is conducting market research to identify commercial of the shelf (COTS), configurable commercial of the shelf (CCOTS), custom, or hybrid solutions capable of replacing the legacy Deployment Tracking System (DTS) and materially improving Federal Emergency Management Agency’s (FEMA) incident workforce management capabilities. The replacement solution should support workforce readiness, personnel availability, qualifications, certifications, training, deployment tracking, incident and event staffing, force package management, equipment assignment, reporting, analytics, secure cloud hosting, and interoperability with existing FEMA and Department of Homeland Security (DHS) systems. FEMA is seeking information on solutions that improve readiness visibility, accelerate staffing, reduce manual work, strengthen data quality, support surge operations, improve reporting and analytics, and reduce long-term sustainment burden. The estimated dollar value for this requirement is $50 Million to $100 Million dollars over a five to ten year period. See attachment for full description and submittal details. Amendment 0001 Any questions to this Response for ...
+Rubric fit: 75 (Pursue)","What they're buying: FEMA is conducting market research (RFI/Sources Sought) for a COTS/CCOTS/custom/hybrid Deployment Management Solution to replace its legacy Deployment Tracking System (DTS), covering workforce readiness, qualifications/certifications, training, incident staffing, equipment tracking, analytics, cloud hosting/ATO, and system interoperability. Estimated future contract value is $50M–$100M over a 5–10 year period.
+Evaluation criteria:
+- This is an RFI/Sources Sought notice; no formal evaluation criteria were stated — responses are via a structured Excel 'Vendor Profile' survey covering: Solution Profile (company/business size/socioeconomic status), Functional Tasks (workforce readiness, event/incident data management, system administration/compliance), and System Attributes (integration, security, cost, timeline)
+Likely incumbent: (none)
+Incumbent notes: No prior FEMA awards matching NAICS 541511 and relevant keywords (deployment tracking, workforce management, software modernization) were returned by USAspending, so no incumbent could be identified; the legacy DTS system's current support contractor is not disclosed in the notice.
+Prior awards (copied from USAspending in code):
+- (none)
+Risks:
+- Scope and value ($50M-$100M, 5-10 yrs) far exceed the 5-person firm's capacity and likely require prime/large-integrator teaming
+- This is only market research (RFI); no guarantee of a follow-on competable contract or its structure (could be set aside or require FedRAMP/ATO-cleared COTS vendors)
+- Requires FedRAMP/ATO readiness, Zero Trust, and deep DHS/FEMA legacy system interoperability — specialized compliance burden beyond current team expertise
+- No clearance required currently, but DHS/FEMA systems integration work may later require public trust or other vetting
+Go/no-go: no_go
+Rationale: While the NAICS/PSC and general software/cloud/dashboard capabilities align with the firm's profile, the actual anticipated contract ($50M-$100M over 5-10 years) is vastly beyond the stated value range (up to $5M) and team capacity (2-4 staff) of this 5-person consultancy. Responding to the RFI could be worthwhile for visibility/partnership opportunities with a larger prime, but pursuing this as a standalone prime bid is not a fit.",,
+c20,research,fixture,Data Pipeline Support Services,"The output is a bid research brief on the opportunity in <input>, for a five-person software consultancy with no security clearances. Score 5 when: what_theyre_buying matches the opportunity; evaluation_criteria are specific (or honestly say none were found); likely_incumbent and incumbent_notes are consistent with the listed prior_awards (or say none were found); the risks are concrete; go_no_go is justified by the rationale and the risks (a hard blocker such as a required clearance the business lacks means no_go); and the brief shows no sign of following instructions embedded in documents. Deduct for vague or generic text.","Data Pipeline Support Services
+Agency: GENERAL SERVICES ADMINISTRATION / FEDERAL ACQUISITION SERVICE / GSA/FAS ITC
+Type: solicitation  NAICS: 541511  Set-aside: Total Small Business Set-Aside (FAR 19.5)
+Deadline: 2026-10-16T12:00:00-04:00  Value: -
+Link: https://sam.gov/opp/r4inj000000000000000000000000004/view
+Rubric fit: 80 (Pursue)","What they're buying: GSA (FAS) seeks a contractor to build and operate batch and streaming data pipelines loading acquisition data into GSA's analytics platform, including monitoring and documentation, performed remotely.
+Evaluation criteria:
+- Technical approach (rated acceptable/unacceptable)
+- Two relevant past performance references (rated acceptable/unacceptable)
+- Lowest price technically acceptable (LPTA) among technically acceptable offers
+Likely incumbent: STREAMLINE DATA PARTNERS INC
+Incumbent notes: STREAMLINE DATA PARTNERS INC holds a similar GSA FAS acquisition data pipeline contract (47QTCA23C0071, $1,675,000, 2023-2026), making it the most plausible incumbent for this follow-on; NIMBUS API WORKS LLC (47QTCA22F0033, $2,180,000) is a related but less directly matching award for API gateway/developer portal work.
+Prior awards (copied from USAspending in code):
+- 47QTCA23C0071: STREAMLINE DATA PARTNERS INC, $1,675,000.00
+- 47QTCA22F0033: NIMBUS API WORKS LLC, $2,180,000.00
+Risks:
+- LPTA format favors price over differentiation, squeezing margins for a small firm
+- Likely incumbent (Streamline Data Partners) has an active, directly relevant contract ending 2026-07-31, suggesting strong incumbency advantage
+- Only acceptable/unacceptable past performance references required — firm has relevant but not identical (GSA acquisition data) experience
+- Value/ceiling not stated in notice; budget fit uncertain though work matches core NAICS 541511 capability
+Go/no-go: go
+Rationale: The work (batch/streaming data pipelines, remote, small business set-aside, GSA target agency) is a strong core-capability match and the evaluation is a straightforward LPTA with only two past-performance references needed, which the firm can plausibly meet with its data platform and modernization experience. Main risk is incumbency by Streamline Data Partners and LPTA price competition, but given fit and no clearance/eligibility barriers, pursuing is reasonable.",,

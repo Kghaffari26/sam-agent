@@ -1,6 +1,32 @@
 # Status
 
-_Updated 2026-10-08 (session: agents-core v0.3.2 upgrade; before that: v0.3.1, v0.3.0, bid research, tracing, evals)._
+_Updated 2026-10-16 (session: next round, scope `docs/specs/SCOPE_SAM_AGENT_NEXT.md`; before that: agents-core v0.3.2, v0.3.1, v0.3.0, bid research, tracing, evals)._
+
+## Next round (2026-10-16): calibration, labels, research audit, alerts
+
+| Step | State |
+|---|---|
+| S1 judge calibration | Sheet ready (20 frozen items: `evals/grants/calibration/`); **waiting on the owner's scores**. Then `scripts/calibrate_judges.py` writes `report.md`, `calibration.json` (the suites read the pass thresholds from it) and a `grants-judge-calibration` history line. |
+| S2 label review | `evals/grants/labels_review.md` ready (40 scoring labels, 8 model disagreements first; 5 research go/no-go labels, r3 first); **waiting on the owner's review**. Then `scripts/review_labels.py --apply` writes `labels_reviewed.json` (the scoring suite switches to it), then re-run scoring + research (≤ $1.00). |
+| S3 research audit | **Done.** `docs/research_audit_2026-10.md`: every concrete claim in the 5 live briefs matched USAspending/SAM. 4 briefs wrongly said "no prior awards" (sub-agency sent as a toptier agency) and 1 lost its prior awards to leaked tool-call markup. Fixed at the cause, with regression tests from the real responses, plus a no-results fallback. Re-researched with the fixes: 5/5 briefs, every check ✓. `required_tools` 0.90 was an expectation issue (fixed in `4825be4`): 1.00 on replay and on the v2 live run. SAM usage 0. |
+| S4 email alerts | **Built and tested**; `alerts` job in `agent-grants.yml`. **Waiting on the owner's Resend key + secrets** for the live "digest arrives, second run sends nothing" check. |
+
+Owner review page (both S1 and S2, saves as you click; private):
+https://claude.ai/artifact/9vH6HhAuSxiXdeWjgiyB8E. To apply its answers: export
+its `scores` and `labels` collections as JSON (Claude: `ArtifactData` list with
+`out_dir`), `uv run python -m scripts.import_review <dir>`, then the S1/S2 commands
+above.
+
+- **Tests: 289 passing; `ruff check .` clean; actionlint clean** on all three workflows.
+- **Anthropic spend this round: $0.64** of the $3.00 cap = label model view $0.083
+  (one $0.055 run lost to a mapping bug, then $0.028), research eval on prompt v2
+  $0.124, the two audit re-research passes on Actions $0.207 + $0.228. Left for after
+  the owner's input: calibration (~$0.03 per pass, at most two) and the S2 re-run of
+  scoring + research (≤ $1.00).
+- **SAM.gov requests this round: 0.** The ledger for 2026-10-16 is 8/8, all from the
+  agent's own runs.
+- Research prompt v2 re-researches the five live briefs over the next two daily runs
+  (at most 3 a run, about $0.05 each).
 
 ## Summary
 
@@ -66,7 +92,8 @@ rescored item kept publishing the summary cached for its old content hash. See
 |---|---|---|---|
 | `grants-scoring` | 1.00 | precision@10 1.00, no bad fit in top 5, hard blockers 1.00, **same recommendation 0.967** (≥ 0.90 ✅; was 0.867/0.967 before temperature 0), within ±5 1.00, injection 1.00 | $0.055 |
 | `grants-summaries` | 1.00 (after the judge rubric fix; 0.40 before) | guard+dates 1.00, next steps 1.00, LLM-written 1.00, judge 0.85 | $0.088 |
-| `grants-research` (re-run 2026-10-16, after relabelling r3) | 0.80 | required tools 0.90, forbidden tools 1.00, ≤ 10 steps 1.00 (3 steps each), finished 1.00, go/no-go 1.00 (was 0.80), guard 1.00, content 1.00, ≤ 3 attachments 1.00, USAspending citations 1.00, judge 0.95 | $0.123 |
+| `grants-research` (prompt v2, 2026-10-16) | **1.00** | every check 1.00 (required tools 1.00, was 0.90), judge 0.95 | $0.124 |
+| `grants-research` (v1 re-run 2026-10-16, after relabelling r3) | 0.80 | required tools 0.90, forbidden tools 1.00, ≤ 10 steps 1.00 (3 steps each), finished 1.00, go/no-go 1.00 (was 0.80), guard 1.00, content 1.00, ≤ 3 attachments 1.00, USAspending citations 1.00, judge 0.95 | $0.123 |
 
 - The summary judge first scored 0.55: it penalized dollar amounts copied from
   the input, which the rubric allows. The rubric now says so; the re-run scored 0.85.
@@ -80,8 +107,8 @@ rescored item kept publishing the summary cached for its old content hash. See
   `get_opportunity` is now optional for grants cases (`grants_gov_detail` returns
   the same facts), so r3 requires only `grants_gov_detail`. Replayed offline, that
   run's r3 trajectory now passes; the next live run will show 1.00.
-- Labels are still PROVISIONAL (Claude's proposals). Judges are not calibrated
-  against human scores (`LLMJudge.calibrate`).
+- Labels are still PROVISIONAL (Claude's proposals) until the owner's S2 review is
+  applied. Judges are not calibrated yet (S1 waits on the owner's scores).
 - Number guard limit seen in the research demo: "3-year total period" (derived
   from 3 × 12 months) passes because a 3 appears elsewhere in the input. The
   guard checks that numbers exist in the data, not that they're used correctly.
@@ -131,6 +158,9 @@ rescored item kept publishing the summary cached for its old content hash. See
 
 ## Not reachable from this environment
 
+(2026-10-16: still true. The S3 audit runs on GitHub Actions instead, via
+`.github/workflows/audit-research.yml`. Resend's API isn't reachable here either.)
+
 **api.usaspending.gov** and **sam.gov** (attachment downloads) are denied by
 this cloud environment's network policy (proxy 403 on CONNECT). The
 `usaspending_prior_awards` and `read_attachment` tools are built and evaluated
@@ -144,7 +174,20 @@ the USAspending query shape and agency-name mapping (`usaspending.agency_name`).
 
 ## Needed from agents-core (not modified here; local workarounds noted)
 
-None open.
+- **Agent loop: leaked tool-call parameters.** A `finish` input whose string field
+  swallowed the next parameter (`</incumbent_notes>\n<parameter name="prior_award_ids">…`)
+  is accepted as is. Local workaround: `research.repair_leaked_parameters` (a
+  `BriefResult` before-validator) and a guard check for leftover markup.
+- **Evals: Spearman and a threshold mapping in `CalibrationReport`**, and a way to put
+  calibration (`calibrated`, `rho`) in the history. Local workaround:
+  `evals/grants/calibration.py` computes both and appends its own
+  `grants-judge-calibration` history line.
+- **run-agent.yml: pass extra secrets (or a post-run hook).** The agent step gets a
+  fixed list, so the email digest can't run inside the agent. Local workaround: the
+  `alerts` job in `agent-grants.yml` (and alerts' `meta.warnings` line arrives one run
+  late).
+- An email helper (Resend/SMTP) beside `agents_core.alerts` would replace
+  `agents/grants/alerts.send`.
 
 (Resolved by v0.2.0/v0.3.0/v0.3.1/v0.3.2 and removed here: evals on an uncommitted
 tree attributed to the previous commit (v0.3.2 `dirty`), sync-call `temperature`
@@ -159,20 +202,25 @@ day.)
    `GITHUB_TOKEN` for ops alerts is automatic (the job grants `issues: write`).
 2. **Set `[sam_key] expires_on`** in `config/grants.toml` to your key's expiry
    date (SAM.gov → Account Details) to get an alert 14 days ahead.
-3. **Review the eval labels**: `evals/grants/labels_proposed.json`, and the
-   research labels in `evals/grants/research/cases.json` (`r3-nsf-grant`
-   was reviewed and relabelled `no_go`).
+3. **Score the 20 calibration items and review the eval labels** on the review page
+   (https://claude.ai/artifact/9vH6HhAuSxiXdeWjgiyB8E), or fill
+   `evals/grants/calibration/sheet.csv` and the last column of
+   `evals/grants/labels_review.md` directly.
 4. Optionally allow `api.usaspending.gov` and `sam.gov` in this cloud
    environment's network settings for live research tests here.
-5. Point agents-hub at the new additive fields (`research`, `has_research`,
+5. **Email alerts**: create a Resend API key and add the repo secrets
+   `ALERT_EMAIL_API_KEY` and `ALERT_EMAIL_TO` (the Resend account's own address while
+   the test sender is used), optionally set `[alerts] site_url`, then run "Agent -
+   Grants" by hand.
+6. Point agents-hub at the new additive fields (`research`, `has_research`,
    `meta.warnings`) when it wants to show them; nothing breaks if it doesn't.
 
 ## Notes / next steps
 
-- No live opportunity has reached Pursue yet (best fit 73), so research hasn't
-  run on production data. The first Pursue match will use up to 4 SAM requests
-  for attachments. With the basic key's ~10/day that competes with description
-  fetches, and the ledger enforces both.
-- Calibrate the judges against a few human-scored outputs, then pass
-  `adjust=report.offset_adjust()`.
+- Research has run on production data since 2026-10-08 (5 Pursue briefs). All five
+  were no-go despite the rubric's Pursue (scale, clearances, incumbents). If that
+  pattern holds, the Pursue band may be too generous for prime bids. That's a
+  question for the profile and thresholds, which this round left alone.
+- After the S1 calibration, consider `adjust=report.offset_adjust()` if the judges
+  show a constant bias. This round only sets pass thresholds.
 - `largest_value` is still null (SAM search results carry no values).
