@@ -87,7 +87,7 @@ them never invalidates a cached score, summary or research brief.
 ### 2.1 Contractor setup (intake → recommended profile)
 
 Setting the agent up for a new contractor starts from what they enter on the
-dashboard: a `ContractorIntake` (`agents/grants/recommend.py`; JSON Schema via
+construction dashboard (`Kghaffari26/construction-dashboard`): a `ContractorIntake` (`agents/grants/recommend.py`; JSON Schema via
 `uv run python -m tools.setup_contractor --schema`). Only `company_name` and
 `description` are required; services, NAICS, entity type, certifications,
 employees, revenue, typical contract size, states, remote, clearance, past

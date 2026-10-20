@@ -42,9 +42,11 @@ PR gate, warnings and ops alerts, and a no-Anthropic-key fallback.
 - `[filters]`/`[scoring]` are not in `profile_hash` (existing hash unchanged).
 - **Tests: 294 passing** (245 before), ruff clean. No evals run (no prompt
   changed), no agent runs, no SAM requests, $0 spent.
-- **Not done (other repos):** agents-hub has no intake form; it can be built from
-  `setup_contractor --schema` and show `--json` output. Its methodology panel
-  shows the new reject codes by raw name until it adds labels.
+- **Not done (other repos):** the intake form belongs in the construction
+  dashboard (`Kghaffari26/construction-dashboard`), which has no app code yet;
+  it can be built from `setup_contractor --schema` and show `--json` output.
+  agents-hub's methodology panel shows the new reject codes by raw name until it
+  adds labels.
 
 ## agents-core v0.3.2 upgrade (2026-10-08)
 
