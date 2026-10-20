@@ -51,6 +51,9 @@ SET_ASIDES: dict[str, SetAsideInfo] = {
     "LAS": SetAsideInfo("LAS", "Local Area Set-Aside", None),
 }
 
+# Sole-source set-asides: the awardee is named before the notice posts.
+SOLE_SOURCE_CODES = frozenset({"8A", "HZC", "SDVOSBC", "WOSBSS", "EDWOSBSS", "VSS"})
+
 # Codes whose eligibility is small-business status rather than a named certification.
 _SMALL_BUSINESS_STATUS_CODES = {"SBA", "SBP"}
 

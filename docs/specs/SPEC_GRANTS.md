@@ -80,6 +80,45 @@ past_performance = [
 
 A pydantic model validates this file, and the run fails fast on a bad profile.
 
+Two optional tables tune a profile without touching the prompts: `[filters]`
+(§5.2a) and `[scoring]` (§5.4a). Neither is part of `profile_hash`, so changing
+them never invalidates a cached score, summary or research brief.
+
+### 2.1 Contractor setup (intake → recommended profile)
+
+Setting the agent up for a new contractor starts from what they enter on the
+dashboard: a `ContractorIntake` (`agents/grants/recommend.py`; JSON Schema via
+`uv run python -m tools.setup_contractor --schema`). Only `company_name` and
+`description` are required; services, NAICS, entity type, certifications,
+employees, revenue, typical contract size, states, remote, clearance, past
+performance, target/excluded agencies, an `avoid` list, grant interest and a
+`bid_strategy` (`selective` | `balanced` | `volume`) sharpen it.
+
+`recommend_profile(intake)` is deterministic (no LLM, no network). It matches the
+description and services against a catalog of federal trades (NAICS, PSC,
+keywords, grant keywords, remote-friendliness), then recommends:
+
+- **Profile**: NAICS (the firm's own codes first), PSC families, keywords (its own
+  services first), negative keywords (its `avoid` list plus other trade families'
+  work, never its own), value range (entered sizes, else 1–150% of revenue, else a
+  headcount band), `remote_ok`/`states`, `min_days_to_respond` by team size,
+  notice types (sources sought and presolicitations unless selective with past
+  performance), grants (entity type or R&D work).
+- **`[filters]`**: `exclude_sole_source` always; selective firms also get 4-digit
+  NAICS families, the set-asides they qualify for (small businesses) and
+  description-level negative keywords.
+- **`[scoring]`**: rubric weights shifted from the standard 40/20/15/15/10 (no past
+  performance → eligibility; certifications → eligibility; ≤ 10 people → size and
+  timeline; target agencies → strategic; capability never below 30), bands by
+  strategy (selective 80/60, balanced = grants.toml, volume 70/50) and a set-aside
+  bonus (5 with a socio-economic certification, 3 for a small business).
+
+Every choice carries a one-line reason. `tools/setup_contractor.py` writes the
+profile to `config/profiles/<id>.toml` with the reasons as comments (`--activate`
+points `[settings] profile` at it; `--json` prints `{profile, trades, rationale}`
+for the dashboard to show and let the contractor adjust). Examples:
+`config/intakes/*.json` → `config/profiles/*.toml`.
+
 ---
 
 ## 3. Data sources: access details
@@ -237,6 +276,27 @@ class Opportunity(BaseModel):
 
 Reject counts by reason code are published in `stats.rejected` for transparency.
 
+### 5.2a Profile filters (`[filters]`, after rule 8)
+
+The first seven mirror SAM.gov's Contract Opportunities search filters; the rest
+are filters the website lacks. All are applied locally: the SAM window fetch
+stays unfiltered (only `ptype`), so changing a filter never leaves a gap in the
+fetched window. Empty / unset means no filter.
+
+| # | Filter | Rule | Reason code |
+|---|---|---|---|
+| 9 | `naics` | Contracts with NAICS listed: one must start with a listed code/prefix | `naics` |
+| 10 | `psc` | Contracts with a PSC: it must start with a listed prefix | `psc` |
+| 11 | `agencies` | A listed name must be a substring of agency, sub-agency or office (case-insensitive) | `agency` |
+| 12 | `set_asides` | Contracts: the set-aside code (`NONE` for unrestricted) must be listed | `set_aside_filter` |
+| 13 | `keywords_any` / `keywords_all` | Whole-word match in title + description: any / all | `keyword` |
+| 14 | `posted_within_days` | Posted at most N days ago | `posted` |
+| 15 | `due_within_days` | A known deadline at most N days away | `due` |
+| 16 | `exclude_sole_source` | Sole-source set-aside codes, or a title saying "sole source", "intent to award/sole source/negotiate", "brand name justification" | `sole_source` |
+| 17 | `negative_keywords_in_description` | Rule 8 also checks the description | `negative_keyword` |
+| 18 | `require_deadline` | No deadline | `no_deadline` |
+| 19 | `require_known_value` | No known value | `unknown_value` |
+
 ### 5.3 Relevance pre-score (deterministic, 0–100)
 
 | Signal | Points |
@@ -274,6 +334,18 @@ The model returns sub-scores, `reasons` (at most 3, each 12 words or fewer), `re
    - If a red flag matches a hard incompatibility pattern (a clearance above the profile's, or "8(a) only"), cap `fit` at 20.
    - If `description_fetched == false` and `confidence == low`, cap at 70.
 4. Sets `recommendation`: `fit ≥ 75` → **Pursue**, 55–74 → **Consider**, < 55 → **Pass**.
+
+### 5.4a Profile scoring preferences (`[scoring]`)
+
+Applied in code after the LLM call (and by `refinalize` to cached scores), so
+changing them needs no rescore:
+
+- `weights` (sum 100, default 40/20/15/15/10 = the rubric ranges): fit =
+  Σ sub_score / range × weight, rounded. The defaults give the plain sum.
+- `set_aside_bonus` (0–20): added when the notice's set-aside is one the profile
+  qualifies for (rule 4); fit stays ≤ 100. Caps (step 3) apply after it.
+- `pursue` / `consider`: per-profile bands, else `[recommendation]` in
+  grants.toml; `latest.json` `thresholds` publishes the effective ones.
 
 **Caching:** the score cache key is `(opportunity.content_hash, profile_hash, prompt_versions.score, model_id)`. A cached score is reused and no request is made.
 
@@ -447,6 +519,13 @@ Added 2026-09-27 (agents-core v0.3.0). **Additive only**: no §6.1/§6.2 field c
 - `prior_awards[].amount`, `recipient` and dates are copied from USAspending in code.
 - Tool outputs are wrapped as untrusted data; instructions inside attachments are ignored (covered by the `r4-gsa-injection` eval case).
 - A run without an Anthropic key publishes cached research only and never starts a loop.
+
+### 6.4 Profile filter reject counts (additive)
+
+`stats.rejected` gains one integer per §5.2a reason code (`naics`, `psc`,
+`agency`, `set_aside_filter`, `keyword`, `posted`, `due`, `sole_source`,
+`no_deadline`, `unknown_value`), 0 when the filter is unset. The site renders
+`stats.rejected` as an open record, so older and newer site builds both accept it.
 
 ---
 

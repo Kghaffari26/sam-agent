@@ -2,17 +2,20 @@
 
 Rules run in order; the first one an opportunity fails is its reject reason.
 Reject counts by reason code are published for transparency (§6, `stats.rejected`).
+The profile's `[filters]` table (§5.2a: SAM.gov's own search filters plus a few
+it lacks) adds the reasons after `negative_keyword`.
 """
 
 from __future__ import annotations
 
+import re
 from datetime import date
 from typing import Literal
 
 from agents.grants.config import BusinessProfile
 from agents.grants.eligibility import is_eligible_for_grant
 from agents.grants.models import Opportunity
-from agents.grants.setasides import is_eligible_for_set_aside
+from agents.grants.setasides import SOLE_SOURCE_CODES, is_eligible_for_set_aside
 
 RejectReason = Literal[
     "deadline",
@@ -23,6 +26,17 @@ RejectReason = Literal[
     "value",
     "place",
     "negative_keyword",
+    # [filters] (§5.2a)
+    "naics",
+    "psc",
+    "agency",
+    "set_aside_filter",
+    "keyword",
+    "posted",
+    "due",
+    "sole_source",
+    "no_deadline",
+    "unknown_value",
 ]
 
 REJECT_REASONS: tuple[RejectReason, ...] = (
@@ -34,6 +48,26 @@ REJECT_REASONS: tuple[RejectReason, ...] = (
     "value",
     "place",
     "negative_keyword",
+    "naics",
+    "psc",
+    "agency",
+    "set_aside_filter",
+    "keyword",
+    "posted",
+    "due",
+    "sole_source",
+    "no_deadline",
+    "unknown_value",
+)
+
+# `[filters] set_asides` entry that keeps notices with no set-aside.
+UNRESTRICTED = "NONE"
+
+_SOLE_SOURCE_TITLE_RE = re.compile(
+    r"\bsole[\s-]*source\b"
+    r"|\bintent\s+to\s+(?:award|sole|negotiate)"
+    r"|\bbrand[\s-]+name\s+justification",
+    re.I,
 )
 
 
@@ -65,8 +99,60 @@ def _fails_place(opp: Opportunity, profile: BusinessProfile) -> bool:
 
 
 def _fails_negative_keywords(opp: Opportunity, profile: BusinessProfile) -> bool:
-    title_lower = opp.title.lower()
-    return any(neg.lower() in title_lower for neg in profile.negative_keywords)
+    text = opp.title
+    if profile.filters.negative_keywords_in_description and opp.description_text:
+        text = f"{text} {opp.description_text}"
+    text_lower = text.lower()
+    return any(neg.lower() in text_lower for neg in profile.negative_keywords)
+
+
+def _has_word(keyword: str, text: str) -> bool:
+    return re.search(r"\b" + re.escape(keyword.lower()) + r"\b", text) is not None
+
+
+def _check_profile_filters(
+    opp: Opportunity, profile: BusinessProfile, today: date
+) -> RejectReason | None:
+    """`[filters]` (§5.2a), in the order of the RejectReason list."""
+    f = profile.filters
+    contract = opp.kind == "contract"
+    if (f.naics and contract and opp.naics
+            and not any(n.startswith(p) for n in opp.naics for p in f.naics)):
+        return "naics"
+    if (f.psc and contract and opp.psc
+            and not any(opp.psc.upper().startswith(p.upper()) for p in f.psc)):
+        return "psc"
+    if f.agencies:
+        org = " ".join(x for x in (opp.agency, opp.sub_agency, opp.office) if x).lower()
+        if not any(a.lower() in org for a in f.agencies):
+            return "agency"
+    if f.set_asides and contract:
+        code = opp.set_aside_code or UNRESTRICTED
+        if code.upper() not in {c.upper() for c in f.set_asides}:
+            return "set_aside_filter"
+    if f.keywords_any or f.keywords_all:
+        text = f"{opp.title} {opp.description_text or ''}".lower()
+        if f.keywords_any and not any(_has_word(k, text) for k in f.keywords_any):
+            return "keyword"
+        if not all(_has_word(k, text) for k in f.keywords_all):
+            return "keyword"
+    if f.posted_within_days is not None and (
+        (today - opp.posted_date).days > f.posted_within_days
+    ):
+        return "posted"
+    if f.due_within_days is not None and opp.deadline is not None and (
+        (opp.deadline.date() - today).days > f.due_within_days
+    ):
+        return "due"
+    if f.exclude_sole_source and (
+        opp.set_aside_code in SOLE_SOURCE_CODES or _SOLE_SOURCE_TITLE_RE.search(opp.title)
+    ):
+        return "sole_source"
+    if f.require_deadline and opp.deadline is None:
+        return "no_deadline"
+    if f.require_known_value and opp.value_amount is None:
+        return "unknown_value"
+    return None
 
 
 def check_hard_filters(
@@ -89,7 +175,7 @@ def check_hard_filters(
         return "place"
     if _fails_negative_keywords(opp, profile):
         return "negative_keyword"
-    return None
+    return _check_profile_filters(opp, profile, today)
 
 
 def partition(

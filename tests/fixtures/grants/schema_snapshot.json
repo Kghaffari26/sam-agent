@@ -470,6 +470,11 @@
   "RejectedCounts": {
    "additionalProperties": false,
    "properties": {
+    "agency": {
+     "default": 0,
+     "title": "Agency",
+     "type": "integer"
+    },
     "agency_excluded": {
      "default": 0,
      "title": "Agency Excluded",
@@ -480,9 +485,24 @@
      "title": "Deadline",
      "type": "integer"
     },
+    "due": {
+     "default": 0,
+     "title": "Due",
+     "type": "integer"
+    },
     "eligibility": {
      "default": 0,
      "title": "Eligibility",
+     "type": "integer"
+    },
+    "keyword": {
+     "default": 0,
+     "title": "Keyword",
+     "type": "integer"
+    },
+    "naics": {
+     "default": 0,
+     "title": "Naics",
      "type": "integer"
     },
     "negative_keyword": {
@@ -490,9 +510,24 @@
      "title": "Negative Keyword",
      "type": "integer"
     },
+    "no_deadline": {
+     "default": 0,
+     "title": "No Deadline",
+     "type": "integer"
+    },
     "place": {
      "default": 0,
      "title": "Place",
+     "type": "integer"
+    },
+    "posted": {
+     "default": 0,
+     "title": "Posted",
+     "type": "integer"
+    },
+    "psc": {
+     "default": 0,
+     "title": "Psc",
      "type": "integer"
     },
     "set_aside": {
@@ -500,9 +535,24 @@
      "title": "Set Aside",
      "type": "integer"
     },
+    "set_aside_filter": {
+     "default": 0,
+     "title": "Set Aside Filter",
+     "type": "integer"
+    },
+    "sole_source": {
+     "default": 0,
+     "title": "Sole Source",
+     "type": "integer"
+    },
     "type": {
      "default": 0,
      "title": "Type",
+     "type": "integer"
+    },
+    "unknown_value": {
+     "default": 0,
+     "title": "Unknown Value",
      "type": "integer"
     },
     "value": {
@@ -519,7 +569,17 @@
     "eligibility",
     "value",
     "place",
-    "negative_keyword"
+    "negative_keyword",
+    "naics",
+    "psc",
+    "agency",
+    "set_aside_filter",
+    "keyword",
+    "posted",
+    "due",
+    "sole_source",
+    "no_deadline",
+    "unknown_value"
    ],
    "title": "RejectedCounts",
    "type": "object"

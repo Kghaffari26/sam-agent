@@ -13,7 +13,7 @@ from datetime import date
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 EntityType = Literal["small_business", "nonprofit", "university", "individual", "large_business"]
 Clearance = Literal["none", "public_trust", "secret", "top_secret"]
@@ -26,6 +26,83 @@ CLEARANCE_RANK: dict[Clearance, int] = {
     "secret": 2,
     "top_secret": 3,
 }
+
+
+class ProfileFilters(BaseModel):
+    """`[filters]`: what to screen out before any LLM call (SPEC_GRANTS.md §5.2a).
+
+    The first group mirrors SAM.gov's own Contract Opportunities search filters;
+    the second goes further than the website can. Every filter is applied locally
+    after the (unfiltered) SAM window fetch, so changing one never leaves a gap in
+    the fetched window. Empty / None / False means "don't filter".
+    """
+
+    # -- SAM.gov search filters --------------------------------------------------
+    # NAICS / PSC codes or prefixes ("5415" = the whole industry group). Contracts
+    # only: grants carry neither; a contract with none listed passes.
+    naics: list[str] = Field(default_factory=list)
+    psc: list[str] = Field(default_factory=list)
+    # Federal organization: case-insensitive substring of agency, sub-agency or office.
+    agencies: list[str] = Field(default_factory=list)
+    # Only these set-aside codes (see setasides.py); "NONE" keeps unrestricted
+    # (full and open) notices.
+    set_asides: list[str] = Field(default_factory=list)
+    # Keyword search over title + description: any one of / every one of.
+    keywords_any: list[str] = Field(default_factory=list)
+    keywords_all: list[str] = Field(default_factory=list)
+    # Posted date ("last N days") and response date ("due within N days").
+    posted_within_days: int | None = None
+    due_within_days: int | None = None
+    # -- enhancements beyond the SAM.gov website ---------------------------------
+    # Drop sole-source set-asides and "notice of intent to sole source/award"
+    # notices: the awardee is already chosen.
+    exclude_sole_source: bool = False
+    # Check `negative_keywords` against the description too, not just the title.
+    negative_keywords_in_description: bool = False
+    # Drop notices without a response deadline / without a known value.
+    require_deadline: bool = False
+    require_known_value: bool = False
+
+
+SubScoreName = Literal["capability", "eligibility", "size", "timeline", "strategic"]
+
+# The rubric's own point ranges (scoring.RANGES): the default weights, so a profile
+# without `[scoring]` scores exactly as before.
+DEFAULT_WEIGHTS: dict[str, int] = {
+    "capability": 40,
+    "eligibility": 20,
+    "size": 15,
+    "timeline": 15,
+    "strategic": 10,
+}
+
+
+class ScoringPreferences(BaseModel):
+    """`[scoring]`: how this contractor turns rubric sub-scores into a fit and a
+    recommendation (SPEC_GRANTS.md §5.4a). All applied in code after the LLM call,
+    so changing them never needs a rescore."""
+
+    # Points each rubric dimension contributes to the 0-100 fit; must sum to 100.
+    weights: dict[SubScoreName, int] = Field(default_factory=lambda: dict(DEFAULT_WEIGHTS))
+    # Per-profile recommendation bands; None falls back to grants.toml [recommendation].
+    pursue: int | None = None
+    consider: int | None = None
+    # Fit points added when a notice is set aside for a status the profile holds
+    # (less competition); the total is still capped at 100.
+    set_aside_bonus: int = 0
+
+    @model_validator(mode="after")
+    def _check(self) -> ScoringPreferences:
+        missing = set(DEFAULT_WEIGHTS) - set(self.weights)
+        if missing:
+            raise ValueError(f"[scoring] weights missing: {sorted(missing)}")
+        if any(w < 0 for w in self.weights.values()) or sum(self.weights.values()) != 100:
+            raise ValueError("[scoring] weights must be >= 0 and sum to 100")
+        if self.pursue is not None and self.consider is not None and self.consider > self.pursue:
+            raise ValueError("[scoring] consider must be <= pursue")
+        if not 0 <= self.set_aside_bonus <= 20:
+            raise ValueError("[scoring] set_aside_bonus must be 0-20")
+        return self
 
 
 class BusinessProfile(BaseModel):
@@ -55,6 +132,8 @@ class BusinessProfile(BaseModel):
     min_days_to_respond: int = 0
     team_capacity_note: str = ""
     past_performance: list[str] = Field(default_factory=list)
+    filters: ProfileFilters = Field(default_factory=ProfileFilters)
+    scoring: ScoringPreferences = Field(default_factory=ScoringPreferences)
 
 
 class RunSettings(BaseModel):
@@ -122,6 +201,21 @@ class GrantsConfig(BaseModel):
     sam_key: SamKeySettings = Field(default_factory=SamKeySettings)
 
 
+def effective_thresholds(profile: BusinessProfile, config: GrantsConfig) -> tuple[int, int]:
+    """(pursue, consider): the profile's `[scoring]` bands, else grants.toml's."""
+    pursue = profile.scoring.pursue
+    consider = profile.scoring.consider
+    return (
+        config.recommendation.pursue if pursue is None else pursue,
+        config.recommendation.consider if consider is None else consider,
+    )
+
+
+# Profile sections applied only in code after/before the LLM: not in the prompts,
+# so not part of `profile_hash` (changing them must not invalidate cached scores).
+CODE_ONLY_SECTIONS = ("filters", "scoring")
+
+
 def load_business_profile(path: str | Path) -> BusinessProfile:
     with open(path, "rb") as f:
         data = tomllib.load(f)
@@ -139,7 +233,9 @@ def profile_hash(profile: BusinessProfile) -> str:
 
     Used as part of every cache key (SPEC_GRANTS.md §2, §5.4): reformatting the
     TOML doesn't change this hash, but any field that affects filtering, scoring
-    or summaries does, which correctly invalidates cached scores.
+    or summaries does, which correctly invalidates cached scores. `[filters]` and
+    `[scoring]` are left out: they never reach a prompt (see CODE_ONLY_SECTIONS).
     """
-    canonical = json.dumps(profile.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
+    data = profile.model_dump(mode="json", exclude=set(CODE_ONLY_SECTIONS))
+    canonical = json.dumps(data, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()

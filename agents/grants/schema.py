@@ -75,6 +75,17 @@ class RejectedCounts(Model):
     value: int = 0
     place: int = 0
     negative_keyword: int = 0
+    # §6.4 (additive): the profile's [filters] (§5.2a)
+    naics: int = 0
+    psc: int = 0
+    agency: int = 0
+    set_aside_filter: int = 0
+    keyword: int = 0
+    posted: int = 0
+    due: int = 0
+    sole_source: int = 0
+    no_deadline: int = 0
+    unknown_value: int = 0
 
 
 class Stats(Model):
