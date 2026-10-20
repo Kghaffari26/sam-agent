@@ -1,0 +1,11 @@
+{
+  "company_name": "Small software consultancy",
+  "description": "Five-person U.S. software consultancy building web applications, data pipelines, and cloud migrations (AWS, Azure). Strong in Python, TypeScript, React, PostgreSQL, and AI/LLM integrations.",
+  "services": ["software development", "web application", "data pipeline", "cloud migration"],
+  "naics": ["541511", "541512"],
+  "employees": 5,
+  "target_agencies": ["GENERAL SERVICES ADMINISTRATION", "VETERANS AFFAIRS, DEPARTMENT OF"],
+  "avoid": ["construction", "janitorial", "medical equipment"],
+  "interested_in_grants": true,
+  "team_capacity_note": "Can staff 2-4 people on a new project within 30 days."
+}

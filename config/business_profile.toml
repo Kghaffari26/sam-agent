@@ -31,3 +31,26 @@ past_performance = [
   "Built a data platform for a state health agency (subcontract)",
   "Modernized a legacy .NET app to React + Python for a nonprofit",
 ]
+
+# Optional. Generate a profile for a new contractor with recommended values:
+#   uv run python -m tools.setup_contractor config/intakes/<name>.json
+#
+# [filters]                          # SPEC_GRANTS.md §5.2a; empty/unset = no filter
+# naics = ["5415"]                   # codes or prefixes (contracts only)
+# psc = ["DA", "R4"]
+# agencies = ["VETERANS AFFAIRS"]    # substring of agency / sub-agency / office
+# set_asides = ["SBA", "SBP", "NONE"]   # NONE = unrestricted
+# keywords_any = ["cloud", "data"]
+# keywords_all = []
+# posted_within_days = 30
+# due_within_days = 60
+# exclude_sole_source = true         # sole-source set-asides, "intent to award" notices
+# negative_keywords_in_description = false
+# require_deadline = false
+# require_known_value = false
+#
+# [scoring]                          # SPEC_GRANTS.md §5.4a; applied in code, no rescore
+# weights = { capability = 40, eligibility = 20, size = 15, timeline = 15, strategic = 10 }
+# pursue = 75                        # default: config/grants.toml [recommendation]
+# consider = 55
+# set_aside_bonus = 0

@@ -1,6 +1,6 @@
 # Status
 
-_Updated 2026-10-08 (session: agents-core v0.3.2 upgrade; before that: v0.3.1, v0.3.0, bid research, tracing, evals)._
+_Updated 2026-10-20 (session: profile filters, scoring preferences and contractor setup; before that: agents-core v0.3.2 upgrade, v0.3.1, v0.3.0, bid research, tracing, evals)._
 
 ## Summary
 
@@ -22,6 +22,29 @@ PR gate, warnings and ops alerts, and a no-Anthropic-key fallback.
   `data/grants/state.json` → `sam.requests["2026-09-27"] = 3`): 1 window search
   (the dry run; the real run reused it from the HTTP cache) + 2 description
   fetches.
+
+## Profile filters, scoring preferences, contractor setup (2026-10-20)
+
+- **`[filters]`** (SPEC §5.2a, `agents/grants/filters.py`): SAM.gov's search
+  filters (NAICS/PSC codes or prefixes, agency/sub-agency/office, set-aside incl.
+  `NONE`, any/all keywords, posted within / due within N days) plus extras
+  (sole-source & intent-to-award exclusion, negative keywords in the description,
+  require deadline / known value). Applied locally; ten new `stats.rejected`
+  codes (§6.4, additive; schema snapshot regenerated).
+- **`[scoring]`** (SPEC §5.4a, `scoring.py`): rubric weights, a set-aside bonus
+  and per-profile Pursue/Consider bands, all applied in code (cached scores are
+  refinalized; no rescore). Defaults reproduce the old fit exactly.
+- **Contractor setup** (SPEC §2.1, `agents/grants/recommend.py`,
+  `tools/setup_contractor.py`): a dashboard intake → a full profile with
+  recommended filters and scoring, each with a reason. Examples in
+  `config/intakes/` → `config/profiles/`. The live profile
+  (`config/business_profile.toml`) is unchanged: no filters set, default scoring.
+- `[filters]`/`[scoring]` are not in `profile_hash` (existing hash unchanged).
+- **Tests: 294 passing** (245 before), ruff clean. No evals run (no prompt
+  changed), no agent runs, no SAM requests, $0 spent.
+- **Not done (other repos):** agents-hub has no intake form; it can be built from
+  `setup_contractor --schema` and show `--json` output. Its methodology panel
+  shows the new reject codes by raw name until it adds labels.
 
 ## agents-core v0.3.2 upgrade (2026-10-08)
 

@@ -1,0 +1,15 @@
+{
+  "company_name": "Gulf Coast Mechanical",
+  "description": "Commercial HVAC and plumbing contractor: installs and services chillers, boilers and rooftop units, and handles plumbing repairs for offices, clinics and schools.",
+  "services": ["HVAC repair", "chiller maintenance", "boiler service", "plumbing"],
+  "entity_type": "small_business",
+  "certifications": ["SDVOSB"],
+  "employees": 18,
+  "annual_revenue": 3200000,
+  "states": ["FL", "AL"],
+  "past_performance": ["HVAC preventive maintenance for a county school district"],
+  "target_agencies": ["VETERANS AFFAIRS, DEPARTMENT OF"],
+  "avoid": ["janitorial", "new construction"],
+  "bid_strategy": "selective",
+  "team_capacity_note": "Two service crews; can add a third for a 12-month contract."
+}

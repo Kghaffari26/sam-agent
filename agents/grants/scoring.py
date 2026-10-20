@@ -23,10 +23,16 @@ from agents_core.guards import GuardResult, fields_guard, verify_numbers
 from agents_core.llm import LLM, BatchItem, LLMError, tier_config
 from pydantic import BaseModel
 
-from agents.grants.config import CLEARANCE_RANK, BusinessProfile, GrantsConfig
+from agents.grants.config import (
+    CLEARANCE_RANK,
+    BusinessProfile,
+    GrantsConfig,
+    effective_thresholds,
+)
 from agents.grants.models import Opportunity, Recommendation, Score, SubScores
 from agents.grants.prompting import clearance_rank_required, input_facts, opportunity_payload
 from agents.grants.relevance import NAICS_PREFIX_LEN
+from agents.grants.setasides import is_eligible_for_set_aside
 
 log = logging.getLogger(__name__)
 
@@ -155,12 +161,37 @@ def clamp_sub_scores(raw: RubricOutput) -> SubScores:
     )
 
 
-def recommendation_for(fit: int, config: GrantsConfig) -> Recommendation:
-    if fit >= config.recommendation.pursue:
+def recommendation_for(
+    fit: int, config: GrantsConfig, profile: BusinessProfile | None = None
+) -> Recommendation:
+    """Bands from the profile's `[scoring]` when set, else grants.toml's."""
+    if profile is None:
+        pursue, consider = config.recommendation.pursue, config.recommendation.consider
+    else:
+        pursue, consider = effective_thresholds(profile, config)
+    if fit >= pursue:
         return "Pursue"
-    if fit >= config.recommendation.consider:
+    if fit >= consider:
         return "Consider"
     return "Pass"
+
+
+def weighted_fit(subs: SubScores, profile: BusinessProfile) -> int:
+    """§5.4a: each sub-score as a share of its rubric range, times the profile's
+    weight for it. The default weights equal the ranges, so this is the plain sum."""
+    values = subs.model_dump()
+    weights = profile.scoring.weights
+    total = sum(values[name] * weights[name] / top for name, top in RANGES.items())
+    return max(0, min(100, round(total)))
+
+
+def set_aside_bonus(opp: Opportunity, profile: BusinessProfile) -> int:
+    """`[scoring] set_aside_bonus` when the notice is set aside for a status the
+    profile holds (a restricted field means fewer competitors)."""
+    bonus = profile.scoring.set_aside_bonus
+    if not bonus or not opp.set_aside_code:
+        return 0
+    return bonus if is_eligible_for_set_aside(opp.set_aside_code, profile) else 0
 
 
 def hard_incompatibility(red_flags: list[str], profile: BusinessProfile) -> str | None:
@@ -186,8 +217,9 @@ def _trim_words(text: str, limit: int = MAX_REASON_WORDS) -> str:
 def refinalize(
     score: Score, opp: Opportunity, profile: BusinessProfile, config: GrantsConfig
 ) -> Score:
-    """Re-apply the code-side math (sum, caps, bands) to a cached score, so a
-    change to caps or `[recommendation]` thresholds needs no LLM call."""
+    """Re-apply the code-side math (weights, bonus, caps, bands) to a cached
+    score, so a change to caps, `[recommendation]` or the profile's `[scoring]`
+    needs no LLM call."""
     raw = RubricOutput(
         **score.sub_scores.model_dump(),
         reasons=score.reasons,
@@ -211,7 +243,7 @@ def finalize(
     now: datetime,
 ) -> Score:
     subs = clamp_sub_scores(raw)
-    fit = sum(subs.model_dump().values())
+    fit = min(100, weighted_fit(subs, profile) + set_aside_bonus(opp, profile))
     capped, cap_reason = False, None
     blocker = hard_incompatibility(raw.red_flags, profile)
     if blocker and fit > HARD_CAP:
@@ -227,7 +259,7 @@ def finalize(
         opportunity_id=opp.id,
         sub_scores=subs,
         fit=fit,
-        recommendation=recommendation_for(fit, config),
+        recommendation=recommendation_for(fit, config, profile),
         reasons=[_trim_words(r) for r in raw.reasons if r.strip()][:MAX_REASONS],
         red_flags=[r.strip() for r in raw.red_flags if r.strip()],
         confidence=raw.confidence,

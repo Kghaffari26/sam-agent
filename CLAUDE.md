@@ -39,6 +39,9 @@ uv run agents-evals compare                # latest vs previous entry of evals/h
                                            #   (entries run on an uncommitted tree: dirty=true)
 uv run python -m tools.record_fixtures grants-gov|sam-from-cache
 uv run python -m tools.make_research_fixtures   # rebuild the research eval PDF/DOCX files
+uv run python -m tools.setup_contractor config/intakes/<name>.json [--activate|--json]
+                                           # contractor intake -> config/profiles/<id>.toml
+                                           #   with recommended [filters]/[scoring] (SPEC §2.1)
 ```
 
 ## Conventions
@@ -78,7 +81,9 @@ uv run python -m tools.make_research_fixtures   # rebuild the research eval PDF/
   (`--total-max-usd` / `run-evals.yml` `total_max_usd`).
 - `content_hash` (in `agents/grants/normalize.py`) covers only the fields
   that should invalidate a cached score/summary/research. `profile_hash` (in
-  `agents/grants/config.py`) covers the whole business profile. Both are part
+  `agents/grants/config.py`) covers the whole business profile except `[filters]`
+  and `[scoring]` (`CODE_ONLY_SECTIONS`: applied in code, never in a prompt; keep
+  anything that reaches a prompt out of them). Both are part
   of every cache key, with the prompt version (`SCORE_PROMPT_VERSION` in
   `scoring.py`, `SUMMARY_PROMPT_VERSION` in `summarize.py`,
   `RESEARCH_PROMPT_VERSION` in `research.py`) and model id — see SPEC_GRANTS.md

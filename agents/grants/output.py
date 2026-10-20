@@ -8,7 +8,7 @@ from datetime import date, datetime
 
 from agents_core.schema import KeyStat
 
-from agents.grants.config import BusinessProfile, GrantsConfig
+from agents.grants.config import BusinessProfile, GrantsConfig, effective_thresholds
 from agents.grants.models import Opportunity, Score, Summary
 from agents.grants.prompting import NOTICE_TYPE_LABELS, days_left, place_text
 from agents.grants.schema import (
@@ -194,10 +194,9 @@ def build_documents(f: RunFacts) -> Documents:
         (id_ for id_ in matches if closing(id_, DEADLINES_WINDOW_DAYS)),
         key=lambda id_: _far_future(f.active[id_]),
     )
+    pursue, consider = effective_thresholds(f.profile, f.config)
     thresholds = Thresholds(
-        relevance=f.config.settings.relevance_threshold,
-        pursue=f.config.recommendation.pursue,
-        consider=f.config.recommendation.consider,
+        relevance=f.config.settings.relevance_threshold, pursue=pursue, consider=consider
     )
     meta_fields = {
         "sam_budget_exhausted": f.sam_budget_exhausted,
