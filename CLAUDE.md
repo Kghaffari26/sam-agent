@@ -18,6 +18,8 @@ disagree on repo layout, this file wins; its §2-§13 content, especially the
   CHANGELOG for the agent contract. This agent is `agents.grants.agent:AGENT`,
   registered under the `agents_core.agents` entry point as `grants`.
 - **`agents-hub`**: the website that reads published data.
+- **`construction-dashboard`**: where contractors enter their details; its intake
+  feeds `tools/setup_contractor.py` (SPEC §2.1).
 
 Never write our own http/llm/costs/guards/publish/runner/loop/tracing/evals code
 here — that all belongs in `agents-core`. If something needed doesn't exist
