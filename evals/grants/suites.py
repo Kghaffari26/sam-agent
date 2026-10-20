@@ -11,9 +11,9 @@ agents-core's (v0.3.2) check for uncommitted changes outside `evals/` and `data/
 
 - `grants-scoring` (one case: the 40-item labeled set, scored twice with the
   production rubric scorer over the Batch API): the §11 ranking, hard-blocker,
-  stability and injection checks, each a 0-1 score. Labels in
-  `labels_proposed.json` are still PROVISIONAL (Claude's proposal, not
-  human-reviewed), so these scores are provisional too.
+  stability and injection checks, each a 0-1 score. Labels come from
+  `labels_reviewed.json` (human-reviewed, scope S2) once it exists, else from
+  `labels_proposed.json` (Claude's PROVISIONAL proposals).
 - `grants-summaries` (five fixed good-fit items): the production summarizer, its
   guard and §7.3 date check re-run on the published text, and an LLM judge.
 - `grants-research` (five fixture opportunities, `research/cases.json`): the
@@ -65,7 +65,7 @@ from agents.grants.summarize import (
     summarize_one,
     summary_input,
 )
-from evals.grants import research_world
+from evals.grants import calibration, labels, research_world
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
@@ -80,6 +80,10 @@ RESEARCH_MAX_STEPS = 10
 
 # The LLM judges run on the fast tier at temperature 0, like scoring.
 JUDGE_TEMPERATURE = 0
+# Version of the judge rubrics below; bump it when a rubric changes (and recalibrate:
+# `scripts/calibrate_judges.py`). Calibrated pass thresholds come from
+# `calibration/calibration.json` (the default 0.75 until a judge is calibrated).
+JUDGE_RUBRIC_VERSION = "j1"
 
 
 def load_dataset() -> list[Opportunity]:
@@ -87,7 +91,8 @@ def load_dataset() -> list[Opportunity]:
 
 
 def load_labels() -> dict[str, dict[str, str]]:
-    return json.loads((HERE / "labels_proposed.json").read_text())["labels"]
+    """`labels_reviewed.json` once the owner has reviewed them, else the proposals."""
+    return labels.load_labels()[0]
 
 
 def _profile_and_config():
@@ -209,7 +214,8 @@ SCORING = EvalSuite(
     name="grants-scoring",
     prompt_version=SCORE_PROMPT_VERSION,
     cases=[EvalCase(id="labeled-set-40", input={"dataset": "evals/grants/dataset.json"},
-                    expected={"labels": load_labels()}, tags=["provisional-labels"])],
+                    expected={"labels": load_labels()},
+                    tags=["reviewed-labels" if labels.load_labels()[1] else "provisional-labels"])],
     task=scoring_task,
     scorers=[precision_at_10, no_bad_fit_in_top_5, hard_blockers,
              stability_same_recommendation, stability_within_5, injection_resistance],
@@ -277,7 +283,8 @@ SUMMARIES = EvalSuite(
     scorers=[guard_and_dates, next_steps_nonempty, llm_written,
              LLMJudge(SUMMARY_RUBRIC, output=lambda o: {k: o[k] for k in
                          ("what_they_want", "why_fit", "risks", "next_steps")},
-                      name="judge_quality", temperature=JUDGE_TEMPERATURE)],
+                      name="judge_quality", temperature=JUDGE_TEMPERATURE,
+                      pass_threshold=calibration.pass_threshold("summaries"))],
 )
 
 
@@ -378,7 +385,8 @@ RESEARCH = EvalSuite(
         content_checks,
         attachment_cap,
         cites_usaspending,
-        LLMJudge(RESEARCH_RUBRIC, name="judge_quality", temperature=JUDGE_TEMPERATURE),
+        LLMJudge(RESEARCH_RUBRIC, name="judge_quality", temperature=JUDGE_TEMPERATURE,
+                 pass_threshold=calibration.pass_threshold("research")),
     ],
 )
 

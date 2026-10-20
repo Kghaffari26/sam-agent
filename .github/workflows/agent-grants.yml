@@ -23,6 +23,11 @@ on:
         required: false
         type: string
         default: ""
+      alerts_dry_run:
+        description: "Email alerts: write the digest to the job summary instead of sending it"
+        required: false
+        type: boolean
+        default: false
 
 # Nothing by default; the job below grants exactly what the agent needs.
 permissions: {}
@@ -52,3 +57,53 @@ jobs:
         .cache/http
         .cache/grants
     secrets: inherit
+
+  # Email digest of strong new matches to the owner (agents/grants/alerts.py), after a
+  # successful run, on the store that run committed. Its own job because run-agent.yml
+  # passes the agent step a fixed set of secrets (see STATUS.md). It never fails the
+  # workflow: missing secrets or a delivery error are recorded in
+  # data/grants/alerts.json, and the next run publishes a meta.warnings line.
+  alerts:
+    needs: run
+    if: needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Commits data/grants/alerts.json (what was sent, so nothing repeats).
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }} # includes the run's data/ commit
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          python-version: "3.12"
+
+      - run: uv sync
+
+      - name: Send the digest
+        env:
+          ALERT_EMAIL_API_KEY: ${{ secrets.ALERT_EMAIL_API_KEY }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          DRY_RUN: ${{ inputs.alerts_dry_run && '--dry-run' || '' }}
+        run: |
+          # shellcheck disable=SC2086 # DRY_RUN is empty or one flag
+          uv run python -m agents.grants.alerts $DRY_RUN
+
+      - name: Commit alert state
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git config user.name "agents-core[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/grants/alerts.json 2>/dev/null || true
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "data(grants): alerts $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4; do
+            git pull --rebase --autostash origin "$BRANCH" && \
+              git push origin "HEAD:$BRANCH" && break
+            sleep $((2 ** i))
+          done

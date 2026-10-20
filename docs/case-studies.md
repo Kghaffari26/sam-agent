@@ -119,3 +119,30 @@ summary (and research, if it's a Pursue match) in the same run.
 old code and passes on the fix. The stale summaries in that run's store are
 regenerated on the next run (their cache keys no longer match). Commit
 [`cec2caf`](https://github.com/Kghaffari26/sam-agent/commit/cec2caff5d6075abdb174bafb003ac65cf705ff9).
+
+## 6. Live briefs said "no prior awards" when the incumbents were on USAspending
+
+**Problem.** The first five live bid research briefs went through the guard
+cleanly, and every number in them was real. But four of them said USAspending had
+no prior awards for the work, and a fifth (VA IVX/Cerner) published an empty
+`prior_awards` list with tool-call markup in its text. The research tools had only
+ever run against hand-built fixtures, where agency routing was by substring.
+
+**How it was caught.** The S3 audit (`scripts/audit_research.py`, on GitHub
+Actions) re-fetched every claim from USAspending and SAM. Every award id, amount,
+agency and NAICS code matched. Re-running the "no awards" queries with the agency
+filter fixed returned 8 awards each. Today's `trace.json` showed the cause: the model
+asked for `"DEPARTMENT OF THE NAVY"`, sent as a toptier agency, which USAspending
+matches against toptier names only. The VA brief's stored `incumbent_notes` ended
+in `</incumbent_notes>\n<parameter name="prior_award_ids">[...]`.
+
+**Fix.** A sub-agency named in the notice becomes a USAspending subtier filter. An
+empty search falls back to the notice's agency and NAICS without keywords. A
+keywords string is accepted. Leaked parameters are moved back to their fields, and
+the guard rejects leftover markup. Research prompt v2.
+
+**Result.** Re-researched with the fixes, all five briefs cite the real incumbents
+(Leidos, L3Harris, Resource Management Concepts, Karsun/IBM, Dell/V3Gate/Four
+Points), and every claim checks out (`docs/research_audit_2026-10.md`). Regression
+tests are built from the live trace and the published response
+(`tests/fixtures/grants/research_finish_leak_live.json`).

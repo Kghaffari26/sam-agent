@@ -44,7 +44,7 @@ from agents_core.llm import LLM
 from agents_core.schema import Source
 from pydantic import ValidationError
 
-from agents.grants import research, scoring, summarize
+from agents.grants import alerts, research, scoring, summarize
 from agents.grants.config import (
     BusinessProfile,
     GrantsConfig,
@@ -463,6 +463,9 @@ class GrantsAgent(Agent):
                     " `AGENTS_ANTHROPIC_API_KEY`) Actions secret.",
                 )
         llm = ctx.llm
+        alerts_warning = alerts.warning_for(alerts.state_path(), config.alerts)
+        if alerts_warning:
+            ctx.warn(alerts_warning)
 
         if profile_changed(raw.state, p_hash):
             log.info("profile changed: rescoring up to %d items", len(data.above))

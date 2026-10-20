@@ -111,6 +111,19 @@ class SamKeySettings(BaseModel):
     alert_days_before: int = 14
 
 
+class AlertSettings(BaseModel):
+    """Email digest of strong new matches to the owner (`agents/grants/alerts.py`).
+    The recipient and the provider key are secrets (`ALERT_EMAIL_TO`,
+    `ALERT_EMAIL_API_KEY`), never config."""
+
+    enabled: bool = False
+    min_fit: int = 80
+    recommendations: list[str] = Field(default_factory=lambda: ["Pursue"])
+    max_per_day: int = 5
+    sender: str = "Grants Finder <onboarding@resend.dev>"
+    site_url: str = ""  # the site's grants page; each entry links to `<site_url>#<id>`
+
+
 class GrantsConfig(BaseModel):
     """`config/grants.toml`, validated (SPEC_GRANTS.md §8)."""
 
@@ -120,6 +133,7 @@ class GrantsConfig(BaseModel):
     grants_gov: GrantsGovSettings = Field(default_factory=GrantsGovSettings)
     research: ResearchSettings = Field(default_factory=ResearchSettings)
     sam_key: SamKeySettings = Field(default_factory=SamKeySettings)
+    alerts: AlertSettings = Field(default_factory=AlertSettings)
 
 
 def load_business_profile(path: str | Path) -> BusinessProfile:
